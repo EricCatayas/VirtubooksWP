@@ -1,14 +1,25 @@
-import React from "react";
-import "./page.styles.css";
 import MultilineInput from "../multiline/multiline.component";
+import React, { useState } from "react";
+import "./page.styles.css";
 
 export default function PageComponent({
   page,
   className,
-  handleInputChange,
-  handleAddContent,
+  handleUpdateContent,
+  isReadOnly = false,
 }) {
-  // Determine the class for the page element
+  // ...existing code...
+
+  const handleInputChange = (contentIdx, newValue) => {
+    const targetContent = page.contents[contentIdx];
+    if (targetContent) {
+      const updatedContent = {
+        ...targetContent,
+        value: newValue,
+      };
+      handleUpdateContent(page.id, contentIdx, updatedContent);
+    }
+  };
 
   return (
     <div className={className}>
@@ -20,23 +31,20 @@ export default function PageComponent({
       {page.contents.map((content, idx) => {
         if (content.type === "title") {
           return (
-            <>
-              <MultilineInput
-                value={content.value}
-                onChange={(value) => handleInputChange(page.id, idx, value)}
-                className="title-input"
-              />
-            </>
+            <MultilineInput
+              key={idx}
+              value={content.value}
+              className={content.type}
+              onChange={(value) => handleInputChange(idx, value)}
+            />
           );
         } else if (content.type === "paragraph") {
           return (
-            <>
-              <MultilineInput
-                value={content.value}
-                onChange={(value) => handleInputChange(page.id, idx, value)}
-                className="paragraph-input"
-              />
-            </>
+            <MultilineInput
+              value={content.value}
+              className={content.type}
+              onChange={(value) => handleInputChange(idx, value)}
+            />
           );
         } else {
           // error
