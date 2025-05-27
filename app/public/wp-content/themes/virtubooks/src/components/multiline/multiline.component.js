@@ -1,24 +1,26 @@
-import react from "react";
-import { useState } from "react";
+import React from "react";
 export default function MultilineInput({
   value,
   onChange,
   className = "",
   isReadOnly = false,
+  style,
   placeholder = "Type here...",
+  onFocus,
+  onBlur,
 }) {
   return (
     <textarea
       className={`multiline ${className}`}
       value={value}
       readOnly={isReadOnly}
-      rows={1}
+      style={style}
       onChange={(e) => {
         onChange(e.target.value);
-        e.target.style.height = "auto";
-        e.target.style.height = e.target.scrollHeight + "px";
       }}
       placeholder={placeholder}
+      onFocus={onFocus}
+      onBlur={onBlur}
     />
   );
 }

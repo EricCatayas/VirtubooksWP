@@ -26,6 +26,27 @@ export default function PageComponent({
     }
   };
 
+  const handleUpdateStyle = (idx, style) => {
+    const targetContent = page.contents[idx];
+    if (targetContent) {
+      const currentStyles = { ...(targetContent.styles || {}) };
+      Object.entries(style).forEach(([key, value]) => {
+        // If the key exists and the value is the same, remove it
+        if (currentStyles[key] === value) {
+          delete currentStyles[key];
+        } else {
+          // Otherwise, set/update the style
+          currentStyles[key] = value;
+        }
+      });
+      const updatedContent = {
+        ...targetContent,
+        styles: currentStyles,
+      };
+      handleUpdateContent(page.id, idx, updatedContent);
+    }
+  };
+
   return (
     <div className={className}>
       {page.header && (
@@ -62,6 +83,69 @@ export default function PageComponent({
               />
               {activeIdx === idx && (
                 <div className="d-flex align-items-center gap-2 justify-content-start">
+                  <button
+                    className="btn btn-secondary content-button"
+                    onClick={() =>
+                      handleUpdateStyle(idx, { fontStyle: "italic" })
+                    }
+                    aria-label="Italic Text"
+                  >
+                    <i className="fas fa-italic"></i>
+                  </button>
+                  <button
+                    className="btn btn-secondary content-button"
+                    onClick={() =>
+                      handleUpdateStyle(idx, { fontWeight: "bold" })
+                    }
+                    aria-label="Bold Text"
+                  >
+                    <i className="fas fa-bold"></i>
+                  </button>
+                  <button
+                    className="btn btn-secondary content-button"
+                    onClick={() =>
+                      handleUpdateStyle(idx, { textDecoration: "underline" })
+                    }
+                    aria-label="Underline Text"
+                  >
+                    <i className="fas fa-underline"></i>
+                  </button>
+                  <button
+                    className="btn btn-secondary content-button"
+                    onClick={() =>
+                      handleUpdateStyle(idx, { textAlign: "left" })
+                    }
+                    aria-label="Align Left"
+                  >
+                    <i className="fas fa-align-left"></i>
+                  </button>
+                  <button
+                    className="btn btn-secondary content-button"
+                    onClick={() =>
+                      handleUpdateStyle(idx, { textAlign: "center" })
+                    }
+                    aria-label="Align Center"
+                  >
+                    <i className="fas fa-align-center"></i>
+                  </button>
+                  <button
+                    className="btn btn-secondary content-button"
+                    onClick={() =>
+                      handleUpdateStyle(idx, { textAlign: "right" })
+                    }
+                    aria-label="Align Right"
+                  >
+                    <i className="fas fa-align-right"></i>
+                  </button>
+                  <button
+                    className="btn btn-secondary content-button"
+                    onClick={() =>
+                      handleUpdateStyle(idx, { textAlign: "justify" })
+                    }
+                    aria-label="Justify Evenly"
+                  >
+                    <i className="fas fa-align-justify"></i>
+                  </button>
                   <button
                     className="btn btn-primary content-button"
                     onClick={() => handleAddContent(page.id, idx)}
