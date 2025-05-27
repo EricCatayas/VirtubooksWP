@@ -149,6 +149,14 @@ export default function NotebookComponent() {
 
   return (
     <div className="book-container">
+      <span
+        className="arrow-button left-arrow"
+        onClick={prevPage}
+        aria-label="Previous Page"
+        type="button"
+      >
+        &#8592;
+      </span>
       <div className="scene">
         <article className="book">
           {Array.from({ length: Math.ceil(pages.length / 2) }).map((_, idx) => {
@@ -178,7 +186,7 @@ export default function NotebookComponent() {
                   </div>
                 )}
                 {backPage && (
-                  <div className={`back ${pageState(idx * 2 + 1)}`}>
+                  <div className="back">
                     {backPage.header && (
                       <header>
                         <h6>{backPage.header}</h6>
@@ -200,6 +208,14 @@ export default function NotebookComponent() {
           })}
         </article>
       </div>
+      <span
+        className="arrow-button right-arrow"
+        onClick={nextPage}
+        aria-label="Next Page"
+        type="button"
+      >
+        &#8594;
+      </span>
     </div>
   );
 }

@@ -18,6 +18,28 @@
   perspective: 1000px;
 }
 
+.arrow-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: none;
+  width: 48px;
+  height: 48px;
+  font-size: 2rem;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.left-arrow {
+  left: 10px;
+}
+
+.right-arrow {
+  right: 10px;
+}
+
 .book {
   position: relative;
   width: 100%;
