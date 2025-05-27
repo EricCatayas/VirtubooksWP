@@ -2,6 +2,7 @@ import { type } from "jquery";
 import "./notebook.styles.css";
 import React from "react";
 import { useState } from "react";
+import PageComponent from "../page/page.component";
 
 export default function NotebookComponent() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -15,7 +16,7 @@ export default function NotebookComponent() {
       : "inactive";
 
   // Book pages must contain an even number of pages (front and back)
-  const pages = [
+  const pagesData = [
     {
       id: "0",
       type: "cover",
@@ -119,6 +120,8 @@ export default function NotebookComponent() {
     },
   ];
 
+  const [pages, setPages] = useState(pagesData);
+
   const pageLength = pages.length;
 
   function nextPage() {
@@ -137,13 +140,29 @@ export default function NotebookComponent() {
     }
   }
 
+  const handleInputChange = (pageId, contentIdx, newValue) => {
+    setPages((prevPages) => {
+      const updatedPages = [...prevPages];
+      const pageIdx = updatedPages.findIndex((page) => page.id === pageId);
+      const updatedContents = [...updatedPages[pageIdx].contents];
+      updatedContents[contentIdx] = {
+        ...updatedContents[contentIdx],
+        value: newValue,
+      };
+      updatedPages[pageIdx] = {
+        ...updatedPages[pageIdx],
+        contents: updatedContents,
+      };
+      return updatedPages;
+    });
+  };
+
   return (
     <div className="book-container">
       <span
         className="arrow-button left-arrow"
         onClick={prevPage}
         aria-label="Previous Page"
-        type="button"
       >
         &#8592;
       </span>
@@ -155,40 +174,18 @@ export default function NotebookComponent() {
             return (
               <section className={`page ${pageState(idx * 2)}`}>
                 {frontPage && (
-                  <div className="front">
-                    {frontPage.header && (
-                      <header>
-                        <h6>{frontPage.header}</h6>
-                      </header>
-                    )}
-                    {frontPage.contents.map((content, i) => {
-                      if (content.type === "title") {
-                        return <h1 key={i}>{content.value}</h1>;
-                      } else if (content.type === "paragraph") {
-                        return <p key={i}>{content.value}</p>;
-                      } else {
-                        return null;
-                      }
-                    })}
-                  </div>
+                  <PageComponent
+                    page={frontPage}
+                    className={"front"}
+                    handleInputChange={handleInputChange}
+                  />
                 )}
                 {backPage && (
-                  <div className="back">
-                    {backPage.header && (
-                      <header>
-                        <h6>{backPage.header}</h6>
-                      </header>
-                    )}
-                    {backPage.contents.map((content, i) => {
-                      if (content.type === "title") {
-                        return <h1 key={i}>{content.value}</h1>;
-                      } else if (content.type === "paragraph") {
-                        return <p key={i}>{content.value}</p>;
-                      } else {
-                        return null;
-                      }
-                    })}
-                  </div>
+                  <PageComponent
+                    page={backPage}
+                    className={"back"}
+                    handleInputChange={handleInputChange}
+                  />
                 )}
               </section>
             );
@@ -199,7 +196,6 @@ export default function NotebookComponent() {
         className="arrow-button right-arrow"
         onClick={nextPage}
         aria-label="Next Page"
-        type="button"
       >
         &#8594;
       </span>
