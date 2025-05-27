@@ -1,7 +1,13 @@
 import React from "react";
 import "./page.styles.css";
+import MultilineInput from "../multiline/multiline.component";
 
-export default function PageComponent({ page, className, handleInputChange }) {
+export default function PageComponent({
+  page,
+  className,
+  handleInputChange,
+  handleAddContent,
+}) {
   // Determine the class for the page element
 
   return (
@@ -13,20 +19,39 @@ export default function PageComponent({ page, className, handleInputChange }) {
       )}
       {page.contents.map((content, idx) => {
         if (content.type === "title") {
-          return <h1 key={idx}>{content.value}</h1>;
+          return (
+            <>
+              <MultilineInput
+                value={content.value}
+                onChange={(value) => handleInputChange(page.id, idx, value)}
+                className="title-input"
+              />
+            </>
+          );
         } else if (content.type === "paragraph") {
           return (
-            <input
-              key={idx}
-              type="text"
-              value={content.value}
-              onChange={(e) => handleInputChange(page.id, idx, e.target.value)}
-            />
+            <>
+              <MultilineInput
+                value={content.value}
+                onChange={(value) => handleInputChange(page.id, idx, value)}
+                className="paragraph-input"
+              />
+            </>
           );
         } else {
-          return null;
+          // error
+          return (
+            <div key={idx} className="error">
+              <p>Unknown content type: {content.type}</p>
+            </div>
+          );
         }
       })}
+      {page.footer && (
+        <footer>
+          <h6>{page.footer}</h6>
+        </footer>
+      )}
     </div>
   );
 }
