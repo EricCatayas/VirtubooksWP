@@ -143,6 +143,22 @@ export default function NotebookComponent() {
     }
   }
 
+  // todo: content type
+  const handleAddContent = (pageId, contentIdx) => {
+    setPages((prevPages) => {
+      const updatedPages = [...prevPages];
+      const newContent = { value: "", type: "paragraph" };
+      const pageIdx = updatedPages.findIndex((page) => page.id === pageId);
+      const updatedContents = [...updatedPages[pageIdx].contents];
+      updatedContents.splice(contentIdx + 1, 0, newContent);
+      updatedPages[pageIdx] = {
+        ...updatedPages[pageIdx],
+        contents: updatedContents,
+      };
+      return updatedPages;
+    });
+  };
+
   const handleUpdateContent = (pageId, contentIdx, newContent) => {
     setPages((prevPages) => {
       const updatedPages = [...prevPages];
@@ -152,6 +168,20 @@ export default function NotebookComponent() {
         ...updatedContents[contentIdx],
         ...newContent,
       };
+      updatedPages[pageIdx] = {
+        ...updatedPages[pageIdx],
+        contents: updatedContents,
+      };
+      return updatedPages;
+    });
+  };
+
+  const handleDeleteContent = (pageId, contentIdx) => {
+    setPages((prevPages) => {
+      const updatedPages = [...prevPages];
+      const pageIdx = updatedPages.findIndex((page) => page.id === pageId);
+      const updatedContents = [...updatedPages[pageIdx].contents];
+      updatedContents.splice(contentIdx, 1);
       updatedPages[pageIdx] = {
         ...updatedPages[pageIdx],
         contents: updatedContents,
@@ -180,14 +210,18 @@ export default function NotebookComponent() {
                   <PageComponent
                     page={frontPage}
                     className={"front"}
+                    handleAddContent={handleAddContent}
                     handleUpdateContent={handleUpdateContent}
+                    handleDeleteContent={handleDeleteContent}
                   />
                 )}
                 {backPage && (
                   <PageComponent
                     page={backPage}
                     className={"back"}
+                    handleAddContent={handleAddContent}
                     handleUpdateContent={handleUpdateContent}
+                    handleDeleteContent={handleDeleteContent}
                   />
                 )}
               </section>
