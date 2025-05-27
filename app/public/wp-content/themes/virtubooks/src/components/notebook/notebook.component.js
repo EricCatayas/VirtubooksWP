@@ -137,16 +137,6 @@ export default function NotebookComponent() {
     }
   }
 
-  const handleFlip = (page) => {
-    if (currentPage === page) {
-      nextPage();
-    } else if (currentPage > page) {
-      prevPage();
-    } else {
-      setCurrentPage(page);
-    }
-  };
-
   return (
     <div className="book-container">
       <span
@@ -163,10 +153,7 @@ export default function NotebookComponent() {
             const frontPage = pages[idx * 2];
             const backPage = pages[idx * 2 + 1];
             return (
-              <section
-                className={`page ${pageState(idx * 2)}`}
-                onClick={() => handleFlip(idx * 2)}
-              >
+              <section className={`page ${pageState(idx * 2)}`}>
                 {frontPage && (
                   <div className="front">
                     {frontPage.header && (
