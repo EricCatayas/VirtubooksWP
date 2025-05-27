@@ -1,0 +1,10 @@
+# .gitignore
+logs/
+app/public/wp-content/uploads/
+app/public/wp-content/cache/
+app/public/wp-content/upgrade/
+app/public/wp-content/backup-*
+app/public/wp-config.php
+sql/
+*.log
+.env
