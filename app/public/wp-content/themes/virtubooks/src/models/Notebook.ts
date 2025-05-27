@@ -1,4 +1,13 @@
-export type Notebook = Page[]; // A notebook must contain an even number of pages
+export type Notebook = {
+  id: string;
+  title: string;
+  description?: string;
+  author?: string;
+  createdAt: string;
+  updatedAt: string;
+  isPublic: boolean;
+  pages: Page[];
+};
 
 export interface Page {
   id: string;
@@ -13,4 +22,5 @@ export interface Page {
 export interface ContentBlock {
   value: string;
   type: "title" | "paragraph" | "image" | "list";
+  styles?: { [key: string]: string | number }; // e.g. { text-align: "center" }
 }
