@@ -24,6 +24,14 @@ export default function ContentToolbar({
   onMoveDown,
   fontSizeOptions = defaultfontSizeOptions,
 }) {
+  const contentTypeOptions = [
+    { type: "paragraph", label: "Paragraph", icon: "fas fa-paragraph" },
+    { type: "heading", label: "Heading", icon: "fas fa-heading" },
+    { type: "list", label: "List", icon: "fas fa-list-ul" },
+    { type: "image", label: "Image", icon: "fas fa-image" },
+    { type: "quote", label: "Quote", icon: "fas fa-quote-right" },
+  ];
+
   return (
     <section className="content-toolbar">
       <div className="d-flex align-items-center gap-2 justify-content-start">
@@ -123,60 +131,18 @@ export default function ContentToolbar({
             <i className="fas fa-plus"></i>
           </button>
           <ul className="dropdown-menu">
-            <li>
-              <a
-                className="dropdown-item"
-                href="#"
-                onClick={() => onAddContent("paragraph")}
-              >
-                Paragraph
-              </a>
-            </li>
-            <li>
-              <a
-                className="dropdown-item"
-                href="#"
-                onClick={() => onAddContent("heading")}
-              >
-                Heading
-              </a>
-            </li>
-            <li>
-              <a
-                className="dropdown-item"
-                href="#"
-                onClick={() => onAddContent("quote")}
-              >
-                Quote
-              </a>
-            </li>
-            <li>
-              <a
-                className="dropdown-item"
-                href="#"
-                onClick={() => onAddContent("list")}
-              >
-                List
-              </a>
-            </li>
-            <li>
-              <a
-                className="dropdown-item"
-                href="#"
-                onClick={() => onAddContent("image")}
-              >
-                Image
-              </a>
-            </li>
-            <li>
-              <a
-                className="dropdown-item"
-                href="#"
-                onClick={() => onAddContent("code")}
-              >
-                Code Block
-              </a>
-            </li>
+            {contentTypeOptions.map((item) => (
+              <li key={item.type}>
+                <a
+                  className="dropdown-item"
+                  href="#"
+                  onClick={() => onAddContent(item.type)}
+                >
+                  <i className={item.icon} style={{ marginRight: "0.5em" }}></i>
+                  {item.label}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
         <button
