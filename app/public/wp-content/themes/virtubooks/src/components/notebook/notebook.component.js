@@ -1,12 +1,16 @@
 import NotebookPage from "../page/notebook-page.component";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setNotebookState } from "../../features/notebookSlice";
 import "./notebook.styles.css";
 
 export default function NotebookComponent() {
   const [currentPage, setCurrentPage] = useState(0);
+  const dispatch = useDispatch();
+  const notebook = useSelector((state) => state.notebook);
+  const pages = notebook.pages || [];
 
-  // Determine the class for the book element
   const pageState = (page) =>
     currentPage === page
       ? "active"
@@ -15,7 +19,7 @@ export default function NotebookComponent() {
       : "inactive";
 
   // Book pages must contain an even number of pages (front and back)
-  const notebook = {
+  const notebookData = {
     id: "notebook-1",
     title: "Virtubooks Notebook",
     pages: [
@@ -123,7 +127,15 @@ export default function NotebookComponent() {
     ],
   };
 
-  const [pages, setPages] = useState(notebook.pages);
+  useEffect(async () => {
+    if (!notebook.id) {
+      await setTimeout(() => {
+        console.log("Setting initial notebook state");
+        // Simulate an async operation, e.g., fetching notebook data
+      }, 2000);
+      dispatch(setNotebookState(notebookData));
+    }
+  }, [dispatch]);
 
   const pageLength = pages.length;
 
@@ -144,51 +156,51 @@ export default function NotebookComponent() {
   }
 
   // todo: content type
-  const handleAddContent = (pageId, contentIdx) => {
-    setPages((prevPages) => {
-      const updatedPages = [...prevPages];
-      const newContent = { value: "", type: "paragraph" };
-      const pageIdx = updatedPages.findIndex((page) => page.id === pageId);
-      const updatedContents = [...updatedPages[pageIdx].contents];
-      updatedContents.splice(contentIdx + 1, 0, newContent);
-      updatedPages[pageIdx] = {
-        ...updatedPages[pageIdx],
-        contents: updatedContents,
-      };
-      return updatedPages;
-    });
-  };
+  // const handleAddContent = (pageId, contentIdx) => {
+  //   setPages((prevPages) => {
+  //     const updatedPages = [...prevPages];
+  //     const newContent = { value: "", type: "paragraph" };
+  //     const pageIdx = updatedPages.findIndex((page) => page.id === pageId);
+  //     const updatedContents = [...updatedPages[pageIdx].contents];
+  //     updatedContents.splice(contentIdx + 1, 0, newContent);
+  //     updatedPages[pageIdx] = {
+  //       ...updatedPages[pageIdx],
+  //       contents: updatedContents,
+  //     };
+  //     return updatedPages;
+  //   });
+  // };
 
-  const handleUpdateContent = (pageId, contentIdx, newContent) => {
-    setPages((prevPages) => {
-      const updatedPages = [...prevPages];
-      const pageIdx = updatedPages.findIndex((page) => page.id === pageId);
-      const updatedContents = [...updatedPages[pageIdx].contents];
-      updatedContents[contentIdx] = {
-        ...updatedContents[contentIdx],
-        ...newContent,
-      };
-      updatedPages[pageIdx] = {
-        ...updatedPages[pageIdx],
-        contents: updatedContents,
-      };
-      return updatedPages;
-    });
-  };
+  // const handleUpdateContent = (pageId, contentIdx, newContent) => {
+  //   setPages((prevPages) => {
+  //     const updatedPages = [...prevPages];
+  //     const pageIdx = updatedPages.findIndex((page) => page.id === pageId);
+  //     const updatedContents = [...updatedPages[pageIdx].contents];
+  //     updatedContents[contentIdx] = {
+  //       ...updatedContents[contentIdx],
+  //       ...newContent,
+  //     };
+  //     updatedPages[pageIdx] = {
+  //       ...updatedPages[pageIdx],
+  //       contents: updatedContents,
+  //     };
+  //     return updatedPages;
+  //   });
+  // };
 
-  const handleDeleteContent = (pageId, contentIdx) => {
-    setPages((prevPages) => {
-      const updatedPages = [...prevPages];
-      const pageIdx = updatedPages.findIndex((page) => page.id === pageId);
-      const updatedContents = [...updatedPages[pageIdx].contents];
-      updatedContents.splice(contentIdx, 1);
-      updatedPages[pageIdx] = {
-        ...updatedPages[pageIdx],
-        contents: updatedContents,
-      };
-      return updatedPages;
-    });
-  };
+  // const handleDeleteContent = (pageId, contentIdx) => {
+  //   setPages((prevPages) => {
+  //     const updatedPages = [...prevPages];
+  //     const pageIdx = updatedPages.findIndex((page) => page.id === pageId);
+  //     const updatedContents = [...updatedPages[pageIdx].contents];
+  //     updatedContents.splice(contentIdx, 1);
+  //     updatedPages[pageIdx] = {
+  //       ...updatedPages[pageIdx],
+  //       contents: updatedContents,
+  //     };
+  //     return updatedPages;
+  //   });
+  // };
 
   return (
     <div className="book-container">
@@ -207,22 +219,10 @@ export default function NotebookComponent() {
             return (
               <section key={idx} className={`page ${pageState(idx * 2)}`}>
                 {frontPage && (
-                  <NotebookPage
-                    page={frontPage}
-                    className={"front"}
-                    handleAddContent={handleAddContent}
-                    handleUpdateContent={handleUpdateContent}
-                    handleDeleteContent={handleDeleteContent}
-                  />
+                  <NotebookPage page={frontPage} className={"front"} />
                 )}
                 {backPage && (
-                  <NotebookPage
-                    page={backPage}
-                    className={"back"}
-                    handleAddContent={handleAddContent}
-                    handleUpdateContent={handleUpdateContent}
-                    handleDeleteContent={handleDeleteContent}
-                  />
+                  <NotebookPage page={backPage} className={"back"} />
                 )}
               </section>
             );

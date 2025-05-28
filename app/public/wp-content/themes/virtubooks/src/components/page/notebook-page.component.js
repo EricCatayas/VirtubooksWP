@@ -1,20 +1,33 @@
 import MultilineInput from "../multiline/multiline.component";
 import ContentToolbar from "../content-toolbar/content-toolbar.component";
 import React, { useState } from "react";
-import "./page.styles.css";
+import { useDispatch } from "react-redux";
+import {
+  addContent,
+  deleteContent,
+  updateContent,
+} from "../../features/notebookSlice";
+import "./notebook-page.styles.css";
 
-export default function NotebookPage({
-  page,
-  className,
-  handleAddContent,
-  handleUpdateContent,
-  handleDeleteContent,
-  isReadOnly = false,
-}) {
-  // ...existing code...
+export default function NotebookPage({ page, className, isReadOnly = false }) {
+  const dispatch = useDispatch();
 
   // Track which content index is hovered or focused
   const [activeIdx, setActiveIdx] = useState(null);
+
+  // todo: content type
+  const handleAddContent = (pageId, contentIdx) => {
+    const newContent = { value: "", type: "paragraph" };
+    dispatch(addContent({ pageId, contentIdx, newContent }));
+  };
+
+  const handleUpdateContent = (pageId, contentIdx, newContent) => {
+    dispatch(updateContent({ pageId, contentIdx, newContent }));
+  };
+
+  const handleDeleteContent = (pageId, contentIdx) => {
+    dispatch(deleteContent({ pageId, contentIdx }));
+  };
 
   const handleInputChange = (contentIdx, newValue) => {
     const targetContent = page.contents[contentIdx];
