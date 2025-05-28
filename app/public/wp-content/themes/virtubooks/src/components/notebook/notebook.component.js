@@ -28,7 +28,7 @@ export default function NotebookComponent() {
         type: "cover",
         header: "Erin E. Sullivan",
         contents: [
-          { value: "Virtubooks", type: "title" },
+          { value: "Virtubooks", type: "heading" },
           { value: "First Chapter Of Book", type: "paragraph" },
           { value: "This is first chapter of the book", type: "paragraph" },
         ],
@@ -45,7 +45,7 @@ export default function NotebookComponent() {
         id: "2",
         type: "sheet",
         contents: [
-          { value: "– 1 –", type: "title" },
+          { value: "– 1 –", type: "heading" },
           {
             value:
               "Sehen Sie, Webstandards sind das Regelwerk, auf dem Webseiten aufbauen. So gibt es Regeln für HTML, CSS, JavaScript oder auch XML; Worte, die Sie vielleicht schon einmal von Ihrem Entwickler gehört haben. Diese Standards sorgen dafür, dass alle Beteiligten aus einer Webseite den größten Nutzen ziehen.",
@@ -61,25 +61,13 @@ export default function NotebookComponent() {
       {
         id: "3",
         type: "sheet",
-        contents: [
-          { value: "– 2 –", type: "title" },
-          {
-            value:
-              "Er hörte leise Schritte hinter sich. Das bedeutete nichts Gutes. Wer würde ihm schon folgen, spät in der Nacht und dazu noch in dieser engen Gasse mitten im übel beleumundeten Hafenviertel? Gerade jetzt, wo er das Ding seines Lebens gedreht hatte und mit der Beute verschwinden wollte!",
-            type: "paragraph",
-          },
-          {
-            value:
-              "Oder gehörten die Schritte hinter ihm zu einem der unzähligen Gesetzeshüter dieser Stadt, und die stählerne Acht um seine Handgelenke würde gleich zuschnappen? Er konnte die Aufforderung stehen zu bleiben schon hören. Gehetzt sah er sich um.",
-            type: "paragraph",
-          },
-        ],
+        contents: [],
       },
       {
         id: "4",
         type: "sheet",
         contents: [
-          { value: "– 3 –", type: "title" },
+          { value: "– 3 –", type: "heading" },
           {
             value:
               "Sehen Sie, Webstandards sind das Regelwerk, auf dem Webseiten aufbauen. So gibt es Regeln für HTML, CSS, JavaScript oder auch XML; Worte, die Sie vielleicht schon einmal von Ihrem Entwickler gehört haben. Diese Standards sorgen dafür, dass alle Beteiligten aus einer Webseite den größten Nutzen ziehen.",
@@ -96,7 +84,7 @@ export default function NotebookComponent() {
         id: "5",
         type: "sheet",
         contents: [
-          { value: "– 4 –", type: "title" },
+          { value: "– 4 –", type: "heading" },
           {
             value:
               "Er hörte leise Schritte hinter sich. Das bedeutete nichts Gutes. Wer würde ihm schon folgen, spät in der Nacht und dazu noch in dieser engen Gasse mitten im übel beleumundeten Hafenviertel? Gerade jetzt, wo er das Ding seines Lebens gedreht hatte und mit der Beute verschwinden wollte!",
@@ -120,7 +108,7 @@ export default function NotebookComponent() {
         id: "7",
         type: "cover",
         contents: [
-          { value: "– BACK COVER –", type: "title" },
+          { value: "– BACK COVER –", type: "heading" },
           { value: "This is back cover of the book", type: "paragraph" },
         ],
       },
