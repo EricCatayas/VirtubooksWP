@@ -81,7 +81,6 @@ export default function NotebookPage({ page, className, isReadOnly = false }) {
     }
   };
 
-  // todo
   const handleImageUpload = (contentIdx, file) => {
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -93,6 +92,36 @@ export default function NotebookPage({ page, className, isReadOnly = false }) {
       handleUpdateContent(contentIdx, newContent);
     };
     reader.readAsDataURL(file);
+  };
+
+  const handleAddIndent = (contentIdx) => {
+    const targetContent = page.contents[contentIdx];
+    if (targetContent) {
+      const currentStyles = { ...targetContent.styles };
+      if (currentStyles.marginLeft) {
+        const indentValue = parseInt(currentStyles.marginLeft, 10);
+        currentStyles.marginLeft = `${indentValue + 20}px`;
+      } else {
+        currentStyles.marginLeft = "20px";
+      }
+      handleUpdateStyle(contentIdx, currentStyles);
+    }
+  };
+
+  const handleReduceIndent = (contentIdx) => {
+    const targetContent = page.contents[contentIdx];
+    if (targetContent) {
+      const currentStyles = { ...targetContent.styles };
+      if (currentStyles.marginLeft) {
+        const indentValue = parseInt(currentStyles.marginLeft, 10);
+        if (indentValue > 20) {
+          currentStyles.marginLeft = `${indentValue - 20}px`;
+        } else {
+          currentStyles.marginLeft = "0px";
+        }
+      }
+      handleUpdateStyle(contentIdx, currentStyles);
+    }
   };
 
   return (
@@ -114,6 +143,8 @@ export default function NotebookPage({ page, className, isReadOnly = false }) {
           onMoveUp={() => handleMoveUp(idx)}
           onMoveDown={() => handleMoveDown(idx)}
           onImageUpload={(file) => handleImageUpload(idx, file)}
+          onAddIndent={() => handleAddIndent(idx)}
+          onReduceIndent={() => handleReduceIndent(idx)}
         />
       ))}
       {page.contents.length === 0 && !isReadOnly && (

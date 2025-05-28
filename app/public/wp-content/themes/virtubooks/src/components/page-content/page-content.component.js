@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import MultilineInput from "../multiline/multiline.component";
 import ContentToolbar from "../content-toolbar/content-toolbar.component";
+import TextToolbarControls from "../toolbar-controls/text-controls.component";
 
 export default function PageContent({
   content,
@@ -11,10 +12,21 @@ export default function PageContent({
   onMoveUp,
   onMoveDown,
   onUpdateStyle,
+  onAddIndent,
+  onReduceIndent,
   onImageUpload,
 }) {
   let contentNode = null;
+  let toolbarNode = null;
   const [isFocused, setFocused] = useState(false);
+  const headingfontSizes = [
+    { label: "Small", value: "1.5rem" },
+    { label: "Medium", value: "2rem" },
+    { label: "Large", value: "2.5rem" },
+    { label: "XL", value: "3rem" },
+    { label: "XXL", value: "4rem" },
+    { label: "XXXL", value: "5rem" },
+  ];
 
   switch (content.type) {
     case "heading":
@@ -100,13 +112,6 @@ export default function PageContent({
         </ul>
       );
       break;
-    case "code":
-      contentNode = (
-        <pre style={content.styles}>
-          <code>{content.value}</code>
-        </pre>
-      );
-      break;
     default:
       contentNode = (
         <div className="error">
@@ -115,14 +120,55 @@ export default function PageContent({
       );
   }
 
-  const headingfontSizes = [
-    { label: "Small", value: "1.5rem" },
-    { label: "Medium", value: "2rem" },
-    { label: "Large", value: "2.5rem" },
-    { label: "XL", value: "3rem" },
-    { label: "XXL", value: "4rem" },
-    { label: "XXXL", value: "5rem" },
-  ];
+  switch (content.type) {
+    case "heading":
+      toolbarNode = (
+        <ContentToolbar
+          content={content}
+          onAddContent={(type) => onAddContent(type)}
+          onDeleteContent={() => onDeleteContent()}
+          onMoveUp={() => onMoveUp()}
+          onMoveDown={() => onMoveDown()}
+          toolbarControls={
+            <TextToolbarControls
+              fontSizeOptions={headingfontSizes}
+              onUpdateStyle={(style) => onUpdateStyle(style)}
+              onAddIndent={onAddIndent}
+              onReduceIndent={onReduceIndent}
+            />
+          }
+        />
+      );
+      break;
+    case "image":
+      toolbarNode = (
+        <ContentToolbar
+          content={content}
+          onAddContent={(type) => onAddContent(type)}
+          onDeleteContent={() => onDeleteContent()}
+          onMoveUp={() => onMoveUp()}
+          onMoveDown={() => onMoveDown()}
+        />
+      );
+      break;
+    default:
+      toolbarNode = (
+        <ContentToolbar
+          content={content}
+          onAddContent={(type) => onAddContent(type)}
+          onDeleteContent={() => onDeleteContent()}
+          onMoveUp={() => onMoveUp()}
+          onMoveDown={() => onMoveDown()}
+          toolbarControls={
+            <TextToolbarControls
+              onUpdateStyle={(style) => onUpdateStyle(style)}
+              onAddIndent={onAddIndent}
+              onReduceIndent={onReduceIndent}
+            />
+          }
+        />
+      );
+  }
 
   return (
     <section
@@ -131,19 +177,7 @@ export default function PageContent({
       onMouseLeave={() => setFocused(false)}
     >
       {contentNode}
-      {isFocused && !isReadOnly && (
-        <ContentToolbar
-          content={content}
-          onAddContent={(type) => onAddContent(type)}
-          onDeleteContent={() => onDeleteContent()}
-          onUpdateStyle={(style) => onUpdateStyle(style)}
-          onMoveUp={() => onMoveUp()}
-          onMoveDown={() => onMoveDown()}
-          fontSizeOptions={
-            content.type === "heading" ? headingfontSizes : undefined
-          }
-        />
-      )}
+      {isFocused && !isReadOnly && toolbarNode}
     </section>
   );
 }

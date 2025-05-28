@@ -18,16 +18,14 @@ const defaultfontSizeOptions = [
 export default function ContentToolbar({
   content,
   onAddContent,
-  onUpdateStyle,
   onDeleteContent,
   onMoveUp,
   onMoveDown,
-  fontSizeOptions = defaultfontSizeOptions,
+  toolbarControls,
 }) {
   const contentTypeOptions = [
     { type: "paragraph", label: "Paragraph", icon: "fas fa-paragraph" },
     { type: "heading", label: "Heading", icon: "fas fa-heading" },
-    { type: "list", label: "List", icon: "fas fa-list-ul" },
     { type: "image", label: "Image", icon: "fas fa-image" },
     { type: "quote", label: "Quote", icon: "fas fa-quote-right" },
   ];
@@ -49,78 +47,9 @@ export default function ContentToolbar({
         >
           <i className="fas fa-arrow-down"></i>
         </button>
-        <button
-          className="btn btn-secondary content-button"
-          onClick={() => onUpdateStyle({ fontStyle: "italic" })}
-          aria-label="Italic Text"
-        >
-          <i className="fas fa-italic"></i>
-        </button>
-        <button
-          className="btn btn-secondary content-button"
-          onClick={() => onUpdateStyle({ fontWeight: "bold" })}
-          aria-label="Bold Text"
-        >
-          <i className="fas fa-bold"></i>
-        </button>
-        <button
-          className="btn btn-secondary content-button"
-          onClick={() => onUpdateStyle({ textDecoration: "underline" })}
-          aria-label="Underline Text"
-        >
-          <i className="fas fa-underline"></i>
-        </button>
-        <button
-          className="btn btn-secondary content-button"
-          onClick={() => onUpdateStyle({ textAlign: "left" })}
-          aria-label="Align Left"
-        >
-          <i className="fas fa-align-left"></i>
-        </button>
-        <button
-          className="btn btn-secondary content-button"
-          onClick={() => onUpdateStyle({ textAlign: "center" })}
-          aria-label="Align Center"
-        >
-          <i className="fas fa-align-center"></i>
-        </button>
-        <button
-          className="btn btn-secondary content-button"
-          onClick={() => onUpdateStyle({ textAlign: "right" })}
-          aria-label="Align Right"
-        >
-          <i className="fas fa-align-right"></i>
-        </button>
-        <button
-          className="btn btn-secondary content-button"
-          onClick={() => onUpdateStyle({ textAlign: "justify" })}
-          aria-label="Justify Evenly"
-        >
-          <i className="fas fa-align-justify"></i>
-        </button>
-        <div className="dropdown">
-          <button
-            className="btn btn-secondary dropdown-toggle content-button"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <i className="fas fa-font"></i>
-          </button>
-          <ul className="dropdown-menu">
-            {fontSizeOptions.map((option) => (
-              <li key={option.value}>
-                <a
-                  className="dropdown-item"
-                  href="#"
-                  onClick={() => onUpdateStyle({ fontSize: option.value })}
-                >
-                  {option.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        {/* Slot for custom controls  */}
+        {toolbarControls}
+
         <div className="dropdown">
           <button
             className="btn btn-secondary dropdown-toggle content-button"
