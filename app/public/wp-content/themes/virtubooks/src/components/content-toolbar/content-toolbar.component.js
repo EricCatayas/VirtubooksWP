@@ -1,10 +1,26 @@
 import React from "react";
 
+const defaultfontSizeOptions = [
+  {
+    label: "Small",
+    value: "small",
+  },
+  {
+    label: "Medium",
+    value: "medium",
+  },
+  {
+    label: "Large",
+    value: "large",
+  },
+];
+
 export default function ContentToolbar({
   content,
   onAddContent,
   onUpdateStyle,
   onDeleteContent,
+  fontSizeOptions = defaultfontSizeOptions,
 }) {
   return (
     <section className="content-toolbar">
@@ -58,13 +74,95 @@ export default function ContentToolbar({
         >
           <i className="fas fa-align-justify"></i>
         </button>
-        <button
-          className="btn btn-primary content-button"
-          onClick={() => onAddContent()}
-          aria-label="Add Content"
-        >
-          <i className="fas fa-plus"></i>
-        </button>
+        <div className="dropdown">
+          <button
+            className="btn btn-secondary dropdown-toggle content-button"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i className="fas fa-font"></i>
+          </button>
+          <ul className="dropdown-menu">
+            {fontSizeOptions.map((option) => (
+              <li key={option.value}>
+                <a
+                  className="dropdown-item"
+                  href="#"
+                  onClick={() => onUpdateStyle({ fontSize: option.value })}
+                >
+                  {option.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="dropdown">
+          <button
+            className="btn btn-secondary dropdown-toggle content-button"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i className="fas fa-plus"></i>
+          </button>
+          <ul className="dropdown-menu">
+            <li>
+              <a
+                className="dropdown-item"
+                href="#"
+                onClick={() => onAddContent("paragraph")}
+              >
+                Paragraph
+              </a>
+            </li>
+            <li>
+              <a
+                className="dropdown-item"
+                href="#"
+                onClick={() => onAddContent("heading")}
+              >
+                Heading
+              </a>
+            </li>
+            <li>
+              <a
+                className="dropdown-item"
+                href="#"
+                onClick={() => onAddContent("quote")}
+              >
+                Quote
+              </a>
+            </li>
+            <li>
+              <a
+                className="dropdown-item"
+                href="#"
+                onClick={() => onAddContent("list")}
+              >
+                List
+              </a>
+            </li>
+            <li>
+              <a
+                className="dropdown-item"
+                href="#"
+                onClick={() => onAddContent("image")}
+              >
+                Image
+              </a>
+            </li>
+            <li>
+              <a
+                className="dropdown-item"
+                href="#"
+                onClick={() => onAddContent("code")}
+              >
+                Code Block
+              </a>
+            </li>
+          </ul>
+        </div>
         <button
           className="btn btn-danger content-button"
           onClick={() => onDeleteContent()}
