@@ -35,9 +35,10 @@ export const notebookSlice = createSlice({
     updateContent: (state, action) => {
       const { pageId, contentIdx, newContent } = action.payload;
       const page = state.pages.find((p) => p.id === pageId);
-      if (page && page.contents[contentIdx]) {
+      const oldContent = page.contents[contentIdx];
+      if (page && oldContent) {
         page.contents[contentIdx] = {
-          ...page.contents[contentIdx],
+          ...oldContent,
           ...newContent,
         };
       }
