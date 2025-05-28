@@ -59,6 +59,42 @@ export default function NotebookPage({ page, className, isReadOnly = false }) {
     }
   };
 
+  const handleMoveUp = (contentIdx) => {
+    if (contentIdx > 0) {
+      const newContents = [...page.contents];
+      const temp = newContents[contentIdx - 1];
+      newContents[contentIdx - 1] = newContents[contentIdx];
+      newContents[contentIdx] = temp;
+      handleUpdateContent(contentIdx - 1, newContents[contentIdx - 1]);
+      handleUpdateContent(contentIdx, newContents[contentIdx]);
+    }
+  };
+
+  const handleMoveDown = (contentIdx) => {
+    if (contentIdx < page.contents.length - 1) {
+      const newContents = [...page.contents];
+      const temp = newContents[contentIdx + 1];
+      newContents[contentIdx + 1] = newContents[contentIdx];
+      newContents[contentIdx] = temp;
+      handleUpdateContent(contentIdx + 1, newContents[contentIdx + 1]);
+      handleUpdateContent(contentIdx, newContents[contentIdx]);
+    }
+  };
+
+  // todo
+  const handleImageUpload = (contentIdx, file) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const newContent = {
+        value: reader.result,
+        type: "image",
+        styles: {},
+      };
+      handleUpdateContent(contentIdx, newContent);
+    };
+    reader.readAsDataURL(file);
+  };
+
   return (
     <div className={className}>
       {page.header && (
@@ -69,13 +105,15 @@ export default function NotebookPage({ page, className, isReadOnly = false }) {
       {page.contents.map((content, idx) => (
         <PageContent
           key={idx}
-          idx={idx}
           content={content}
           isReadOnly={isReadOnly}
-          handleInputChange={handleInputChange}
-          handleAddContent={handleAddContent}
-          handleDeleteContent={handleDeleteContent}
-          handleUpdateStyle={handleUpdateStyle}
+          onInputChange={(value) => handleInputChange(idx, value)}
+          onAddContent={(type) => handleAddContent(idx, type)}
+          onDeleteContent={() => handleDeleteContent(idx)}
+          onUpdateStyle={(style) => handleUpdateStyle(idx, style)}
+          onMoveUp={() => handleMoveUp(idx)}
+          onMoveDown={() => handleMoveDown(idx)}
+          onImageUpload={(file) => handleImageUpload(idx, file)}
         />
       ))}
       {page.contents.length === 0 && !isReadOnly && (

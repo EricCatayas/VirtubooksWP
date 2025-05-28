@@ -20,11 +20,27 @@ export default function ContentToolbar({
   onAddContent,
   onUpdateStyle,
   onDeleteContent,
+  onMoveUp,
+  onMoveDown,
   fontSizeOptions = defaultfontSizeOptions,
 }) {
   return (
     <section className="content-toolbar">
       <div className="d-flex align-items-center gap-2 justify-content-start">
+        <button
+          className="btn btn-secondary content-button"
+          onClick={() => onMoveUp()}
+          aria-label="Move Up"
+        >
+          <i className="fas fa-arrow-up"></i>
+        </button>
+        <button
+          className="btn btn-secondary content-button"
+          onClick={() => onMoveDown()}
+          aria-label="Move Down"
+        >
+          <i className="fas fa-arrow-down"></i>
+        </button>
         <button
           className="btn btn-secondary content-button"
           onClick={() => onUpdateStyle({ fontStyle: "italic" })}

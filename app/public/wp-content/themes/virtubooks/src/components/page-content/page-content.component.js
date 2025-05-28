@@ -3,13 +3,15 @@ import MultilineInput from "../multiline/multiline.component";
 import ContentToolbar from "../content-toolbar/content-toolbar.component";
 
 export default function PageContent({
-  idx,
   content,
   isReadOnly,
-  handleInputChange,
-  handleAddContent,
-  handleDeleteContent,
-  handleUpdateStyle,
+  onInputChange,
+  onAddContent,
+  onDeleteContent,
+  onMoveUp,
+  onMoveDown,
+  onUpdateStyle,
+  onImageUpload,
 }) {
   let contentNode = null;
   const [isFocused, setFocused] = useState(false);
@@ -21,7 +23,7 @@ export default function PageContent({
           value={content.value}
           className={content.type}
           style={content.styles}
-          onChange={(value) => handleInputChange(idx, value)}
+          onChange={(value) => onInputChange(value)}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
         />
@@ -33,14 +35,14 @@ export default function PageContent({
           value={content.value}
           className={content.type}
           style={content.styles}
-          onChange={(value) => handleInputChange(idx, value)}
+          onChange={(value) => onInputChange(value)}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
         />
       );
       break;
     case "image":
-      contentNode = (
+      contentNode = content.value ? (
         <img
           src={content.value}
           alt="User uploaded content"
@@ -51,21 +53,43 @@ export default function PageContent({
             }
           }}
         />
+      ) : (
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => {
+            if (e.target.files && e.target.files[0]) {
+              onImageUpload(e.target.files[0]);
+            }
+          }}
+          disabled={isReadOnly}
+        />
       );
       break;
     case "quote":
-      contentNode = (
-        <blockquote
-          style={content.styles}
-          onClick={() => {
-            if (!isReadOnly) {
-              // Handle quote click for editing or other actions
-            }
-          }}
-        >
-          {content.value}
-        </blockquote>
-      );
+      contentNode =
+        content.value && !isFocused ? (
+          <blockquote
+            className={content.type}
+            style={content.styles}
+            onClick={() => {
+              if (!isReadOnly) {
+                // Handle quote click for editing or other actions
+              }
+            }}
+          >
+            {content.value}
+          </blockquote>
+        ) : (
+          <MultilineInput
+            value={content.value}
+            className={content.type}
+            style={content.styles}
+            onChange={(value) => onInputChange(value)}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+          />
+        );
       break;
     case "list":
       contentNode = (
@@ -102,8 +126,7 @@ export default function PageContent({
 
   return (
     <section
-      key={idx}
-      className={`content-${content.type}`}
+      className={`section-${content.type}`}
       onMouseEnter={() => setFocused(true)}
       onMouseLeave={() => setFocused(false)}
     >
@@ -111,9 +134,11 @@ export default function PageContent({
       {isFocused && !isReadOnly && (
         <ContentToolbar
           content={content}
-          onAddContent={(type) => handleAddContent(idx, type)}
-          onDeleteContent={() => handleDeleteContent(idx)}
-          onUpdateStyle={(style) => handleUpdateStyle(idx, style)}
+          onAddContent={(type) => onAddContent(type)}
+          onDeleteContent={() => onDeleteContent()}
+          onUpdateStyle={(style) => onUpdateStyle(style)}
+          onMoveUp={() => onMoveUp()}
+          onMoveDown={() => onMoveDown()}
           fontSizeOptions={
             content.type === "heading" ? headingfontSizes : undefined
           }
