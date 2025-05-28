@@ -1,4 +1,4 @@
-import MultilineInput from "../multiline/multiline.component";
+import PageContent from "../page-content/page-content.component";
 import ContentToolbar from "../content-toolbar/content-toolbar.component";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -11,21 +11,19 @@ import "./notebook-page.styles.css";
 
 export default function NotebookPage({ page, className, isReadOnly = false }) {
   const dispatch = useDispatch();
-
-  // Track which content index is hovered or focused
-  const [activeIdx, setActiveIdx] = useState(null);
+  const pageId = page.id;
 
   // todo: content type
-  const handleAddContent = (pageId, contentIdx) => {
-    const newContent = { value: "", type: "paragraph" };
+  const handleAddContent = (contentIdx, type) => {
+    const newContent = { value: "", type };
     dispatch(addContent({ pageId, contentIdx, newContent }));
   };
 
-  const handleUpdateContent = (pageId, contentIdx, newContent) => {
+  const handleUpdateContent = (contentIdx, newContent) => {
     dispatch(updateContent({ pageId, contentIdx, newContent }));
   };
 
-  const handleDeleteContent = (pageId, contentIdx) => {
+  const handleDeleteContent = (contentIdx) => {
     dispatch(deleteContent({ pageId, contentIdx }));
   };
 
@@ -36,12 +34,12 @@ export default function NotebookPage({ page, className, isReadOnly = false }) {
         ...targetContent,
         value: newValue,
       };
-      handleUpdateContent(page.id, contentIdx, updatedContent);
+      handleUpdateContent(contentIdx, updatedContent);
     }
   };
 
-  const handleUpdateStyle = (idx, style) => {
-    const targetContent = page.contents[idx];
+  const handleUpdateStyle = (contentIdx, style) => {
+    const targetContent = page.contents[contentIdx];
     if (targetContent) {
       const currentStyles = { ...(targetContent.styles || {}) };
       Object.entries(style).forEach(([key, value]) => {
@@ -57,7 +55,7 @@ export default function NotebookPage({ page, className, isReadOnly = false }) {
         ...targetContent,
         styles: currentStyles,
       };
-      handleUpdateContent(page.id, idx, updatedContent);
+      handleUpdateContent(contentIdx, updatedContent);
     }
   };
 
@@ -68,52 +66,26 @@ export default function NotebookPage({ page, className, isReadOnly = false }) {
           <h6>{page.header}</h6>
         </header>
       )}
-      {page.contents.map((content, idx) => {
-        if (content.type === "title") {
-          return (
-            <MultilineInput
-              key={idx}
-              value={content.value}
-              className={content.type}
-              onChange={(value) => handleInputChange(idx, value)}
-              onFocus={() => setActiveIdx(idx)}
-              onBlur={() => setActiveIdx(null)}
-            />
-          );
-        } else if (content.type === "paragraph") {
-          return (
-            <div
-              key={idx}
-              onMouseEnter={() => setActiveIdx(idx)}
-              onMouseLeave={() => setActiveIdx(null)}
-            >
-              <MultilineInput
-                value={content.value}
-                className={content.type}
-                style={content.styles}
-                onChange={(value) => handleInputChange(idx, value)}
-                onFocus={() => setActiveIdx(idx)}
-                onBlur={() => setActiveIdx(null)}
-              />
-              {activeIdx === idx && !isReadOnly && (
-                <ContentToolbar
-                  content={content}
-                  onAddContent={() => handleAddContent(page.id, idx)}
-                  onDeleteContent={() => handleDeleteContent(page.id, idx)}
-                  onUpdateStyle={(style) => handleUpdateStyle(idx, style)}
-                />
-              )}
-            </div>
-          );
-        } else {
-          // error
-          return (
-            <div key={idx} className="error">
-              <p>Unknown content type: {content.type}</p>
-            </div>
-          );
-        }
-      })}
+      {page.contents.map((content, idx) => (
+        <PageContent
+          key={idx}
+          idx={idx}
+          content={content}
+          isReadOnly={isReadOnly}
+          handleInputChange={handleInputChange}
+          handleAddContent={handleAddContent}
+          handleDeleteContent={handleDeleteContent}
+          handleUpdateStyle={handleUpdateStyle}
+        />
+      ))}
+      {page.contents.length === 0 && !isReadOnly && (
+        <button
+          className="btn btn-secondary add-content-button"
+          onClick={() => handleAddContent(page.id, 0)}
+        >
+          Add Content
+        </button>
+      )}
       {page.footer && (
         <footer>
           <h6>{page.footer}</h6>
