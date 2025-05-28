@@ -1,4 +1,4 @@
-import PageComponent from "../page/page.component";
+import NotebookPage from "../page/notebook-page.component";
 import React from "react";
 import { useState } from "react";
 import "./notebook.styles.css";
@@ -207,7 +207,7 @@ export default function NotebookComponent() {
             return (
               <section key={idx} className={`page ${pageState(idx * 2)}`}>
                 {frontPage && (
-                  <PageComponent
+                  <NotebookPage
                     page={frontPage}
                     className={"front"}
                     handleAddContent={handleAddContent}
@@ -216,7 +216,7 @@ export default function NotebookComponent() {
                   />
                 )}
                 {backPage && (
-                  <PageComponent
+                  <NotebookPage
                     page={backPage}
                     className={"back"}
                     handleAddContent={handleAddContent}

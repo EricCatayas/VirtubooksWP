@@ -3,7 +3,7 @@ import ContentToolbar from "../content-toolbar/content-toolbar.component";
 import React, { useState } from "react";
 import "./page.styles.css";
 
-export default function PageComponent({
+export default function NotebookPage({
   page,
   className,
   handleAddContent,
