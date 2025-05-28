@@ -34,6 +34,15 @@ textarea {
   line-height: 1.5;
 }
 
+.quote {
+  border-left: 4px solid #b3b3b3;
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  color: #555;
+  font-style: italic;
+  font-size: 1.1em;
+}
+
 .content-button {
   font-size: 1rem;
   color: inherit;
