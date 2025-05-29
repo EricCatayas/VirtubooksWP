@@ -48,6 +48,26 @@
   transform-style: preserve-3d;
 }
 
+.ratio-6-9 {
+  width: 500px;
+  height: 750px;
+}
+
+.ratio-13-20 {
+  width: 481px;
+  height: 740px;
+}
+
+.ratio-3-5 {
+  width: 450px;
+  height: 750px;
+}
+
+.ratio-7-9 {
+  width: 575px;
+  height: 740px;
+}
+
 .page {
   position: absolute;
   color: black;
@@ -84,7 +104,6 @@
 
   width: 100%;
   height: 100%;
-  padding: 10% 5% 5%;
   box-sizing: border-box;
 
   backface-visibility: hidden;
@@ -100,6 +119,19 @@
 
 .back {
   transform: rotateY(180deg);
+}
+
+.page-content {
+  padding: 10% 5% 5%;
+}
+
+.page-header {
+}
+.page-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 0.5em;
 }
 
 .page.active {

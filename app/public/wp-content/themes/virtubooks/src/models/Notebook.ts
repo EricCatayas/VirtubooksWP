@@ -16,6 +16,7 @@ export interface Page {
   pageNumber?: number;
   header?: string;
   footer?: string;
+  backgroundImageURL?: string;
   contents: ContentBlock[];
 }
 

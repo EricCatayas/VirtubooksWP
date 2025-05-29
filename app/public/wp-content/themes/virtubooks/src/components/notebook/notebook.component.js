@@ -27,6 +27,9 @@ export default function NotebookComponent() {
         id: "0",
         type: "cover",
         header: "Erin E. Sullivan",
+        footer: "Virtubooks",
+        backgroundImageURL:
+          "https://unlimitedworks.blob.core.windows.net/conquest/single-image.jpg",
         contents: [
           { value: "Virtubooks", type: "heading" },
           { value: "First Chapter Of Book", type: "paragraph" },

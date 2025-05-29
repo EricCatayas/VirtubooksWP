@@ -12,6 +12,7 @@ import "./notebook-page.styles.css";
 export default function NotebookPage({ page, className, isReadOnly = false }) {
   const dispatch = useDispatch();
   const pageId = page.id;
+  const [isFocused, setIsFocused] = useState(false);
 
   // todo: content type
   const handleAddContent = (contentIdx, type) => {
@@ -126,39 +127,63 @@ export default function NotebookPage({ page, className, isReadOnly = false }) {
   };
 
   return (
-    <div className={className}>
-      {page.header && (
-        <header>
-          <h6>{page.header}</h6>
-        </header>
-      )}
-      {page.contents.map((content, idx) => (
-        <PageContent
-          key={idx}
-          content={content}
-          isReadOnly={isReadOnly}
-          onInputChange={(value) => handleInputChange(idx, value)}
-          onAddContent={(type) => handleAddContent(idx, type)}
-          onDeleteContent={() => handleDeleteContent(idx)}
-          onUpdateStyle={(style) => handleUpdateStyle(idx, style)}
-          onMoveUp={() => handleMoveUp(idx)}
-          onMoveDown={() => handleMoveDown(idx)}
-          onImageUpload={(file) => handleImageUpload(idx, file)}
-          onAddIndent={() => handleAddIndent(idx)}
-          onReduceIndent={() => handleReduceIndent(idx)}
-        />
-      ))}
-      {page.contents.length === 0 && !isReadOnly && (
-        <AddContentToolbar
-          onAddContent={(type) => handleAddContent(0, type)}
-          isReadOnly={isReadOnly}
-        />
-      )}
-      {page.footer && (
-        <footer>
-          <h6>{page.footer}</h6>
-        </footer>
-      )}
+    <div
+      className={className} // e.g. front, or back
+      style={
+        page.backgroundImageURL
+          ? {
+              backgroundImage: `url(${page.backgroundImageURL})`,
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+            }
+          : undefined
+      }
+      onMouseEnter={() => setIsFocused(true)}
+      onMouseLeave={() => setIsFocused(false)}
+      onClick={() => setIsFocused(true)}
+      onBlur={() => setIsFocused(false)}
+    >
+      <div className="page-content">
+        <div className="page-header">
+          {page.header && (
+            <header>
+              <h6>{page.header}</h6>
+            </header>
+          )}
+        </div>
+        <div className="page-body">
+          {page.contents.map((content, idx) => (
+            <PageContent
+              key={idx}
+              content={content}
+              isReadOnly={isReadOnly}
+              onInputChange={(value) => handleInputChange(idx, value)}
+              onAddContent={(type) => handleAddContent(idx, type)}
+              onDeleteContent={() => handleDeleteContent(idx)}
+              onUpdateStyle={(style) => handleUpdateStyle(idx, style)}
+              onMoveUp={() => handleMoveUp(idx)}
+              onMoveDown={() => handleMoveDown(idx)}
+              onImageUpload={(file) => handleImageUpload(idx, file)}
+              onAddIndent={() => handleAddIndent(idx)}
+              onReduceIndent={() => handleReduceIndent(idx)}
+            />
+          ))}
+          {page.contents.length === 0 && !isReadOnly && isFocused && (
+            <AddContentToolbar
+              onAddContent={(type) => handleAddContent(0, type)}
+              toolbarControls={<div>Add New</div>}
+            />
+          )}
+        </div>
+        <div className="page-footer">
+          {page.footer && (
+            <footer>
+              <h6>{page.footer}</h6>
+            </footer>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
