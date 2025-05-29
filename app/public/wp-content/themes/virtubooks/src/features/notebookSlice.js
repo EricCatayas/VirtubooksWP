@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { v4 as uuidv4 } from "uuid";
 
 // todo
 const initialState = {
@@ -29,40 +30,34 @@ export const notebookSlice = createSlice({
       const { pageId } = action.payload;
       // Find the index of the page to insert after
       const pageIndex = state.pages.findIndex((p) => p.id === pageId);
+
       if (pageIndex !== -1) {
-        const frontPage = {
-          id: Date.now().toString(),
+        const newPage1 = {
+          id: uuidv4(),
           type: "sheet",
-          side: "front",
           contents: [],
         };
-        const backPage = {
-          id: Date.now().toString() + "-back",
+        const newPage2 = {
+          id: uuidv4(),
           type: "sheet",
-          side: "back",
           contents: [],
         };
-        const isLastPage = pageIndex === state.pages.length - 1;
-        if (isLastPage) {
-          // Insert before the last page
-          state.pages.splice(pageIndex - 1, 0, frontPage, backPage);
-        } else {
-          // Insert after the specified page
-          state.pages.splice(pageIndex + 1, 0, frontPage, backPage);
-        }
+
+        // Insert after the specified page
+        state.pages.splice(pageIndex + 1, 0, { ...newPage1 });
+        // Insert a new page before the back cover to maintain even number of pages
+        const pageLastIndex = state.pages.length - 1;
+        state.pages.splice(pageLastIndex - 1, 0, { ...newPage2 });
       }
     },
     deletePage: (state, action) => {
       const { pageId } = action.payload;
       const pageIndex = state.pages.findIndex((p) => p.id === pageId);
-      const pageToDelete = state.pages[pageIndex];
-      if (
-        pageIndex !== -1 &&
-        pageToDelete.type !== "cover" &&
-        state.pages.lenght > 4
-      ) {
+      const numberOfPages = state.pages.length;
+      if (pageIndex !== -1 && numberOfPages > 2) {
         // Remove the page and its counterpart side
-        if (state.pages[pageIndex].side === "front") {
+        const isFrontPage = pageIndex % 2 === 0;
+        if (isFrontPage) {
           state.pages.splice(pageIndex, 2);
         } else {
           state.pages.splice(pageIndex - 1, 2);

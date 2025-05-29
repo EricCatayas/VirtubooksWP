@@ -12,7 +12,7 @@ export type Notebook = {
 export interface Page {
   id: string;
   type: "cover" | "sheet";
-  side: "front" | "back";
+  // side: "front" | "back";
   pageNumber?: number;
   header?: string;
   footer?: string;
