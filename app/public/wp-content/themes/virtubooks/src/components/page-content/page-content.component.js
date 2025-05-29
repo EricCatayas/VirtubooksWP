@@ -131,6 +131,7 @@ export default function PageContent({
           onMoveDown={() => onMoveDown()}
           toolbarControls={
             <TextToolbarControls
+              content={content}
               fontSizeOptions={headingfontSizes}
               onUpdateStyle={(style) => onUpdateStyle(style)}
               onAddIndent={onAddIndent}
@@ -161,6 +162,7 @@ export default function PageContent({
           onMoveDown={() => onMoveDown()}
           toolbarControls={
             <TextToolbarControls
+              content={content}
               onUpdateStyle={(style) => onUpdateStyle(style)}
               onAddIndent={onAddIndent}
               onReduceIndent={onReduceIndent}

@@ -38,6 +38,13 @@ export const fontFamilyOptions = [
   { label: "Montserrat", value: "'Montserrat', sans-serif" },
 ];
 
+export const textAlignOptions = [
+  { label: "Left", value: "left" },
+  { label: "Center", value: "center" },
+  { label: "Right", value: "right" },
+  { label: "Justify", value: "justify" },
+];
+
 export const lineHeightOptions = [
   { label: "1.0", value: "1.0" },
   { label: "1.5", value: "1.5" },

@@ -2,73 +2,122 @@ import React from "react";
 import {
   defaultfontSizeOptions,
   fontFamilyOptions,
+  textAlignOptions,
   lineHeightOptions,
 } from "../../config/ui";
 
 export default function TextToolbarControls({
+  content,
   onUpdateStyle,
   onAddIndent,
   onReduceIndent,
   fontSizeOptions = defaultfontSizeOptions,
 }) {
+  const getTextAlignIcon = (value) => {
+    if (value) {
+      switch (value) {
+        case "center":
+          return "fas fa-align-center";
+        case "right":
+          return "fas fa-align-right";
+        case "justify":
+          return "fas fa-align-justify";
+        default:
+          return "fas fa-align-left";
+      }
+    }
+    return "fas fa-align-left"; // Default to left if no style is set
+  };
+
   return (
     <>
-      <button
-        className="btn btn-secondary content-button"
-        onClick={() => onUpdateStyle({ fontStyle: "italic" })}
-        aria-label="Italic Text"
-      >
-        <i className="fas fa-italic"></i>
-      </button>
-      <button
-        className="btn btn-secondary content-button"
-        onClick={() => onUpdateStyle({ fontWeight: "bold" })}
-        aria-label="Bold Text"
-      >
-        <i className="fas fa-bold"></i>
-      </button>
-      <button
-        className="btn btn-secondary content-button"
-        onClick={() => onUpdateStyle({ textDecoration: "underline" })}
-        aria-label="Underline Text"
-      >
-        <i className="fas fa-underline"></i>
-      </button>
-      <button
-        className="btn btn-secondary content-button"
-        onClick={() => onUpdateStyle({ textDecoration: "line-through" })}
-        aria-label="Strikethrough Text"
-      >
-        <i className="fas fa-strikethrough"></i>
-      </button>
-      <button
-        className="btn btn-secondary content-button"
-        onClick={() => onUpdateStyle({ textAlign: "left" })}
-        aria-label="Align Left"
-      >
-        <i className="fas fa-align-left"></i>
-      </button>
-      <button
-        className="btn btn-secondary content-button"
-        onClick={() => onUpdateStyle({ textAlign: "center" })}
-        aria-label="Align Center"
-      >
-        <i className="fas fa-align-center"></i>
-      </button>
-      <button
-        className="btn btn-secondary content-button"
-        onClick={() => onUpdateStyle({ textAlign: "right" })}
-        aria-label="Align Right"
-      >
-        <i className="fas fa-align-right"></i>
-      </button>
-      <button
-        className="btn btn-secondary content-button"
-        onClick={() => onUpdateStyle({ textAlign: "justify" })}
-        aria-label="Justify Evenly"
-      >
-        <i className="fas fa-align-justify"></i>
-      </button>
+      <div className="dropdown">
+        <button
+          className="btn btn-secondary dropdown-toggle content-button"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i className="fas fa-bold"></i>
+        </button>
+        <ul className="dropdown-menu">
+          <li>
+            <a
+              className="dropdown-item"
+              href="#"
+              onClick={() =>
+                onUpdateStyle({
+                  fontWeight: "bold",
+                })
+              }
+            >
+              <i className="fas fa-bold"></i>
+            </a>
+          </li>
+          <li>
+            <a
+              className="dropdown-item"
+              href="#"
+              onClick={() =>
+                onUpdateStyle({
+                  fontStyle: "italic",
+                })
+              }
+            >
+              <i className="fas fa-italic"></i>
+            </a>
+          </li>
+          <li>
+            <a
+              className="dropdown-item"
+              href="#"
+              onClick={() =>
+                onUpdateStyle({
+                  textDecoration: "underline",
+                })
+              }
+            >
+              <i className="fas fa-underline"></i>
+            </a>
+          </li>
+          <li>
+            <a
+              className="dropdown-item"
+              href="#"
+              onClick={() =>
+                onUpdateStyle({
+                  textDecoration: "line-through",
+                })
+              }
+            >
+              <i className="fas fa-strikethrough"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div className="dropdown">
+        <button
+          className="btn btn-secondary dropdown-toggle content-button"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i className={getTextAlignIcon(content.styles?.textAlign)}></i>
+        </button>
+        <ul className="dropdown-menu">
+          {textAlignOptions.map((option) => (
+            <li key={option.value}>
+              <a
+                className="dropdown-item"
+                href="#"
+                onClick={() => onUpdateStyle({ textAlign: option.value })}
+              >
+                <i className={getTextAlignIcon(option.value)}></i>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
       <div className="dropdown">
         <button
           className="btn btn-secondary dropdown-toggle content-button"
