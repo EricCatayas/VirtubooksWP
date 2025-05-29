@@ -1,19 +1,9 @@
 import React from "react";
-
-const defaultfontSizeOptions = [
-  {
-    label: "Small",
-    value: "small",
-  },
-  {
-    label: "Medium",
-    value: "medium",
-  },
-  {
-    label: "Large",
-    value: "large",
-  },
-];
+import {
+  defaultfontSizeOptions,
+  fontFamilyOptions,
+  lineHeightOptions,
+} from "../../config/ui";
 
 export default function TextToolbarControls({
   onUpdateStyle,
@@ -82,12 +72,58 @@ export default function TextToolbarControls({
           <i className="fas fa-font"></i>
         </button>
         <ul className="dropdown-menu">
+          {fontFamilyOptions.map((option) => (
+            <li key={option.value}>
+              <a
+                className="dropdown-item"
+                href="#"
+                onClick={() => onUpdateStyle({ fontFamily: option.value })}
+              >
+                {option.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="dropdown">
+        <button
+          className="btn btn-secondary dropdown-toggle content-button"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i className="fas fa-text-height"></i>
+        </button>
+        <ul className="dropdown-menu">
           {fontSizeOptions.map((option) => (
             <li key={option.value}>
               <a
                 className="dropdown-item"
                 href="#"
                 onClick={() => onUpdateStyle({ fontSize: option.value })}
+              >
+                {option.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="dropdown">
+        <button
+          className="btn btn-secondary dropdown-toggle content-button"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i className="fas fa-arrows-alt-v"></i>
+        </button>
+        <ul className="dropdown-menu">
+          {lineHeightOptions.map((option) => (
+            <li key={option.value}>
+              <a
+                className="dropdown-item"
+                href="#"
+                onClick={() => onUpdateStyle({ lineHeight: option.value })}
               >
                 {option.label}
               </a>
