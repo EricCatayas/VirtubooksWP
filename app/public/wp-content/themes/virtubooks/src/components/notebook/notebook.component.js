@@ -64,7 +64,12 @@ export default function NotebookComponent() {
       {
         id: "3",
         type: "sheet",
-        contents: [],
+        contents: [
+          {
+            value: "– 2 –",
+            type: "heading",
+          },
+        ],
       },
       {
         id: "4",
@@ -158,10 +163,11 @@ export default function NotebookComponent() {
       <div className="scene">
         <article className="book">
           {Array.from({ length: Math.ceil(pages.length / 2) }).map((_, idx) => {
-            const frontPage = pages[idx * 2];
-            const backPage = pages[idx * 2 + 1];
+            const pageNum = idx * 2;
+            const frontPage = pages[pageNum];
+            const backPage = pages[pageNum + 1];
             return (
-              <section key={idx} className={`page ${pageState(idx * 2)}`}>
+              <section key={idx} className={`page ${pageState(pageNum)}`}>
                 {frontPage && (
                   <NotebookPage page={frontPage} className={"front"} />
                 )}
