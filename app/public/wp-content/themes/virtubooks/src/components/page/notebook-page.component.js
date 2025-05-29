@@ -1,5 +1,5 @@
 import PageContent from "../page-content/page-content.component";
-import ContentToolbar from "../content-toolbar/content-toolbar.component";
+import AddContentToolbar from "../content-toolbar/add-content-toolbar.component";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -149,12 +149,10 @@ export default function NotebookPage({ page, className, isReadOnly = false }) {
         />
       ))}
       {page.contents.length === 0 && !isReadOnly && (
-        <button
-          className="btn btn-secondary add-content-button"
-          onClick={() => handleAddContent(page.id, 0)}
-        >
-          Add Content
-        </button>
+        <AddContentToolbar
+          onAddContent={(type) => handleAddContent(0, type)}
+          isReadOnly={isReadOnly}
+        />
       )}
       {page.footer && (
         <footer>
