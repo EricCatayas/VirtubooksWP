@@ -38,16 +38,15 @@ export default function NotebookPage({ page, className, isReadOnly = false }) {
     }
   };
 
+  // If the style already exists and the value is the same, it will be removed.
   const handleUpdateStyle = (contentIdx, style) => {
     const targetContent = page.contents[contentIdx];
     if (targetContent) {
       const currentStyles = { ...(targetContent.styles || {}) };
       Object.entries(style).forEach(([key, value]) => {
-        // If the key exists and the value is the same, remove it
         if (currentStyles[key] === value) {
           delete currentStyles[key];
         } else {
-          // Otherwise, set/update the style
           currentStyles[key] = value;
         }
       });
@@ -98,13 +97,14 @@ export default function NotebookPage({ page, className, isReadOnly = false }) {
     const targetContent = page.contents[contentIdx];
     if (targetContent) {
       const currentStyles = { ...targetContent.styles };
-      if (currentStyles.marginLeft) {
-        const indentValue = parseInt(currentStyles.marginLeft, 10);
-        currentStyles.marginLeft = `${indentValue + 20}px`;
+      let marginLeft = currentStyles.marginLeft || "0px";
+      if (marginLeft) {
+        const indentValue = parseInt(marginLeft, 10);
+        marginLeft = `${indentValue + 20}px`;
       } else {
-        currentStyles.marginLeft = "20px";
+        marginLeft = "20px";
       }
-      handleUpdateStyle(contentIdx, currentStyles);
+      handleUpdateStyle(contentIdx, { marginLeft });
     }
   };
 
@@ -112,15 +112,16 @@ export default function NotebookPage({ page, className, isReadOnly = false }) {
     const targetContent = page.contents[contentIdx];
     if (targetContent) {
       const currentStyles = { ...targetContent.styles };
-      if (currentStyles.marginLeft) {
-        const indentValue = parseInt(currentStyles.marginLeft, 10);
+      let marginLeft = currentStyles.marginLeft || "0px";
+      if (marginLeft) {
+        const indentValue = parseInt(marginLeft, 10);
         if (indentValue > 20) {
-          currentStyles.marginLeft = `${indentValue - 20}px`;
+          marginLeft = `${indentValue - 20}px`;
         } else {
-          currentStyles.marginLeft = "0px";
+          marginLeft = "0px";
         }
       }
-      handleUpdateStyle(contentIdx, currentStyles);
+      handleUpdateStyle(contentIdx, { marginLeft });
     }
   };
 
