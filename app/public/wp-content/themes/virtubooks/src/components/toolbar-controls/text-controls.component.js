@@ -37,6 +37,7 @@ export default function TextToolbarControls({
           type="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
+          title="Text Styles"
         >
           <i className="fas fa-bold"></i>
         </button>
@@ -99,6 +100,7 @@ export default function TextToolbarControls({
         <button
           className="btn btn-secondary dropdown-toggle content-button"
           type="button"
+          title="Text Alignment"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
@@ -122,6 +124,7 @@ export default function TextToolbarControls({
         <button
           className="btn btn-secondary dropdown-toggle content-button"
           type="button"
+          title="Font Family"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
@@ -145,6 +148,7 @@ export default function TextToolbarControls({
         <button
           className="btn btn-secondary dropdown-toggle content-button"
           type="button"
+          title="Font Size"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
@@ -168,6 +172,7 @@ export default function TextToolbarControls({
         <button
           className="btn btn-secondary dropdown-toggle content-button"
           type="button"
+          title="Line Height"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
@@ -190,6 +195,7 @@ export default function TextToolbarControls({
       <button
         className="btn btn-secondary content-button"
         onClick={() => onReduceIndent()}
+        title="Decrease Indent"
         aria-label="Decrease Indent"
       >
         <i className="fas fa-outdent"></i>
@@ -197,6 +203,7 @@ export default function TextToolbarControls({
       <button
         className="btn btn-secondary content-button"
         onClick={() => onAddIndent()}
+        title="Increase Indent"
         aria-label="Increase Indent"
       >
         <i className="fas fa-indent"></i>

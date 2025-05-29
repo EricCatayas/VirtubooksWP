@@ -32,7 +32,7 @@ export default function PageToolbar({
         <button
           className="btn btn-danger content-button"
           onClick={onDelete}
-          title="Delete Page"
+          title="Delete Page (Warning: deletes two sides of the page)"
         >
           <i className="fas fa-trash"></i>
         </button>

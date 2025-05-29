@@ -15,6 +15,7 @@ export default function ContentToolbar({
         <button
           className="btn btn-secondary content-button"
           onClick={() => onMoveUp()}
+          title="Move Up"
           aria-label="Move Up"
         >
           <i className="fas fa-arrow-up"></i>
@@ -22,6 +23,7 @@ export default function ContentToolbar({
         <button
           className="btn btn-secondary content-button"
           onClick={() => onMoveDown()}
+          title="Move Down"
           aria-label="Move Down"
         >
           <i className="fas fa-arrow-down"></i>
@@ -33,10 +35,33 @@ export default function ContentToolbar({
         <button
           className="btn btn-danger content-button"
           onClick={() => onDeleteContent()}
+          title="Delete Content"
           aria-label="Delete Content"
         >
           <i className="fas fa-trash"></i>
         </button>
+        <div className="dropdown">
+          <button
+            className="btn btn-secondary content-button"
+            onClick={() => console.log("Edit Content")}
+            title="Settings"
+            data-bs-toggle="dropdown"
+            aria-label="Settings"
+          >
+            <i className="fas fa-cog"></i>
+          </button>
+          <ul className="dropdown-menu">
+            {/* <li>
+              <a
+                className="dropdown-item"
+                href="#"
+                onClick={() => console.log("todo")}
+              >
+                Duplicate Content
+              </a>
+            </li> */}
+          </ul>
+        </div>
       </div>
     </section>
   );
