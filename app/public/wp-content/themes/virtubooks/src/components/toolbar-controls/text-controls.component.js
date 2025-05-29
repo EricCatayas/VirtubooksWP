@@ -36,6 +36,13 @@ export default function TextToolbarControls({
       </button>
       <button
         className="btn btn-secondary content-button"
+        onClick={() => onUpdateStyle({ textDecoration: "line-through" })}
+        aria-label="Strikethrough Text"
+      >
+        <i className="fas fa-strikethrough"></i>
+      </button>
+      <button
+        className="btn btn-secondary content-button"
         onClick={() => onUpdateStyle({ textAlign: "left" })}
         aria-label="Align Left"
       >
@@ -133,17 +140,17 @@ export default function TextToolbarControls({
       </div>
       <button
         className="btn btn-secondary content-button"
-        onClick={() => onAddIndent()}
-        aria-label="Increase Indent"
-      >
-        <i className="fas fa-indent"></i>
-      </button>
-      <button
-        className="btn btn-secondary content-button"
         onClick={() => onReduceIndent()}
         aria-label="Decrease Indent"
       >
         <i className="fas fa-outdent"></i>
+      </button>
+      <button
+        className="btn btn-secondary content-button"
+        onClick={() => onAddIndent()}
+        aria-label="Increase Indent"
+      >
+        <i className="fas fa-indent"></i>
       </button>
     </>
   );
