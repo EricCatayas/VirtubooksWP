@@ -169,10 +169,18 @@ export default function NotebookComponent() {
             return (
               <section key={idx} className={`page ${pageState(pageNum)}`}>
                 {frontPage && (
-                  <NotebookPage page={frontPage} className={"front"} />
+                  <NotebookPage
+                    page={frontPage}
+                    pageIdx={pageNum}
+                    className={"front"}
+                  />
                 )}
                 {backPage && (
-                  <NotebookPage page={backPage} className={"back"} />
+                  <NotebookPage
+                    page={backPage}
+                    pageIdx={pageNum + 1}
+                    className={"back"}
+                  />
                 )}
               </section>
             );

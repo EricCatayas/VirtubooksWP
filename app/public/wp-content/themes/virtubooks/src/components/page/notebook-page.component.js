@@ -5,17 +5,27 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   insertBlankPage,
+  duplicatePage,
   deletePage,
+  setStartPage,
+  setEndPage,
+  updatePageNumbering,
   addContent,
   deleteContent,
   updateContent,
 } from "../../features/notebookSlice";
 import "./notebook-page.styles.css";
 
-export default function NotebookPage({ page, className, isReadOnly = false }) {
+export default function NotebookPage({
+  page,
+  pageIdx,
+  className,
+  isReadOnly = false,
+}) {
   const dispatch = useDispatch();
   const pageId = page.id;
   const [isFocused, setIsFocused] = useState(false);
+  const isFrontPage = pageIdx % 2 === 0;
 
   // todo: content type
   const handleAddContent = (contentIdx, type) => {
@@ -135,10 +145,33 @@ export default function NotebookPage({ page, className, isReadOnly = false }) {
   const handleDeletePage = () => {
     dispatch(deletePage({ pageId }));
   };
+  const handleDuplicatePage = () => {
+    dispatch(duplicatePage({ pageId }));
+  };
+  const handleBookmarkPage = () => {
+    // save to local storage
+    // e.g., url/notebook/slug/page
+    console.log("Bookmark Page");
+  };
+  const handleSetStartPage = () => {
+    dispatch(setStartPage({ pageId }));
+    dispatch(updatePageNumbering());
+  };
+  const handleSetEndPage = () => {
+    dispatch(setEndPage({ pageId }));
+    dispatch(updatePageNumbering());
+  };
+  const handleSetNotebookSettings = () => {
+    console.log("Set Notebook Settings");
+    // navigate to notebook settings page in new tab
+  };
   const handleSetBackgroundImage = () => {
+    // open image uploads modal
+    // only authorized users can access this
     console.log("Set Background Image");
   };
   const handleSaveChanges = () => {
+    // send post request to wordpress API to save changes
     console.log("Save Changes");
   };
 
@@ -152,8 +185,18 @@ export default function NotebookPage({ page, className, isReadOnly = false }) {
           <PageToolbar
             onInsert={handleInsertPage}
             onDelete={handleDeletePage}
+            onDuplicate={handleDuplicatePage}
+            onBookmark={handleBookmarkPage}
+            onSetStartPage={handleSetStartPage}
+            onSetEndPage={handleSetEndPage}
+            onSetNotebookSettings={handleSetNotebookSettings}
             onSetBackgroundImage={handleSetBackgroundImage}
             onSave={handleSaveChanges}
+            style={
+              isFrontPage
+                ? {}
+                : { left: 10, transform: "translateZ(0) rotateY(180deg)" }
+            }
           />
         </div>
       )}
@@ -174,46 +217,47 @@ export default function NotebookPage({ page, className, isReadOnly = false }) {
         onClick={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       >
-        <div className="page-content">
-          <div className="page-header">
-            {page.header && (
-              <header>
-                <h6>{page.header}</h6>
-              </header>
-            )}
-          </div>
-          <div className="page-body">
-            {page.contents.map((content, idx) => (
-              <PageContent
-                key={idx}
-                content={content}
-                isReadOnly={isReadOnly}
-                onInputChange={(value) => handleInputChange(idx, value)}
-                onAddContent={(type) => handleAddContent(idx, type)}
-                onDeleteContent={() => handleDeleteContent(idx)}
-                onUpdateStyle={(style) => handleUpdateStyle(idx, style)}
-                onMoveUp={() => handleMoveUp(idx)}
-                onMoveDown={() => handleMoveDown(idx)}
-                onImageUpload={(file) => handleImageUpload(idx, file)}
-                onAddIndent={() => handleAddIndent(idx)}
-                onReduceIndent={() => handleReduceIndent(idx)}
-              />
-            ))}
-            {page.contents.length === 0 && !isReadOnly && isFocused && (
-              <AddContentToolbar
-                onAddContent={(type) => handleAddContent(0, type)}
-                toolbarControls={<div>Add New</div>}
-              />
-            )}
-          </div>
-          <div className="page-footer">
-            {page.footer && (
-              <footer>
-                <h6>{page.footer}</h6>
-              </footer>
-            )}
-          </div>
-        </div>
+        <section className="page-header">
+          {/* {page.header && ( <PageHeader /> )}  */}
+        </section>
+        <section className="page-body">
+          {page.contents.map((content, idx) => (
+            <PageContent
+              key={idx}
+              content={content}
+              isReadOnly={isReadOnly}
+              onInputChange={(value) => handleInputChange(idx, value)}
+              onAddContent={(type) => handleAddContent(idx, type)}
+              onDeleteContent={() => handleDeleteContent(idx)}
+              onUpdateStyle={(style) => handleUpdateStyle(idx, style)}
+              onMoveUp={() => handleMoveUp(idx)}
+              onMoveDown={() => handleMoveDown(idx)}
+              onImageUpload={(file) => handleImageUpload(idx, file)}
+              onAddIndent={() => handleAddIndent(idx)}
+              onReduceIndent={() => handleReduceIndent(idx)}
+            />
+          ))}
+          {page.contents.length === 0 && !isReadOnly && isFocused && (
+            <AddContentToolbar
+              onAddContent={(type) => handleAddContent(0, type)}
+              toolbarControls={<div>Add New</div>}
+            />
+          )}
+        </section>
+        <section className="page-footer">
+          {/* {page.footer && ( <PageFooter /> )} */}
+          {page.pageNumber && (
+            <div
+              className="page-number"
+              style={{
+                display: "flex",
+                justifyContent: isFrontPage ? "flex-end" : "flex-start",
+              }}
+            >
+              <span>{page.pageNumber}</span>
+            </div>
+          )}
+        </section>
       </div>
     </>
   );
