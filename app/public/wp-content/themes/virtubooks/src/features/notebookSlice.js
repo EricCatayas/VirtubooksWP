@@ -18,6 +18,7 @@ export const notebookSlice = createSlice({
       const newState = action.payload;
       state.id = newState.id;
       state.title = newState.title;
+      state.aspectRatio = newState.aspectRatio;
       state.visibility = newState.visibility;
       state.pages = newState.pages.map((page) => ({
         ...page,

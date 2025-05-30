@@ -22,6 +22,7 @@ export default function NotebookComponent() {
   const notebookData = {
     id: "notebook-1",
     title: "Virtubooks Notebook",
+    aspectRatio: "6:9",
     pages: [
       {
         id: "0",
@@ -161,7 +162,7 @@ export default function NotebookComponent() {
         &#8592;
       </span>
       <div className="scene">
-        <article className="book">
+        <article className="book" data-aspect-ratio={notebook.aspectRatio}>
           {Array.from({ length: Math.ceil(pages.length / 2) }).map((_, idx) => {
             const pageNum = idx * 2;
             const frontPage = pages[pageNum];
