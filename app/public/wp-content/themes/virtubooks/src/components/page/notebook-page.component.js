@@ -20,6 +20,7 @@ export default function NotebookPage({
   page,
   pageIdx,
   className,
+  styles = {},
   isReadOnly = false,
 }) {
   const dispatch = useDispatch();
@@ -202,16 +203,18 @@ export default function NotebookPage({
       )}
       <div
         className={className} // e.g. front, or back
-        style={
-          page.backgroundImageURL
+        style={{
+          ...(page.backgroundImageURL
             ? {
                 backgroundImage: `url(${page.backgroundImageURL})`,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
               }
-            : undefined
-        }
+            : {}),
+          ...styles,
+          ...(page.styles || {}),
+        }}
         onMouseEnter={() => setIsFocused(true)}
         onMouseLeave={() => setIsFocused(false)}
         onClick={() => setIsFocused(true)}

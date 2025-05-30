@@ -6,6 +6,8 @@ const initialState = {
   title: "",
   pages: [],
   currentPage: 0, // todo
+  visibility: "",
+  aspectRatio: "",
   isReadOnly: false,
   isLoading: false,
 };
@@ -20,6 +22,7 @@ export const notebookSlice = createSlice({
       state.title = newState.title;
       state.aspectRatio = newState.aspectRatio;
       state.visibility = newState.visibility;
+      state.styles = newState.styles || {};
       state.pages = newState.pages.map((page) => ({
         ...page,
         contents: page.contents.map((content) => ({

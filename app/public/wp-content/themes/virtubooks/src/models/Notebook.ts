@@ -4,11 +4,11 @@ export type Notebook = {
   title: string;
   description?: string;
   visibillity?: "public" | "private";
-  coverImageURL?: string; // use first page's backgroundImageURL if not provided
   author?: string;
   aspectRatio?: "6:9" | "13:20" | "3:5" | "7:9" | "1:1";
   createdAt: string;
   updatedAt: string;
+  styles?: { [key: string]: string | number };
   pages: Page[];
 };
 

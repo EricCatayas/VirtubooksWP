@@ -23,12 +23,11 @@ export default function NotebookComponent() {
     id: "notebook-1",
     title: "Virtubooks Notebook",
     aspectRatio: "6:9",
+    styles: { padding: "10% 5% 5%", color: "black" },
     pages: [
       {
         id: "0",
         type: "cover",
-        header: "Erin E. Sullivan",
-        footer: "Virtubooks",
         backgroundImageURL:
           "https://unlimitedworks.blob.core.windows.net/conquest/single-image.jpg",
         contents: [
@@ -40,7 +39,6 @@ export default function NotebookComponent() {
       {
         id: "1",
         type: "cover",
-        header: "Book Layout",
         contents: [
           { value: "This is back side of the front cover", type: "paragraph" },
         ],
@@ -173,6 +171,7 @@ export default function NotebookComponent() {
                   <NotebookPage
                     page={frontPage}
                     pageIdx={pageNum}
+                    styles={notebook.styles}
                     className={"front"}
                   />
                 )}
@@ -180,6 +179,7 @@ export default function NotebookComponent() {
                   <NotebookPage
                     page={backPage}
                     pageIdx={pageNum + 1}
+                    styles={notebook.styles}
                     className={"back"}
                   />
                 )}

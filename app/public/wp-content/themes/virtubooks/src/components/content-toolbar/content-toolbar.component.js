@@ -8,9 +8,16 @@ export default function ContentToolbar({
   onMoveUp,
   onMoveDown,
   toolbarControls,
+  styles = {},
 }) {
   return (
-    <section className="content-toolbar">
+    <section
+      className="content-toolbar"
+      style={{
+        color: "black",
+        ...styles,
+      }}
+    >
       <div className="d-flex align-items-center gap-2 justify-content-start">
         <button
           className="btn btn-secondary content-button"

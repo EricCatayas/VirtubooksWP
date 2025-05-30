@@ -24,6 +24,7 @@ export default function PageToolbar({
         display: "flex",
         gap: "0.5em",
         pointerEvents: "auto",
+        color: "black",
         ...style,
       }}
     >
