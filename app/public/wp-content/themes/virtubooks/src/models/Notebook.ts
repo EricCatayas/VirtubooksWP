@@ -12,11 +12,12 @@ export type Notebook = {
 export interface Page {
   id: string;
   type: "cover" | "sheet";
-  // side: "front" | "back";
-  pageNumber?: number;
   header?: string;
   footer?: string;
+  isNumberedPage?: boolean;
+  pageNumber?: number; // 1-based index
   backgroundImageURL?: string;
+  styles?: { [key: string]: string | number };
   contents: ContentBlock[];
 }
 
