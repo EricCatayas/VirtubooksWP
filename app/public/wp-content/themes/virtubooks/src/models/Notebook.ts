@@ -14,9 +14,8 @@ export type Notebook = {
 
 export interface Page {
   id: string;
-  type: "cover" | "sheet";
-  header?: any;
-  footer?: any;
+  idx: number; // 0-based index
+  notebookId: string;
   isNumberedPage?: boolean;
   pageNumber?: number; // 1-based index
   backgroundImageURL?: string;
@@ -26,6 +25,6 @@ export interface Page {
 
 export interface ContentBlock {
   value: string;
-  type: "title" | "paragraph" | "image" | "list";
-  styles?: { [key: string]: string | number }; // e.g. { text-align: "center" }
+  type: "heading" | "paragraph" | "image";
+  styles?: { [key: string]: string | number }; // e.g. { textAlign: "center" }
 }

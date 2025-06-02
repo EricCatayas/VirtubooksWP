@@ -27,7 +27,6 @@ export default function NotebookComponent() {
     pages: [
       {
         id: "0",
-        type: "cover",
         backgroundImageURL:
           "https://unlimitedworks.blob.core.windows.net/conquest/single-image.jpg",
         contents: [
@@ -38,14 +37,12 @@ export default function NotebookComponent() {
       },
       {
         id: "1",
-        type: "cover",
         contents: [
           { value: "This is back side of the front cover", type: "paragraph" },
         ],
       },
       {
         id: "2",
-        type: "sheet",
         contents: [
           { value: "– 1 –", type: "heading" },
           {
@@ -62,7 +59,6 @@ export default function NotebookComponent() {
       },
       {
         id: "3",
-        type: "sheet",
         contents: [
           {
             value: "– 2 –",
@@ -72,7 +68,6 @@ export default function NotebookComponent() {
       },
       {
         id: "4",
-        type: "sheet",
         contents: [
           { value: "– 3 –", type: "heading" },
           {
@@ -89,7 +84,6 @@ export default function NotebookComponent() {
       },
       {
         id: "5",
-        type: "sheet",
         contents: [
           { value: "– 4 –", type: "heading" },
           {
@@ -106,14 +100,12 @@ export default function NotebookComponent() {
       },
       {
         id: "6",
-        type: "cover",
         contents: [
           { value: "This is back side of the back cover", type: "paragraph" },
         ],
       },
       {
         id: "7",
-        type: "cover",
         contents: [
           { value: "– BACK COVER –", type: "heading" },
           { value: "This is back cover of the book", type: "paragraph" },
