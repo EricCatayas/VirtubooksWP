@@ -1,4 +1,5 @@
 import NotebookComponent from "../components/notebook/notebook.component";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
@@ -15,7 +16,11 @@ class Notebook {
       const root = createRoot(container);
       root.render(
         <Provider store={store}>
-          <NotebookComponent />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/notebooks/:id" element={<NotebookComponent />} />
+            </Routes>
+          </BrowserRouter>
         </Provider>
       );
     }
