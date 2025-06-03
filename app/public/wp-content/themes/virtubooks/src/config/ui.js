@@ -52,3 +52,16 @@ export const lineHeightOptions = [
   { label: "2.5", value: "2.5" },
   { label: "3.0", value: "3.0" },
 ];
+
+export const aspectRatioOptions = [
+  { label: "6:9", value: "6:9" },
+  { label: "13:20", value: "13:20" },
+  { label: "3:5", value: "3:5" },
+  { label: "7:9", value: "7:9" },
+  { label: "1:1", value: "1:1" },
+];
+
+export const visibilityOptions = [
+  { label: "Public", value: "public" },
+  { label: "Private", value: "private" },
+];
