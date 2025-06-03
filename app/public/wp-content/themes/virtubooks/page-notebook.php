@@ -1,7 +1,7 @@
 <?php
 get_header();
 ?>
-<div id="notebook-app-root"></div>
+<div>todo: Display User Notebooks</div>
 <?php
 get_footer();
 ?>
