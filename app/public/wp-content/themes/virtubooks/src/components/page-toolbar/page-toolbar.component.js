@@ -5,7 +5,6 @@ export default function PageToolbar({
   onDelete,
   onDuplicate,
   onBookmark,
-  onSave,
   onClear,
   onSetStartPage,
   onSetEndPage,
@@ -57,13 +56,7 @@ export default function PageToolbar({
         >
           <i className="fas fa-image"></i>
         </button>
-        <button
-          className="btn btn-primary content-button"
-          onClick={onSave}
-          title="Save Changes"
-        >
-          <i className="fas fa-save"></i>
-        </button>
+
         <button
           className="btn btn-primary content-button"
           onClick={onClear}

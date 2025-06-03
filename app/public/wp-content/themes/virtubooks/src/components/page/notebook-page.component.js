@@ -171,10 +171,6 @@ export default function NotebookPage({
     // only authorized users can access this
     console.log("Set Background Image");
   };
-  const handleSaveChanges = () => {
-    // send post request to wordpress API to save changes
-    console.log("Save Changes");
-  };
 
   return (
     <>
@@ -192,7 +188,6 @@ export default function NotebookPage({
             onSetEndPage={handleSetEndPage}
             onSetNotebookSettings={handleSetNotebookSettings}
             onSetBackgroundImage={handleSetBackgroundImage}
-            onSave={handleSaveChanges}
             style={
               isFrontPage
                 ? {}
