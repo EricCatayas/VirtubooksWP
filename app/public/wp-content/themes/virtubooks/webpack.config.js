@@ -1,4 +1,5 @@
 const defaultConfig = require("@wordpress/scripts/config/webpack.config");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   ...defaultConfig,
@@ -7,4 +8,5 @@ module.exports = {
     react: "React",
     "react-dom": "ReactDOM",
   },
+  plugins: [...defaultConfig.plugins, new Dotenv()],
 };
