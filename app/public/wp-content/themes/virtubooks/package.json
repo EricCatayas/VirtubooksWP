@@ -19,5 +19,8 @@
     "axios": "^0.21.1",
     "jquery": "^3.7.1",
     "react-redux": "^9.2.0"
+  },
+  "devDependencies": {
+    "dotenv-webpack": "^8.1.0"
   }
 }
