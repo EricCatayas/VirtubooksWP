@@ -41,3 +41,26 @@ function app_features()
 add_action('wp_enqueue_scripts', 'app_files');
 
 add_action('after_setup_theme', 'app_features');
+
+
+add_action('init', function () {
+  add_rewrite_rule(
+    '^notebooks/([^/]+)/?$',
+    'index.php?pagename=notebooks&notebook_id=$matches[1]',
+    'top'
+  );
+});
+
+add_filter('query_vars', function ($vars) {
+  $vars[] = 'notebook_id';
+  return $vars;
+});
+
+// When you visit /notebooks/:id, WordPress will load single-notebook.php.
+// You can get the notebook ID with get_query_var('notebook_id').
+add_action('template_redirect', function () {
+  if (get_query_var('notebook_id')) {
+    include get_template_directory() . '/single-notebook.php';
+    exit;
+  }
+});
