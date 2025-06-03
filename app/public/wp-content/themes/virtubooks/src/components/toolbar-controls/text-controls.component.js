@@ -12,6 +12,7 @@ export default function TextToolbarControls({
   onAddIndent,
   onReduceIndent,
   fontSizeOptions = defaultfontSizeOptions,
+  showIndentButtons = true,
 }) {
   const getTextAlignIcon = (value) => {
     if (value) {
@@ -33,7 +34,7 @@ export default function TextToolbarControls({
     <>
       <div className="dropdown">
         <button
-          className="btn btn-secondary dropdown-toggle content-button"
+          className="btn btn-secondary dropdown-toggle vb-button"
           type="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
@@ -98,7 +99,7 @@ export default function TextToolbarControls({
       </div>
       <div className="dropdown">
         <button
-          className="btn btn-secondary dropdown-toggle content-button"
+          className="btn btn-secondary dropdown-toggle vb-button"
           type="button"
           title="Text Alignment"
           data-bs-toggle="dropdown"
@@ -122,7 +123,7 @@ export default function TextToolbarControls({
       </div>
       <div className="dropdown">
         <button
-          className="btn btn-secondary dropdown-toggle content-button"
+          className="btn btn-secondary dropdown-toggle vb-button"
           type="button"
           title="Font Family"
           data-bs-toggle="dropdown"
@@ -146,7 +147,7 @@ export default function TextToolbarControls({
       </div>
       <div className="dropdown">
         <button
-          className="btn btn-secondary dropdown-toggle content-button"
+          className="btn btn-secondary dropdown-toggle vb-button"
           type="button"
           title="Font Size"
           data-bs-toggle="dropdown"
@@ -170,7 +171,7 @@ export default function TextToolbarControls({
       </div>
       <div className="dropdown">
         <button
-          className="btn btn-secondary dropdown-toggle content-button"
+          className="btn btn-secondary dropdown-toggle vb-button"
           type="button"
           title="Line Height"
           data-bs-toggle="dropdown"
@@ -192,22 +193,26 @@ export default function TextToolbarControls({
           ))}
         </ul>
       </div>
-      <button
-        className="btn btn-secondary content-button"
-        onClick={() => onReduceIndent()}
-        title="Decrease Indent"
-        aria-label="Decrease Indent"
-      >
-        <i className="fas fa-outdent"></i>
-      </button>
-      <button
-        className="btn btn-secondary content-button"
-        onClick={() => onAddIndent()}
-        title="Increase Indent"
-        aria-label="Increase Indent"
-      >
-        <i className="fas fa-indent"></i>
-      </button>
+      {showIndentButtons && (
+        <>
+          <button
+            className="btn btn-secondary vb-button"
+            onClick={() => onReduceIndent()}
+            title="Decrease Indent"
+            aria-label="Decrease Indent"
+          >
+            <i className="fas fa-outdent"></i>
+          </button>
+          <button
+            className="btn btn-secondary vb-button"
+            onClick={() => onAddIndent()}
+            title="Increase Indent"
+            aria-label="Increase Indent"
+          >
+            <i className="fas fa-indent"></i>
+          </button>
+        </>
+      )}
     </>
   );
 }
