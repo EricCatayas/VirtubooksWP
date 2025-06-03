@@ -29,28 +29,28 @@ export default function PageToolbar({
     >
       <div className="d-flex align-items-center gap-2 justify-content-start">
         <button
-          className="btn btn-secondary content-button"
+          className="btn btn-secondary vb-button"
           onClick={onInsert}
           title="Insert New Page"
         >
           <i className="fas fa-plus"></i>
         </button>
         <button
-          className="btn btn-secondary content-button"
+          className="btn btn-secondary vb-button"
           onClick={onDuplicate}
           title="Duplicate Page"
         >
           <i className="fas fa-copy"></i>
         </button>
         <button
-          className="btn btn-secondary content-button"
+          className="btn btn-secondary vb-button"
           onClick={onBookmark}
           title="Bookmark Page"
         >
           <i className="fas fa-bookmark"></i>
         </button>
         <button
-          className="btn btn-secondary content-button"
+          className="btn btn-secondary vb-button"
           onClick={onSetBackgroundImage}
           title="Set Background Image"
         >
@@ -58,14 +58,14 @@ export default function PageToolbar({
         </button>
 
         <button
-          className="btn btn-primary content-button"
+          className="btn btn-primary vb-button"
           onClick={onClear}
           title="Clear Page"
         >
           <i className="fas fa-eraser"></i>
         </button>
         <button
-          className="btn btn-danger content-button"
+          className="btn btn-danger vb-button"
           onClick={onDelete}
           title="Delete Page (Warning: deletes two sides of the page)"
         >
@@ -73,7 +73,7 @@ export default function PageToolbar({
         </button>
         <div className="dropdown">
           <button
-            className="btn btn-secondary content-button"
+            className="btn btn-secondary vb-button"
             title="Settings"
             data-bs-toggle="dropdown"
             aria-label="Settings"

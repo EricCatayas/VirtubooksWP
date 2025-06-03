@@ -5,7 +5,7 @@ export default function AddContentControl({ onAddContent }) {
   return (
     <div className="dropdown">
       <button
-        className="btn btn-secondary dropdown-toggle content-button"
+        className="btn btn-secondary dropdown-toggle vb-button"
         type="button"
         data-bs-toggle="dropdown"
         aria-expanded="false"

@@ -20,7 +20,7 @@ export default function ContentToolbar({
     >
       <div className="d-flex align-items-center gap-2 justify-content-start">
         <button
-          className="btn btn-secondary content-button"
+          className="btn btn-secondary vb-button"
           onClick={() => onMoveUp()}
           title="Move Up"
           aria-label="Move Up"
@@ -28,7 +28,7 @@ export default function ContentToolbar({
           <i className="fas fa-arrow-up"></i>
         </button>
         <button
-          className="btn btn-secondary content-button"
+          className="btn btn-secondary vb-button"
           onClick={() => onMoveDown()}
           title="Move Down"
           aria-label="Move Down"
@@ -40,35 +40,13 @@ export default function ContentToolbar({
 
         <AddContentControl onAddContent={(type) => onAddContent(type)} />
         <button
-          className="btn btn-danger content-button"
+          className="btn btn-danger vb-button"
           onClick={() => onDeleteContent()}
           title="Delete Content"
           aria-label="Delete Content"
         >
           <i className="fas fa-trash"></i>
         </button>
-        <div className="dropdown">
-          <button
-            className="btn btn-secondary content-button"
-            onClick={() => console.log("Edit Content")}
-            title="Settings"
-            data-bs-toggle="dropdown"
-            aria-label="Settings"
-          >
-            <i className="fas fa-cog"></i>
-          </button>
-          <ul className="dropdown-menu">
-            {/* <li>
-              <a
-                className="dropdown-item"
-                href="#"
-                onClick={() => console.log("todo")}
-              >
-                Duplicate Content
-              </a>
-            </li> */}
-          </ul>
-        </div>
       </div>
     </section>
   );

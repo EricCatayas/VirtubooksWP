@@ -11,7 +11,7 @@ export default function MultilineInput({
 }) {
   return (
     <textarea
-      className={`multiline ${className}`}
+      className={`multiline ${className} vb-content`}
       value={value}
       readOnly={isReadOnly}
       style={style}

@@ -43,7 +43,14 @@ textarea {
   font-size: 1.1em;
 }
 
-.content-button {
+.vb-content {
+  font-weight: inherit;
+  font-style: inherit;
+  text-align: inherit;
+  line-height: inherit;
+}
+
+.vb-button {
   font-size: 1rem;
   color: inherit;
   height: auto;

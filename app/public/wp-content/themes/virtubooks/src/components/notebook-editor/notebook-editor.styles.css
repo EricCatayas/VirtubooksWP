@@ -1,3 +1,13 @@
+.notebook-editor {
+  color: black;
+}
+
+.notebook-editor > button,
+.notebook-editor button {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 .notebook-form {
   position: absolute;
   top: 40px;
@@ -10,10 +20,4 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   padding: 16px;
   font-size: 0.95rem;
-}
-
-.notebook-editor > button,
-.notebook-editor button {
-  margin-top: 0;
-  margin-bottom: 0;
 }
