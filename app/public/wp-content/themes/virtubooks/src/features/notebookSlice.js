@@ -32,14 +32,13 @@ export const notebookSlice = createSlice({
     },
     insertPage: (state, action) => {
       const { pageId, newPage } = action.payload;
-      // Find the index of the page to insert after
       const pageIndex = state.pages.findIndex((p) => p.id === pageId);
 
       if (pageIndex !== -1) {
         // Insert the new page after the specified page
         state.pages.splice(pageIndex + 1, 0, {
           ...newPage,
-          id: uuidv4(), // Generate a new unique ID for the inserted page
+          id: uuidv4(),
           contents: newPage.contents.map((content) => ({
             ...content,
           })),
@@ -56,7 +55,6 @@ export const notebookSlice = createSlice({
     },
     insertBlankPage: (state, action) => {
       const { pageId } = action.payload;
-      // Find the index of the page to insert after
       const pageIndex = state.pages.findIndex((p) => p.id === pageId);
 
       if (pageIndex !== -1) {
@@ -84,7 +82,7 @@ export const notebookSlice = createSlice({
         const pageToDuplicate = state.pages[pageIndex];
         const newPage = {
           ...pageToDuplicate,
-          id: uuidv4(), // Generate a new unique ID for the duplicated page
+          id: uuidv4(),
           contents: pageToDuplicate.contents.map((content) => ({
             ...content,
           })),
@@ -106,9 +104,8 @@ export const notebookSlice = createSlice({
       const page = state.pages.find((p) => p.id === pageId);
       if (page) {
         page.contents = [];
-        page.backgroundImage = null; // Clear background image if any
-        page.styles = {}; // Clear styles if any
-        // Reset any other properties as needed
+        page.backgroundImage = null;
+        page.styles = {};
       }
     },
     deletePage: (state, action) => {
