@@ -18,7 +18,8 @@
     "@wordpress/scripts": "*",
     "axios": "^0.21.1",
     "jquery": "^3.7.1",
-    "react-redux": "^9.2.0"
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.6.1"
   },
   "devDependencies": {
     "dotenv-webpack": "^8.1.0"
