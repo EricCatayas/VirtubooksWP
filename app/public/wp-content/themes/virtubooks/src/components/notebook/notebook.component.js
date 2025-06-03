@@ -1,17 +1,9 @@
 import NotebookPage from "../page/notebook-page.component";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setNotebookState } from "../../features/notebookSlice";
-import { useParams } from "react-router-dom";
-import NotebookService from "../../services/notebookService";
 import "./notebook.styles.css";
 
-export default function NotebookComponent() {
-  const notebookService = new NotebookService();
-  const dispatch = useDispatch();
-  const { id } = useParams();
-  const notebook = useSelector((state) => state.notebook);
+export default function NotebookComponent({ notebook, isReadOnly }) {
   const [currentPage, setCurrentPage] = useState(0);
   const pages = notebook.pages || [];
 
@@ -21,13 +13,6 @@ export default function NotebookComponent() {
       : currentPage > page
       ? "flipped"
       : "inactive";
-
-  useEffect(async () => {
-    if (!notebook.id) {
-      const fetchedNotebook = await notebookService.getNotebook(id);
-      dispatch(setNotebookState(fetchedNotebook));
-    }
-  }, [dispatch]);
 
   const pageLength = pages.length;
 
@@ -70,6 +55,7 @@ export default function NotebookComponent() {
                     pageIdx={pageNum}
                     styles={notebook.styles}
                     className={"front"}
+                    isReadOnly={isReadOnly}
                   />
                 )}
                 {backPage && (
@@ -78,6 +64,7 @@ export default function NotebookComponent() {
                     pageIdx={pageNum + 1}
                     styles={notebook.styles}
                     className={"back"}
+                    isReadOnly={isReadOnly}
                   />
                 )}
               </section>
