@@ -1,0 +1,288 @@
+import NotebookComponent from "../notebook/notebook.component";
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { setNotebookState } from "../../features/notebookSlice";
+import { aspectRatioOptions, visibilityOptions } from "../../config/ui";
+import NotebookService from "../../services/notebookService";
+import "./notebook-editor.styles.css";
+
+export default function NotebookEditor() {
+  const dispatch = useDispatch();
+  const { id: notebookId } = useParams();
+  const notebook = useSelector((state) => state.notebook);
+  const [isReadOnly, setIsReadOnly] = useState(false);
+  const [isOwner, setIsOwner] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const notebookService = new NotebookService();
+
+  useEffect(async () => {
+    if (!notebook.id) {
+      const fetchedNotebook = await notebookService.getNotebook(notebookId);
+      dispatch(setNotebookState(fetchedNotebook));
+      // todo: if current user is not the owner, set read-only mode
+    }
+  }, [dispatch]);
+
+  const toggleReadOnly = () => {
+    setIsReadOnly((prev) => !prev);
+  };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
+
+  const handleUpdateField = (field, value) => {
+    if (!isReadOnly) {
+      dispatch(setNotebookState({ ...notebook, [field]: value }));
+    }
+  };
+
+  const handleSave = async () => {
+    try {
+      await notebookService.updateNotebook(notebook);
+      alert("Notebook saved successfully!");
+    } catch (error) {
+      console.error("Error saving notebook:", error);
+      alert("Failed to save notebook. Please try again.");
+    }
+  };
+
+  const handleRevertChanges = () => {
+    window.location.reload();
+  };
+
+  return (
+    <>
+      {/* todo:  
+      styles: font, color, background, text alignment,
+      buttons: toggle read-only,
+      save, delete
+      optional: bookmarks */}
+      <div className="notebook-editor">
+        <div className="top-content">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-md-6">
+                <div className="left-element">
+                  <button
+                    className="btn btn-sm btn-primary"
+                    onClick={toggleDropdown}
+                  >
+                    <i className="fa-solid fa-book"></i>
+                  </button>
+                  {isDropdownOpen && (
+                    <div className="notebook-form">
+                      <form>
+                        <div className="mb-2">
+                          <label
+                            htmlFor="title"
+                            className="form-label"
+                            style={{ fontSize: "0.95em" }}
+                          >
+                            Title
+                          </label>
+                          <input
+                            type="text"
+                            id="title"
+                            className="form-control form-control-sm"
+                            value={notebook.title || ""}
+                            onChange={(e) => {
+                              if (!isReadOnly) {
+                                handleUpdateField("title", e.target.value);
+                              }
+                            }}
+                            style={{ fontSize: "0.95em" }}
+                            disabled={isReadOnly}
+                          />
+                        </div>
+                        <div className="mb-2">
+                          <label
+                            htmlFor="description"
+                            className="form-label"
+                            style={{ fontSize: "0.95em" }}
+                          >
+                            Description
+                          </label>
+                          <textarea
+                            id="description"
+                            className="form-control form-control-sm"
+                            value={notebook.description || ""}
+                            onChange={(e) => {
+                              if (!isReadOnly) {
+                                handleUpdateField(
+                                  "description",
+                                  e.target.value
+                                );
+                              }
+                            }}
+                            style={{ fontSize: "0.95em" }}
+                            rows={2}
+                            disabled={isReadOnly}
+                          />
+                        </div>
+                        <div className="mb-2">
+                          <label
+                            htmlFor="author"
+                            className="form-label"
+                            style={{ fontSize: "0.95em" }}
+                          >
+                            Author
+                          </label>
+                          <input
+                            type="text"
+                            id="author"
+                            className="form-control form-control-sm"
+                            value={notebook.author || ""}
+                            onChange={(e) => {
+                              if (!isReadOnly) {
+                                handleUpdateField("author", e.target.value);
+                              }
+                            }}
+                            style={{ fontSize: "0.95em" }}
+                            disabled={isReadOnly}
+                          />
+                        </div>
+                        <div className="mb-2">
+                          <label
+                            htmlFor="visibility"
+                            className="form-label"
+                            style={{ fontSize: "0.95em" }}
+                          >
+                            Visibility
+                          </label>
+                          <select
+                            id="visibility"
+                            className="form-select form-select-sm"
+                            value={notebook.visibillity || ""}
+                            onChange={(e) => {
+                              if (!isReadOnly) {
+                                handleUpdateField("visibility", e.target.value);
+                              }
+                            }}
+                            style={{ fontSize: "0.95em" }}
+                            disabled={isReadOnly}
+                          >
+                            <option value="">Select visibility</option>
+                            {visibilityOptions.map((option) => (
+                              <option
+                                key={option.value}
+                                value={option.value}
+                                selected={option.value === notebook.visibility}
+                              >
+                                {option.label}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <div className="mb-2">
+                          <label
+                            htmlFor="aspectRatio"
+                            className="form-label"
+                            style={{ fontSize: "0.95em" }}
+                          >
+                            Aspect Ratio
+                          </label>
+                          <select
+                            id="aspectRatio"
+                            className="form-select form-select-sm"
+                            value={notebook.aspectRatio || ""}
+                            onChange={(e) => {
+                              if (!isReadOnly) {
+                                handleUpdateField(
+                                  "aspectRatio",
+                                  e.target.value
+                                );
+                              }
+                            }}
+                            style={{ fontSize: "0.95em" }}
+                            disabled={isReadOnly}
+                          >
+                            <option value="">Select aspect ratio</option>
+                            {aspectRatioOptions.map((option) => (
+                              <option
+                                key={option.value}
+                                value={option.value}
+                                selected={option.value === notebook.aspectRatio}
+                              >
+                                {option.label}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-primary"
+                          onClick={() => setIsDropdownOpen(false)}
+                        >
+                          Close
+                        </button>
+                      </form>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="col-md-5">
+                <div className="center-element">
+                  {!isReadOnly && (
+                    <div className="d-flex align-items-center gap-2 justify-content-end">
+                      <button
+                        className="btn btn-primary content-button"
+                        onClick={handleSave}
+                        title="Save Changes"
+                      >
+                        <i className="fas fa-save"></i>
+                      </button>
+                      <button
+                        className="btn btn-primary content-button"
+                        onClick={handleRevertChanges}
+                        title="Revert Changes"
+                      >
+                        <i className="fas fa-eraser"></i>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="col-md-1">
+                <div className="right-element">
+                  <div className="d-flex align-items-center gap-2 justify-content-end">
+                    {isReadOnly ? (
+                      <label
+                        className="form-check-label"
+                        htmlFor="readOnlyToggle"
+                      >
+                        <i className="fa-regular fa-eye"></i>
+                        Read-Only
+                      </label>
+                    ) : (
+                      <label
+                        className="form-check-label"
+                        htmlFor="readOnlyToggle"
+                      >
+                        <i className="fa-solid fa-pencil"></i>
+                        Editable
+                      </label>
+                    )}
+                    {isOwner && (
+                      <input
+                        type="checkbox"
+                        id="readOnlyToggle"
+                        className="form-check-input"
+                        checked={isReadOnly}
+                        onChange={toggleReadOnly}
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <NotebookComponent notebook={notebook} isReadOnly={isReadOnly} />
+    </>
+  );
+}
