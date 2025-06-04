@@ -10,6 +10,7 @@ const initialState = {
   aspectRatio: "",
   isReadOnly: false,
   isLoading: false,
+  hasChanges: false,
 };
 
 export const notebookSlice = createSlice({
@@ -29,6 +30,11 @@ export const notebookSlice = createSlice({
           ...content,
         })),
       }));
+      state.hasChanges = !state.id
+        ? false
+        : state.id === newState.id
+        ? true
+        : false;
     },
     insertPage: (state, action) => {
       const { pageId, newPage } = action.payload;

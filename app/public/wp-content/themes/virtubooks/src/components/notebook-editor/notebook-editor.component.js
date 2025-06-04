@@ -13,6 +13,7 @@ export default function NotebookEditor() {
   const dispatch = useDispatch();
   const { id: notebookId } = useParams();
   const notebook = useSelector((state) => state.notebook);
+  const hasChanges = useSelector((state) => state.notebook.hasChanges);
   const [isReadOnly, setIsReadOnly] = useState(false);
   const [isOwner, setIsOwner] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -20,12 +21,10 @@ export default function NotebookEditor() {
   const notebookService = new NotebookService();
 
   useEffect(async () => {
-    if (!notebook.id) {
-      const fetchedNotebook = await notebookService.getNotebook(notebookId);
-      dispatch(setNotebookState(fetchedNotebook));
-      // todo: if current user is not the owner, set read-only mode
-    }
-  }, [dispatch]);
+    const fetchedNotebook = await notebookService.getNotebook(notebookId);
+    dispatch(setNotebookState(fetchedNotebook));
+    // todo: if current user is not the owner, set read-only mode and isOwner to false
+  }, [dispatch, notebookId]);
 
   const toggleReadOnly = () => {
     setIsReadOnly((prev) => !prev);
@@ -252,7 +251,7 @@ export default function NotebookEditor() {
               </div>
               <div className="col-md-5">
                 <div className="center-element">
-                  {!isReadOnly && (
+                  {hasChanges && (
                     <div className="d-flex align-items-center gap-2 justify-content-end">
                       <button
                         className="btn btn-small btn-outline-accent borderless my-0"
