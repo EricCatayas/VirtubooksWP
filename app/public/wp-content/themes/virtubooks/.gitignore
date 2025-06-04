@@ -24,3 +24,7 @@ Thumbs.db
 # Environment files
 .env
 .env.local
+
+# Composer dependencies and files
+/vendor/
+composer.lock
