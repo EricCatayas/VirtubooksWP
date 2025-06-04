@@ -3,8 +3,16 @@
   top: 8px;
   right: 8px;
   z-index: 20;
-  padding: 6px 10px;
+  padding: 2px 5px;
   min-width: 180px;
   font-size: 0.95em;
   pointer-events: auto;
+  background-color: #fff;
+  height: 42px;
+  border-radius: 8px;
+
+  width: auto;
+  display: inline-block;
+  min-width: unset;
+  max-width: unset;
 }

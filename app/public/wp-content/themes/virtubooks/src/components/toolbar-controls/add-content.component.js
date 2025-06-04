@@ -5,7 +5,7 @@ export default function AddContentControl({ onAddContent }) {
   return (
     <div className="dropdown">
       <button
-        className="btn btn-secondary dropdown-toggle vb-button"
+        className="btn btn-small btn-outline-accent borderless my-0 dropdown-toggle my-0"
         type="button"
         data-bs-toggle="dropdown"
         aria-expanded="false"
@@ -16,7 +16,7 @@ export default function AddContentControl({ onAddContent }) {
         {contentTypeOptions.map((item) => (
           <li key={item.type}>
             <a
-              className="dropdown-item"
+              className="dropdown-item text-accent"
               href="#"
               onClick={() => onAddContent(item.type)}
             >

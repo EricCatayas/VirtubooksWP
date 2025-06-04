@@ -19,9 +19,9 @@ export default function ContentToolbar({
         ...styles,
       }}
     >
-      <div className="d-flex align-items-center gap-2 justify-content-start">
+      <div className="d-flex align-items-center gap-1">
         <button
-          className="btn btn-secondary vb-button"
+          className="btn btn-small btn-outline-accent borderless my-0"
           onClick={() => onMoveUp()}
           title="Move Up"
           aria-label="Move Up"
@@ -29,7 +29,7 @@ export default function ContentToolbar({
           <i className="fas fa-arrow-up"></i>
         </button>
         <button
-          className="btn btn-secondary vb-button"
+          className="btn btn-small btn-outline-accent borderless my-0"
           onClick={() => onMoveDown()}
           title="Move Down"
           aria-label="Move Down"
@@ -41,7 +41,7 @@ export default function ContentToolbar({
 
         <AddContentControl onAddContent={(type) => onAddContent(type)} />
         <button
-          className="btn btn-danger vb-button"
+          className="btn btn-small btn-outline-accent borderless my-0 btn-danger"
           onClick={() => onDeleteContent()}
           title="Delete Content"
           aria-label="Delete Content"

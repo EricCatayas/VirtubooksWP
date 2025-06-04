@@ -14,43 +14,38 @@ export default function PageToolbar({
 }) {
   return (
     <div
-      className="page-toolbar"
+      className="content-toolbar"
       style={{
         position: "absolute",
         top: 10,
         right: 10,
-        zIndex: 20,
-        display: "flex",
-        gap: "0.5em",
-        pointerEvents: "auto",
-        color: "black",
         ...style,
       }}
     >
-      <div className="d-flex align-items-center gap-2 justify-content-start">
+      <div className="d-flex align-items-center gap-1">
         <button
-          className="btn btn-secondary vb-button"
+          className="btn btn-small btn-outline-accent borderless my-0"
           onClick={onInsert}
           title="Insert New Page"
         >
           <i className="fas fa-plus"></i>
         </button>
         <button
-          className="btn btn-secondary vb-button"
+          className="btn btn-small btn-outline-accent borderless my-0"
           onClick={onDuplicate}
           title="Duplicate Page"
         >
           <i className="fas fa-copy"></i>
         </button>
         <button
-          className="btn btn-secondary vb-button"
+          className="btn btn-small btn-outline-accent borderless my-0"
           onClick={onBookmark}
           title="Bookmark Page"
         >
           <i className="fas fa-bookmark"></i>
         </button>
         <button
-          className="btn btn-secondary vb-button"
+          className="btn btn-small btn-outline-accent borderless my-0"
           onClick={onSetBackgroundImage}
           title="Set Background Image"
         >
@@ -58,14 +53,14 @@ export default function PageToolbar({
         </button>
 
         <button
-          className="btn btn-primary vb-button"
+          className="btn btn-small btn-outline-accent borderless my-0"
           onClick={onClear}
           title="Clear Page"
         >
           <i className="fas fa-eraser"></i>
         </button>
         <button
-          className="btn btn-danger vb-button"
+          className="btn btn-small btn-outline-accent borderless my-0 btn-danger"
           onClick={onDelete}
           title="Delete Page (Warning: deletes two sides of the page)"
         >
@@ -73,7 +68,7 @@ export default function PageToolbar({
         </button>
         <div className="dropdown">
           <button
-            className="btn btn-secondary vb-button"
+            className="btn btn-small btn-outline-accent borderless my-0"
             title="Settings"
             data-bs-toggle="dropdown"
             aria-label="Settings"
@@ -83,7 +78,7 @@ export default function PageToolbar({
           <ul className="dropdown-menu">
             <li>
               <a
-                className="dropdown-item"
+                className="dropdown-item text-accent"
                 href="#"
                 title="Start page numbering in this page"
                 onClick={onSetStartPage}
@@ -93,7 +88,7 @@ export default function PageToolbar({
             </li>
             <li>
               <a
-                className="dropdown-item"
+                className="dropdown-item text-accent"
                 href="#"
                 title="Stop page numbering in this page"
                 onClick={onSetEndPage}
@@ -103,7 +98,7 @@ export default function PageToolbar({
             </li>
             <li>
               <a
-                className="dropdown-item"
+                className="dropdown-item text-accent"
                 href="#"
                 title="Notebook settings"
                 onClick={onSetNotebookSettings}

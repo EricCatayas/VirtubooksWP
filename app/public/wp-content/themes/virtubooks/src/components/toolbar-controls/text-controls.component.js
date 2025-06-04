@@ -34,7 +34,7 @@ export default function TextToolbarControls({
     <>
       <div className="dropdown">
         <button
-          className="btn btn-secondary dropdown-toggle vb-button"
+          className="btn btn-small btn-outline-accent borderless my-0 dropdown-toggle my-0"
           type="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
@@ -45,7 +45,7 @@ export default function TextToolbarControls({
         <ul className="dropdown-menu">
           <li>
             <a
-              className="dropdown-item"
+              className="dropdown-item text-accent"
               href="#"
               onClick={() =>
                 onUpdateStyle({
@@ -58,7 +58,7 @@ export default function TextToolbarControls({
           </li>
           <li>
             <a
-              className="dropdown-item"
+              className="dropdown-item text-accent"
               href="#"
               onClick={() =>
                 onUpdateStyle({
@@ -71,7 +71,7 @@ export default function TextToolbarControls({
           </li>
           <li>
             <a
-              className="dropdown-item"
+              className="dropdown-item text-accent"
               href="#"
               onClick={() =>
                 onUpdateStyle({
@@ -84,7 +84,7 @@ export default function TextToolbarControls({
           </li>
           <li>
             <a
-              className="dropdown-item"
+              className="dropdown-item text-accent"
               href="#"
               onClick={() =>
                 onUpdateStyle({
@@ -99,7 +99,7 @@ export default function TextToolbarControls({
       </div>
       <div className="dropdown">
         <button
-          className="btn btn-secondary dropdown-toggle vb-button"
+          className="btn btn-small btn-outline-accent borderless my-0 dropdown-toggle my-0"
           type="button"
           title="Text Alignment"
           data-bs-toggle="dropdown"
@@ -111,7 +111,7 @@ export default function TextToolbarControls({
           {textAlignOptions.map((option) => (
             <li key={option.value}>
               <a
-                className="dropdown-item"
+                className="dropdown-item text-accent"
                 href="#"
                 onClick={() => onUpdateStyle({ textAlign: option.value })}
               >
@@ -123,7 +123,7 @@ export default function TextToolbarControls({
       </div>
       <div className="dropdown">
         <button
-          className="btn btn-secondary dropdown-toggle vb-button"
+          className="btn btn-small btn-outline-accent borderless my-0 dropdown-toggle my-0"
           type="button"
           title="Font Family"
           data-bs-toggle="dropdown"
@@ -135,7 +135,7 @@ export default function TextToolbarControls({
           {fontFamilyOptions.map((option) => (
             <li key={option.value}>
               <a
-                className="dropdown-item"
+                className="dropdown-item text-accent"
                 href="#"
                 onClick={() => onUpdateStyle({ fontFamily: option.value })}
               >
@@ -147,7 +147,7 @@ export default function TextToolbarControls({
       </div>
       <div className="dropdown">
         <button
-          className="btn btn-secondary dropdown-toggle vb-button"
+          className="btn btn-small btn-outline-accent borderless my-0 dropdown-toggle my-0"
           type="button"
           title="Font Size"
           data-bs-toggle="dropdown"
@@ -159,7 +159,7 @@ export default function TextToolbarControls({
           {fontSizeOptions.map((option) => (
             <li key={option.value}>
               <a
-                className="dropdown-item"
+                className="dropdown-item text-accent"
                 href="#"
                 onClick={() => onUpdateStyle({ fontSize: option.value })}
               >
@@ -171,7 +171,7 @@ export default function TextToolbarControls({
       </div>
       <div className="dropdown">
         <button
-          className="btn btn-secondary dropdown-toggle vb-button"
+          className="btn btn-small btn-outline-accent borderless my-0 dropdown-toggle my-0"
           type="button"
           title="Line Height"
           data-bs-toggle="dropdown"
@@ -183,7 +183,7 @@ export default function TextToolbarControls({
           {lineHeightOptions.map((option) => (
             <li key={option.value}>
               <a
-                className="dropdown-item"
+                className="dropdown-item text-accent"
                 href="#"
                 onClick={() => onUpdateStyle({ lineHeight: option.value })}
               >
@@ -196,7 +196,7 @@ export default function TextToolbarControls({
       {showIndentButtons && (
         <>
           <button
-            className="btn btn-secondary vb-button"
+            className="btn btn-small btn-outline-accent borderless my-0"
             onClick={() => onReduceIndent()}
             title="Decrease Indent"
             aria-label="Decrease Indent"
@@ -204,7 +204,7 @@ export default function TextToolbarControls({
             <i className="fas fa-outdent"></i>
           </button>
           <button
-            className="btn btn-secondary vb-button"
+            className="btn btn-small btn-outline-accent borderless my-0"
             onClick={() => onAddIndent()}
             title="Increase Indent"
             aria-label="Increase Indent"

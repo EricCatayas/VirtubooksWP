@@ -77,7 +77,7 @@ export default function NotebookEditor() {
                 <div className="left-element">
                   <div className="d-flex align-items-center gap-2 justify-content-start">
                     <button
-                      className="btn btn-primary vb-button"
+                      className="btn btn-small btn-outline-accent borderless my-0"
                       onClick={toggleDropdown}
                     >
                       <i className="fa-solid fa-book"></i>
@@ -231,7 +231,7 @@ export default function NotebookEditor() {
                           </div>
                           <button
                             type="button"
-                            className="btn btn-primary vb-button"
+                            className="btn btn-small btn-outline-accent borderless my-0"
                             onClick={() => setIsDropdownOpen(false)}
                           >
                             Close
@@ -255,14 +255,14 @@ export default function NotebookEditor() {
                   {!isReadOnly && (
                     <div className="d-flex align-items-center gap-2 justify-content-end">
                       <button
-                        className="btn btn-primary vb-button"
+                        className="btn btn-small btn-outline-accent borderless my-0"
                         onClick={handleSave}
                         title="Save Changes"
                       >
                         <i className="fas fa-save"></i>
                       </button>
                       <button
-                        className="btn btn-primary vb-button"
+                        className="btn btn-small btn-outline-accent borderless my-0"
                         onClick={handleRevertChanges}
                         title="Revert Changes"
                       >
@@ -275,32 +275,27 @@ export default function NotebookEditor() {
               <div className="col-md-1">
                 <div className="right-element">
                   <div className="d-flex align-items-center gap-2 justify-content-end">
-                    {isReadOnly ? (
-                      <label
-                        className="form-check-label"
-                        htmlFor="readOnlyToggle"
-                      >
-                        <i className="fa-regular fa-eye"></i>
-                        Read-Only
-                      </label>
-                    ) : (
-                      <label
-                        className="form-check-label"
-                        htmlFor="readOnlyToggle"
-                      >
-                        <i className="fa-solid fa-pencil"></i>
-                        Edit Mode
-                      </label>
-                    )}
-                    {isOwner && (
-                      <input
-                        type="checkbox"
-                        id="readOnlyToggle"
-                        className="form-check-input"
-                        checked={isReadOnly}
-                        onChange={toggleReadOnly}
-                      />
-                    )}
+                    <button
+                      className="btn btn-small btn-outline-accent borderless my-0"
+                      title="Toggle Read-Only Mode"
+                      onClick={() => isOwner && toggleReadOnly()}
+                    >
+                      {isReadOnly ? (
+                        <label
+                          htmlFor="readOnlyToggle"
+                          style={{ marginBottom: "0", cursor: "pointer" }}
+                        >
+                          <i className="fa-regular fa-eye"></i> Read-Only
+                        </label>
+                      ) : (
+                        <label
+                          htmlFor="readOnlyToggle"
+                          style={{ marginBottom: "0", cursor: "pointer" }}
+                        >
+                          <i className="fa-solid fa-pencil"></i> Edit Mode
+                        </label>
+                      )}
+                    </button>
                   </div>
                 </div>
               </div>

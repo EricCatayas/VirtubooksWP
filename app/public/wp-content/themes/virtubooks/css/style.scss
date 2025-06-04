@@ -46,6 +46,7 @@ Version: 1.1
   --body-text-color: #757575;
   --light-text-color: #afafaf;
   --dark-text-color: #2f2f2f;
+  --danger-color: #ff9697;
 }
 
 /* Fonts */
@@ -629,6 +630,10 @@ abbr {
   color: #ff9697;
 }
 
+.text-accent {
+  color: var(--accent-color) !important;
+}
+
 .text-hide {
   font: 0/0 a;
   color: transparent;
@@ -852,6 +857,12 @@ hr {
   border-top: 1px solid #e1e1e1;
 }
 
+.borderless {
+  border: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
 /*--------------------------------------------------------------
 /** 2.10 Buttons
 --------------------------------------------------------------*/
@@ -945,8 +956,9 @@ fieldset[disabled] a.btn {
 /* - Button Sizes
 ------------------------------------------------------------- */
 .btn.btn-small {
-  padding: 0.325em 1.7em;
-  font-size: 0.65em;
+  padding: 0.325em 0.75em;
+  font-size: 0.85em;
+  height: 40px;
 }
 
 .btn.btn-medium {
@@ -1503,6 +1515,10 @@ button {
   color: #fff;
 }
 
+.btn-danger {
+  color: var(--danger-color);
+}
+
 .btn-accent {
   color: #111;
 }
@@ -1712,7 +1728,7 @@ img.post-image {
 /* -- Top Menu Part
 --------------------------------------------------------------*/
 .top-content {
-  padding: 15px 0;
+  padding: 10px 0;
   border-bottom: 1px solid #e0e0e0;
 }
 
