@@ -1,5 +1,6 @@
 import NotebookComponent from "../notebook/notebook.component";
 import TextToolbarControls from "../toolbar-controls/text-controls.component";
+import LayoutToolbarControls from "../toolbar-controls/layout-controls.component";
 import NotebookService from "../../services/notebookService";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -83,8 +84,11 @@ export default function NotebookEditor() {
                     </button>
                     {/* form */}
                     {isDropdownOpen && (
-                      <div className="notebook-form">
-                        <form>
+                      <div
+                        className="notebook-form"
+                        onBlur={() => setIsDropdownOpen(false)}
+                      >
+                        <form className="mb-0">
                           <div className="mb-2">
                             <label
                               htmlFor="title"
@@ -240,11 +244,17 @@ export default function NotebookEditor() {
                     )}
                     {/* common controls */}
                     {!isReadOnly && (
-                      <TextToolbarControls
-                        content={notebook}
-                        onUpdateStyle={(style) => handleUpdateStyle(style)}
-                        showIndentButtons={false}
-                      />
+                      <>
+                        <TextToolbarControls
+                          content={notebook}
+                          onUpdateStyle={(style) => handleUpdateStyle(style)}
+                          showIndentButtons={false}
+                        />
+                        <LayoutToolbarControls
+                          content={notebook}
+                          onUpdateStyle={(style) => handleUpdateStyle(style)}
+                        />
+                      </>
                     )}
                   </div>
                 </div>
