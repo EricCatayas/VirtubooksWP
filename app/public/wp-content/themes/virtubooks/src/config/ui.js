@@ -17,7 +17,7 @@ export const contentTypeOptions = [
   { type: "paragraph", label: "Paragraph", icon: "fas fa-paragraph" },
   { type: "heading", label: "Heading", icon: "fas fa-heading" },
   { type: "image", label: "Image", icon: "fas fa-image" },
-  { type: "quote", label: "Quote", icon: "fas fa-quote-right" },
+  // { type: "quote", label: "Quote", icon: "fas fa-quote-right" },
 ];
 
 export const fontFamilyOptions = [
