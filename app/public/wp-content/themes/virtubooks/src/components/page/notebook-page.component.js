@@ -1,6 +1,7 @@
 import PageContent from "../page-content/page-content.component";
-import AddContentToolbar from "../content-toolbar/add-content-toolbar.component";
 import PageToolbar from "../page-toolbar/page-toolbar.component";
+import AddContentToolbar from "../content-toolbar/add-content-toolbar.component";
+import AddContentControl from "../toolbar-controls/add-content.component";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -30,6 +31,7 @@ export default function NotebookPage({
 
   // todo: content type
   const handleAddContent = (contentIdx, type) => {
+    console.log("Adding content of type:", type);
     const newContent = { value: "", type };
     dispatch(addContent({ pageId, contentIdx, newContent }));
   };
@@ -191,7 +193,14 @@ export default function NotebookPage({
             style={
               isFrontPage
                 ? {}
-                : { left: 10, transform: "translateZ(0) rotateY(180deg)" }
+                : { right: 10, transform: "translateZ(0) rotateY(180deg)" }
+            }
+            toolbarControls={
+              page.contents.length === 0 && (
+                <AddContentControl
+                  onAddContent={(type) => handleAddContent(0, type)}
+                />
+              )
             }
           />
         </div>
@@ -235,12 +244,6 @@ export default function NotebookPage({
               onReduceIndent={() => handleReduceIndent(idx)}
             />
           ))}
-          {page.contents.length === 0 && !isReadOnly && isFocused && (
-            <AddContentToolbar
-              onAddContent={(type) => handleAddContent(0, type)}
-              toolbarControls={<div>Add New</div>}
-            />
-          )}
         </section>
         <section className="page-footer">
           {/* {page.footer && ( <PageFooter /> )} */}

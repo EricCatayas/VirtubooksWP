@@ -58,3 +58,8 @@ textarea {
   margin: 0;
   display: block;
 }
+
+.vb-label {
+  cursor: pointer;
+  margin-bottom: 0;
+}

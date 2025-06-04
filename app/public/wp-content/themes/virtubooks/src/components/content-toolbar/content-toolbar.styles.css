@@ -16,3 +16,12 @@
   min-width: unset;
   max-width: unset;
 }
+
+.add-content-toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  margin: 0 auto;
+  margin-top: 50%;
+}

@@ -290,17 +290,11 @@ export default function NotebookEditor() {
                       onClick={() => isOwner && toggleReadOnly()}
                     >
                       {isReadOnly ? (
-                        <label
-                          htmlFor="readOnlyToggle"
-                          style={{ marginBottom: "0", cursor: "pointer" }}
-                        >
+                        <label htmlFor="readOnlyToggle" className="vb-label">
                           <i className="fa-regular fa-eye"></i> Read-Only
                         </label>
                       ) : (
-                        <label
-                          htmlFor="readOnlyToggle"
-                          style={{ marginBottom: "0", cursor: "pointer" }}
-                        >
+                        <label htmlFor="readOnlyToggle" className="vb-label">
                           <i className="fa-solid fa-pencil"></i> Edit Mode
                         </label>
                       )}

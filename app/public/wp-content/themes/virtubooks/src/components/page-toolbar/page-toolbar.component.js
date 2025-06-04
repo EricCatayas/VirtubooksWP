@@ -10,6 +10,7 @@ export default function PageToolbar({
   onSetEndPage,
   onSetNotebookSettings,
   onSetBackgroundImage,
+  toolbarControls,
   style = {},
 }) {
   return (
@@ -23,6 +24,7 @@ export default function PageToolbar({
       }}
     >
       <div className="d-flex align-items-center gap-1">
+        {toolbarControls}
         <button
           className="btn btn-small btn-outline-accent borderless my-0"
           onClick={onInsert}

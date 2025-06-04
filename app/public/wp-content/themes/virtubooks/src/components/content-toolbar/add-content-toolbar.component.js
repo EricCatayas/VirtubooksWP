@@ -7,7 +7,7 @@ export default function AddContentToolbar({
   toolbarControls,
 }) {
   return (
-    <section className="content-toolbar">
+    <section className="content-toolbar add-content-toolbar">
       <div className="d-flex align-items-center gap-2 justify-content-start">
         {/* Slot for custom controls  */}
         {toolbarControls}
