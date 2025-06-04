@@ -1,4 +1,10 @@
 <?php
+if (file_exists(__DIR__ . '/.env')) {
+  require_once __DIR__ . '/vendor/autoload.php';
+  $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+  $dotenv->load();
+}
+
 function app_files()
 {
   // Enqueue Bootstrap CSS
@@ -25,7 +31,8 @@ function app_files()
 
   wp_localize_script('main-js', 'appData', array(
     'root_url' => get_site_url(),
-    'nonce' => wp_create_nonce('wp_rest')
+    'nonce' => wp_create_nonce('wp_rest'),
+    'api_url' => getenv('API_BASE_URL') ?: ($_ENV['API_BASE_URL'] ?? ''),
   ));
 }
 
@@ -44,9 +51,15 @@ add_action('after_setup_theme', 'app_features');
 
 
 add_action('init', function () {
+  // Add the 'create' rule first so it takes precedence
+  add_rewrite_rule(
+    '^notebooks/create/?$',
+    'index.php?pagename=create-notebook',
+    'top'
+  );
   add_rewrite_rule(
     '^notebooks/([^/]+)/?$',
-    'index.php?pagename=notebooks&notebook_id=$matches[1]',
+    'index.php?pagename=single-notebook&notebook_id=$matches[1]',
     'top'
   );
 });
@@ -56,10 +69,14 @@ add_filter('query_vars', function ($vars) {
   return $vars;
 });
 
-// When you visit /notebooks/:id, WordPress will load single-notebook.php.
-// You can get the notebook ID with get_query_var('notebook_id').
 add_action('template_redirect', function () {
-  if (get_query_var('notebook_id')) {
+  if (get_query_var('pagename') === 'create-notebook') {
+    include get_template_directory() . '/create-notebook.php';
+    exit;
+  }
+  // When you visit /notebooks/:id, WordPress will load single-notebook.php.
+  // You can get the notebook ID with get_query_var('notebook_id').
+  if (get_query_var('notebook_id') && get_query_var('pagename') === 'single-notebook') {
     include get_template_directory() . '/single-notebook.php';
     exit;
   }
