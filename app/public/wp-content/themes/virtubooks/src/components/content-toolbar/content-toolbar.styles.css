@@ -1,0 +1,10 @@
+.content-toolbar {
+  position: static;
+  top: 8px;
+  right: 8px;
+  z-index: 20;
+  padding: 6px 10px;
+  min-width: 180px;
+  font-size: 0.95em;
+  pointer-events: auto;
+}

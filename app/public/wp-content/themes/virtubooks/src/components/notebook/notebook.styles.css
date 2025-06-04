@@ -124,8 +124,8 @@
 
 .page-body {
   flex: 1 1 auto;
-  /* Remove position/height if set */
-  overflow: auto;
+  overflow: visible;
+  position: relative;
 }
 .page-header {
 }

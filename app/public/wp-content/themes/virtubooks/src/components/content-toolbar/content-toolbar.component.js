@@ -1,5 +1,6 @@
 import AddContentControl from "../toolbar-controls/add-content.component";
 import React from "react";
+import "./content-toolbar.styles.css";
 
 export default function ContentToolbar({
   content,
