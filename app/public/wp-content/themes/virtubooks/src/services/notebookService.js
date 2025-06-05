@@ -1,4 +1,4 @@
-export class NotebookService {
+class NotebookService {
   API_URL = "";
 
   constructor() {
@@ -70,7 +70,8 @@ export class NotebookService {
       body: JSON.stringify({ pages }),
     });
     if (!res.ok) throw new Error("Failed to update pages");
-    return res.json();
+    const updatedNotebook = res.json();
+    return updatedNotebook.pages;
   }
 
   async deleteNotebook(id, token) {
