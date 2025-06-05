@@ -2,81 +2,30 @@
 get_header();
 ?>
 
-<style>
-  .image-upload-container {
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
-  }
-
-  .image-upload-form-container {
-    min-height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .image-upload-form {
-    max-width: 400px;
-    width: 100%;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
-    padding: 32px 24px;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-  }
-
-  .image-upload-grid {
-    max-width: 1000px;
-    margin: 0 auto 2rem auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    background: #fafbfc;
-    border-radius: 8px;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
-  }
-
-  .image-upload-item {
-    padding: 12px;
-    text-align: center;
-  }
-
-  .image-upload-item>img,
-  .image-upload-item img {
-    max-width: 100%;
-    max-height: 250px;
-    border-radius: 6px;
-    object-fit: cover;
-  }
-
-  .image-upload-date {
-    font-size: 0.85em;
-    color: #666;
-    margin-top: 0.5em;
-  }
-</style>
-
-<div class="container image-upload-container">
-  <h1 class="mb-2">Image Uploads</h2>
-    <div class="row flex-md-row">
-      <div class="col-12 col-md-9 order-2 order-md-1">
-        <div id="userImagesGrid" class="image-upload-grid"></div>
-      </div>
-      <div class="col-12 col-md-3 order-1 order-md-2">
-        <div class="image-upload-form-container">
-          <form id="imageUploadForm" class="image-upload-form" enctype="multipart/form-data">
-            <div class="mb-3">
-              <label for="imageFile" class="form-label" style="font-size:0.95em;">Select Image</label>
-              <input type="file" id="imageFile" name="imageFile" class="form-control form-control-sm" style="font-size:0.95em;" accept="image/*" required>
-            </div>
-            <div class="d-grid">
-              <button type="submit" class="btn btn-primary btn-small">Upload Image</button>
-            </div>
-          </form>
-        </div>
+<div class="container" style="padding-top: 2.5rem; padding-bottom: 2.5rem;">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="mb-0">My Image Uploads</h1>
+    <a href="<?php echo home_url('/'); ?>" class="btn btn-secondary btn-small">Back to Dashboard</a>
+  </div>
+  <p class="text-muted mb-4">Here you can upload and manage your images. Uploaded images will be displayed below.</p>
+  <div class="row flex-md-row">
+    <div class="col-12 col-md-9 order-2 order-md-1">
+      <div id="userImagesGrid" class="image-upload-grid image-uploads-container"></div>
+    </div>
+    <div class="col-12 col-md-3 order-1 order-md-2">
+      <div class="image-upload-form-container image-uploads-container">
+        <form id="imageUploadForm" class="image-upload-form" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label for="imageFile" class="form-label" style="font-size:0.95em;">Select Image</label>
+            <input type="file" id="imageFile" name="imageFile" class="form-control form-control-sm" style="font-size:0.95em;" accept="image/*" required>
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-small">Upload Image</button>
+          </div>
+        </form>
       </div>
     </div>
+  </div>
 </div>
 
 

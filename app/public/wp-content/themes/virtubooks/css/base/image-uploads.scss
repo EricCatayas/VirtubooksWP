@@ -1,0 +1,47 @@
+.image-upload-form-container {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-upload-form {
+  max-width: 400px;
+  width: 100%;
+  padding: 32px 24px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.image-upload-grid {
+  max-width: 1000px;
+  margin: 0 auto 2rem auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.image-uploads-container {
+  background: #fafbfc;
+  border-radius: 10px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+.image-upload-item {
+  padding: 12px;
+  text-align: center;
+}
+
+.image-upload-item > img,
+.image-upload-item img {
+  max-width: 100%;
+  max-height: 250px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.image-upload-date {
+  font-size: 0.85em;
+  color: #666;
+  margin-top: 0.5em;
+}
