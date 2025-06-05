@@ -16,7 +16,6 @@ get_header();
   }
 
   .image-upload-form {
-    min-width: 320px;
     max-width: 400px;
     width: 100%;
     background: #fff;
@@ -28,17 +27,17 @@ get_header();
   }
 
   .image-upload-grid {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto 2rem auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1.5rem;
-  }
-
-  .image-upload-item {
     background: #fafbfc;
     border-radius: 8px;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+  }
+
+  .image-upload-item {
     padding: 12px;
     text-align: center;
   }
@@ -59,24 +58,25 @@ get_header();
 </style>
 
 <div class="container image-upload-container">
-  <div class="row">
-    <div class="col-9">
-      <div id="userImagesGrid" class="image-upload-grid"></div>
-    </div>
-    <div class="col-3">
-      <div class="image-upload-form-container">
-        <form id="imageUploadForm" class="image-upload-form" enctype="multipart/form-data">
-          <div class="mb-3">
-            <label for="imageFile" class="form-label" style="font-size:0.95em;">Select Image</label>
-            <input type="file" id="imageFile" name="imageFile" class="form-control form-control-sm" style="font-size:0.95em;" accept="image/*" required>
-          </div>
-          <div class="d-grid">
-            <button type="submit" class="btn btn-primary btn-sm">Upload Image</button>
-          </div>
-        </form>
+  <h1 class="mb-2">Image Uploads</h2>
+    <div class="row flex-md-row">
+      <div class="col-12 col-md-9 order-2 order-md-1">
+        <div id="userImagesGrid" class="image-upload-grid"></div>
+      </div>
+      <div class="col-12 col-md-3 order-1 order-md-2">
+        <div class="image-upload-form-container">
+          <form id="imageUploadForm" class="image-upload-form" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label for="imageFile" class="form-label" style="font-size:0.95em;">Select Image</label>
+              <input type="file" id="imageFile" name="imageFile" class="form-control form-control-sm" style="font-size:0.95em;" accept="image/*" required>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary btn-small">Upload Image</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
 </div>
 
 
