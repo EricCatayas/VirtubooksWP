@@ -31,7 +31,6 @@ export default function NotebookPage({
 
   // todo: content type
   const handleAddContent = (contentIdx, type) => {
-    console.log("Adding content of type:", type);
     const newContent = { value: "", type };
     dispatch(addContent({ pageId, contentIdx, newContent }));
   };
