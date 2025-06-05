@@ -37,6 +37,9 @@ export const notebookSlice = createSlice({
         ? true
         : false;
     },
+    resetNotebookState: (state) => {
+      Object.assign(state, initialState);
+    },
     insertPage: (state, action) => {
       const { pageId, newPage } = action.payload;
       const pageIndex = state.pages.findIndex((p) => p.id === pageId);
@@ -198,6 +201,7 @@ export const notebookSlice = createSlice({
 
 export const {
   setNotebookState,
+  resetNotebookState,
   insertPage,
   insertBlankPage,
   duplicatePage,

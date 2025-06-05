@@ -6,7 +6,10 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { setNotebookState } from "../../features/notebookSlice";
+import {
+  setNotebookState,
+  resetNotebookState,
+} from "../../features/notebookSlice";
 import { aspectRatioOptions, visibilityOptions } from "../../config/ui";
 import "./notebook-editor.styles.css";
 
@@ -22,6 +25,7 @@ export default function NotebookEditor() {
   const notebookService = new NotebookService();
 
   useEffect(async () => {
+    dispatch(resetNotebookState());
     const fetchedNotebook = await notebookService.getNotebook(notebookId);
     dispatch(setNotebookState(fetchedNotebook));
     // todo: if current user is not the owner, set read-only mode and isOwner to false
