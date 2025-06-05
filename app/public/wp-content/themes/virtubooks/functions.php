@@ -62,6 +62,11 @@ add_action('init', function () {
     'index.php?pagename=single-notebook&notebook_id=$matches[1]',
     'top'
   );
+  add_rewrite_rule(
+    '^image-uploads/?$',
+    'index.php?pagename=image-uploads',
+    'top'
+  );
 });
 
 add_filter('query_vars', function ($vars) {
@@ -78,6 +83,11 @@ add_action('template_redirect', function () {
   // You can get the notebook ID with get_query_var('notebook_id').
   if (get_query_var('notebook_id') && get_query_var('pagename') === 'single-notebook') {
     include get_template_directory() . '/single-notebook.php';
+    exit;
+  }
+
+  if (get_query_var('pagename') === 'image-uploads') {
+    include get_template_directory() . '/image-uploads.php';
     exit;
   }
 });
