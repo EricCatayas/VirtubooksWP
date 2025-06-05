@@ -40,8 +40,8 @@ export class NotebookService {
     return res.json();
   }
 
-  async updateNotebook(id, notebook, token) {
-    const res = await fetch(`${this.API_URL}/${id}`, {
+  async updateNotebook(notebook, token) {
+    const res = await fetch(`${this.API_URL}/${notebook.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -50,15 +50,14 @@ export class NotebookService {
       body: JSON.stringify(notebook),
     });
     if (!res.ok) throw new Error("Failed to update notebook");
-    return res.json();
-  }
-
-  async deleteNotebook(id, token) {
-    const res = await fetch(`${this.API_URL}/${id}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    if (!res.ok) throw new Error("Failed to delete notebook");
+    const updatedNotebook = res.json();
+    const updatedPages = await this.updatePages(
+      notebook.id,
+      notebook.pages,
+      token
+    );
+    updatedNotebook.pages = updatedPages;
+    return updatedNotebook;
   }
 
   async updatePages(notebookId, pages, token) {
@@ -72,6 +71,14 @@ export class NotebookService {
     });
     if (!res.ok) throw new Error("Failed to update pages");
     return res.json();
+  }
+
+  async deleteNotebook(id, token) {
+    const res = await fetch(`${this.API_URL}/${id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) throw new Error("Failed to delete notebook");
   }
 
   async updatePage(notebookId, pageId, page, token) {
