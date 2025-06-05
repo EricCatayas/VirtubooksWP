@@ -55,8 +55,16 @@ export default function NotebookEditor() {
 
   const handleSave = async () => {
     try {
-      await notebookService.updateNotebook(notebook);
-      alert("Notebook saved successfully!");
+      // todo: replace with actual token retrieval logic
+      if (isOwner) {
+        const token = "todo";
+        const updatedNotebook = await notebookService.updateNotebook(
+          notebook,
+          token
+        );
+        dispatch(setNotebookState(updatedNotebook));
+        alert("Notebook saved successfully!");
+      }
     } catch (error) {
       console.error("Error saving notebook:", error);
       alert("Failed to save notebook. Please try again.");
@@ -103,9 +111,7 @@ export default function NotebookEditor() {
                               className="form-control form-control-sm"
                               value={notebook.title || ""}
                               onChange={(e) => {
-                                if (!isReadOnly) {
-                                  handleUpdateField("title", e.target.value);
-                                }
+                                handleUpdateField("title", e.target.value);
                               }}
                               style={{ fontSize: "0.95em" }}
                               disabled={isReadOnly}
@@ -124,12 +130,10 @@ export default function NotebookEditor() {
                               className="form-control form-control-sm"
                               value={notebook.description || ""}
                               onChange={(e) => {
-                                if (!isReadOnly) {
-                                  handleUpdateField(
-                                    "description",
-                                    e.target.value
-                                  );
-                                }
+                                handleUpdateField(
+                                  "description",
+                                  e.target.value
+                                );
                               }}
                               style={{ fontSize: "0.95em" }}
                               rows={2}
@@ -150,9 +154,7 @@ export default function NotebookEditor() {
                               className="form-control form-control-sm"
                               value={notebook.author || ""}
                               onChange={(e) => {
-                                if (!isReadOnly) {
-                                  handleUpdateField("author", e.target.value);
-                                }
+                                handleUpdateField("author", e.target.value);
                               }}
                               style={{ fontSize: "0.95em" }}
                               disabled={isReadOnly}
@@ -171,17 +173,12 @@ export default function NotebookEditor() {
                               className="form-select form-select-sm"
                               value={notebook.visibillity || ""}
                               onChange={(e) => {
-                                if (!isReadOnly) {
-                                  handleUpdateField(
-                                    "visibility",
-                                    e.target.value
-                                  );
-                                }
+                                handleUpdateField("visibility", e.target.value);
                               }}
                               style={{ fontSize: "0.95em" }}
                               disabled={isReadOnly}
+                              required
                             >
-                              <option value="">Select visibility</option>
                               {visibilityOptions.map((option) => (
                                 <option
                                   key={option.value}
@@ -208,12 +205,10 @@ export default function NotebookEditor() {
                               className="form-select form-select-sm"
                               value={notebook.aspectRatio || ""}
                               onChange={(e) => {
-                                if (!isReadOnly) {
-                                  handleUpdateField(
-                                    "aspectRatio",
-                                    e.target.value
-                                  );
-                                }
+                                handleUpdateField(
+                                  "aspectRatio",
+                                  e.target.value
+                                );
                               }}
                               style={{ fontSize: "0.95em" }}
                               disabled={isReadOnly}
