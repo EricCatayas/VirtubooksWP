@@ -1,6 +1,7 @@
 import NotebookComponent from "../notebook/notebook.component";
 import TextToolbarControls from "../toolbar-controls/text-controls.component";
 import LayoutToolbarControls from "../toolbar-controls/layout-controls.component";
+import ImageUploadsModal from "../image-uploads/image-uploads-modal.component";
 import NotebookService from "../../services/notebookService";
 import React, { useEffect } from "react";
 import { useState } from "react";
@@ -9,6 +10,7 @@ import { useParams } from "react-router-dom";
 import {
   setNotebookState,
   resetNotebookState,
+  setPageBackgroundImage,
 } from "../../features/notebookSlice";
 import { aspectRatioOptions, visibilityOptions } from "../../config/ui";
 import "./notebook-editor.styles.css";
@@ -18,6 +20,10 @@ export default function NotebookEditor() {
   const { id: notebookId } = useParams();
   const notebook = useSelector((state) => state.notebook);
   const hasChanges = useSelector((state) => state.notebook.hasChanges);
+  const imageSelector = useSelector((state) => state.imageSelector);
+  const selectedImage = imageSelector.selectedImage;
+  const isImageSelectorOpen = imageSelector.isOpen;
+
   const [isReadOnly, setIsReadOnly] = useState(false);
   const [isOwner, setIsOwner] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -25,11 +31,23 @@ export default function NotebookEditor() {
   const notebookService = new NotebookService();
 
   useEffect(async () => {
-    dispatch(resetNotebookState());
+    // dispatch(resetNotebookState());
     const fetchedNotebook = await notebookService.getNotebook(notebookId);
     dispatch(setNotebookState(fetchedNotebook));
     // todo: if current user is not the owner, set read-only mode and isOwner to false
   }, [dispatch, notebookId]);
+
+  useEffect(() => {
+    if (selectedImage) {
+      const imageURL = selectedImage.imageURL;
+      dispatch(
+        setPageBackgroundImage({
+          pageId: notebook.currentPageId,
+          imageURL,
+        })
+      );
+    }
+  }, [dispatch, selectedImage]);
 
   const toggleReadOnly = () => {
     setIsReadOnly((prev) => !prev);
@@ -66,7 +84,7 @@ export default function NotebookEditor() {
           notebook,
           token
         );
-        dispatch(setNotebookState(updatedNotebook));
+        // dispatch(setNotebookState(updatedNotebook));
         alert("Notebook saved successfully!");
       }
     } catch (error) {
@@ -76,7 +94,9 @@ export default function NotebookEditor() {
   };
 
   const handleRevertChanges = () => {
-    window.location.reload();
+    if (confirm("Are you sure you want to revert changes?")) {
+      window.location.reload();
+    }
   };
 
   return (
@@ -85,7 +105,7 @@ export default function NotebookEditor() {
         <div className="top-content">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-md-6">
+              <div className="col-md-8">
                 <div className="left-element">
                   <div className="d-flex align-items-center gap-2 justify-content-start">
                     <button
@@ -258,31 +278,33 @@ export default function NotebookEditor() {
                   </div>
                 </div>
               </div>
-              <div className="col-md-5">
+              {/* <div className="col-md-5">
                 <div className="center-element">
-                  {hasChanges && (
-                    <div className="d-flex align-items-center gap-2 justify-content-end">
-                      <button
-                        className="btn btn-small btn-outline-accent borderless my-0"
-                        onClick={handleSave}
-                        title="Save Changes"
-                      >
-                        <i className="fas fa-save"></i>
-                      </button>
-                      <button
-                        className="btn btn-small btn-outline-accent borderless my-0"
-                        onClick={handleRevertChanges}
-                        title="Revert Changes"
-                      >
-                        <i class="fa-solid fa-rotate-left"></i>
-                      </button>
-                    </div>
-                  )}
+                      <div className="d-flex align-items-center gap-2 justify-content-end">
+                      </div>
                 </div>
-              </div>
-              <div className="col-md-1">
+              </div> */}
+              <div className="col-md-4">
                 <div className="right-element">
                   <div className="d-flex align-items-center gap-2 justify-content-end">
+                    {hasChanges && (
+                      <>
+                        <button
+                          className="btn btn-small btn-outline-accent borderless my-0"
+                          onClick={handleSave}
+                          title="Save Changes"
+                        >
+                          <i className="fas fa-save"></i>
+                        </button>
+                        <button
+                          className="btn btn-small btn-outline-accent borderless my-0"
+                          onClick={handleRevertChanges}
+                          title="Revert Changes"
+                        >
+                          <i class="fa-solid fa-rotate-left"></i>
+                        </button>
+                      </>
+                    )}
                     <button
                       className="btn btn-small btn-outline-accent borderless my-0"
                       title="Toggle Read-Only Mode"
@@ -305,6 +327,7 @@ export default function NotebookEditor() {
           </div>
         </div>
       </div>
+      {!isReadOnly && isImageSelectorOpen && <ImageUploadsModal />}
       <NotebookComponent notebook={notebook} isReadOnly={isReadOnly} />
     </>
   );

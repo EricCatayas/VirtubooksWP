@@ -2,12 +2,14 @@ import PageContent from "../page-content/page-content.component";
 import PageToolbar from "../page-toolbar/page-toolbar.component";
 import AddContentToolbar from "../content-toolbar/add-content-toolbar.component";
 import AddContentControl from "../toolbar-controls/add-content.component";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
+  setCurrentPage,
   insertBlankPage,
   duplicatePage,
   deletePage,
+  setPageState,
   setStartPage,
   setEndPage,
   updatePageNumbering,
@@ -15,6 +17,7 @@ import {
   deleteContent,
   updateContent,
 } from "../../features/notebookSlice";
+import { toggleImageSelector } from "../../features/imageSelectorSlice";
 import "./notebook-page.styles.css";
 
 export default function NotebookPage({
@@ -27,6 +30,8 @@ export default function NotebookPage({
   const dispatch = useDispatch();
   const pageId = page.id;
   const [isFocused, setIsFocused] = useState(false);
+  const imageSelector = useSelector((state) => state.imageSelector);
+  const selectedImage = imageSelector.selectedImage;
   const isFrontPage = pageIdx % 2 === 0;
 
   // todo: content type
@@ -96,19 +101,6 @@ export default function NotebookPage({
     }
   };
 
-  const handleImageUpload = (contentIdx, file) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const newContent = {
-        value: reader.result,
-        type: "image",
-        styles: {},
-      };
-      handleUpdateContent(contentIdx, newContent);
-    };
-    reader.readAsDataURL(file);
-  };
-
   const handleAddIndent = (contentIdx) => {
     const targetContent = page.contents[contentIdx];
     if (targetContent) {
@@ -165,19 +157,21 @@ export default function NotebookPage({
   };
   const handleSetNotebookSettings = () => {
     console.log("Set Notebook Settings");
-    // navigate to notebook settings page in new tab
   };
   const handleSetBackgroundImage = () => {
-    // open image uploads modal
-    // only authorized users can access this
-    console.log("Set Background Image");
+    dispatch(toggleImageSelector());
+  };
+
+  const handleOnFocus = () => {
+    setIsFocused(true);
+    dispatch(setCurrentPage({ pageId }));
   };
 
   return (
     <>
       {isFocused && !isReadOnly && (
         <div
-          onMouseEnter={() => setIsFocused(true)}
+          onMouseEnter={() => handleOnFocus()}
           onMouseLeave={() => setIsFocused(false)}
         >
           <PageToolbar
@@ -218,9 +212,9 @@ export default function NotebookPage({
           ...styles,
           ...(page.styles || {}),
         }}
-        onMouseEnter={() => setIsFocused(true)}
+        onMouseEnter={() => handleOnFocus()}
         onMouseLeave={() => setIsFocused(false)}
-        onClick={() => setIsFocused(true)}
+        onClick={() => handleOnFocus()}
         onBlur={() => setIsFocused(false)}
       >
         <section className="page-header">
