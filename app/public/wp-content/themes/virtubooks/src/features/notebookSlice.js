@@ -5,7 +5,7 @@ const initialState = {
   id: "",
   title: "",
   pages: [],
-  currentPage: 0, // todo
+  currentPageId: 0,
   visibility: "",
   aspectRatio: "",
   isReadOnly: false,
@@ -39,6 +39,10 @@ export const notebookSlice = createSlice({
     },
     resetNotebookState: (state) => {
       Object.assign(state, initialState);
+    },
+    setCurrentPage: (state, action) => {
+      const { pageId } = action.payload;
+      state.currentPageId = pageId;
     },
     insertPage: (state, action) => {
       const { pageId, newPage } = action.payload;
@@ -132,6 +136,26 @@ export const notebookSlice = createSlice({
         }
       }
     },
+    setPageState: (state, action) => {
+      const { pageId, newPageState } = action.payload;
+      const pageIndex = state.pages.findIndex((p) => p.id === pageId);
+      if (pageIndex !== -1) {
+        state.pages[pageIndex] = {
+          ...state.pages[pageIndex],
+          ...newPageState,
+          contents: newPageState.contents.map((content) => ({
+            ...content,
+          })),
+        };
+      }
+    },
+    setPageBackgroundImage: (state, action) => {
+      const { pageId, imageURL } = action.payload;
+      const page = state.pages.find((p) => p.id === pageId);
+      if (page) {
+        page.backgroundImageURL = imageURL;
+      }
+    },
     setStartPage: (state, action) => {
       const { pageId } = action.payload;
       const pageIndex = state.pages.findIndex((p) => p.id === pageId);
@@ -202,10 +226,13 @@ export const notebookSlice = createSlice({
 export const {
   setNotebookState,
   resetNotebookState,
+  setCurrentPage,
   insertPage,
   insertBlankPage,
   duplicatePage,
   deletePage,
+  setPageState,
+  setPageBackgroundImage,
   setStartPage,
   setEndPage,
   updatePageNumbering,
