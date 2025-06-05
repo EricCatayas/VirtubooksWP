@@ -21,6 +21,7 @@ export const notebookSlice = createSlice({
       const newState = action.payload;
       state.id = newState.id;
       state.title = newState.title;
+      state.description = newState.description;
       state.aspectRatio = newState.aspectRatio;
       state.visibility = newState.visibility;
       state.styles = newState.styles || {};
