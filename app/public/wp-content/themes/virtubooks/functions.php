@@ -5,6 +5,8 @@ if (file_exists(__DIR__ . '/.env')) {
   $dotenv->load();
 }
 
+require get_theme_file_path('/inc/auth-api.php');
+
 function app_files()
 {
   // Enqueue Bootstrap CSS
