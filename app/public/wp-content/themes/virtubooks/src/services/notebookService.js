@@ -1,13 +1,18 @@
+import AuthService from "./authService";
+
 class NotebookService {
   API_URL = "";
+  token = "";
 
   constructor() {
     this.API_URL = `${process.env.API_BASE_URL}/notebooks`;
+    const authService = new AuthService();
+    this.token = authService.getToken();
   }
 
-  async getNotebook(id, token) {
+  async getNotebook(id) {
     const res = await fetch(`${this.API_URL}/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${this.token}` },
     });
     if (!res.ok) throw new Error("Failed to fetch notebook");
     return res.json();
@@ -19,20 +24,20 @@ class NotebookService {
     return res.json();
   }
 
-  async getUserNotebooks(token) {
+  async getUserNotebooks() {
     const res = await fetch(`${this.API_URL}/user`, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${this.token}` },
     });
     if (!res.ok) throw new Error("Failed to fetch user notebooks");
     return res.json();
   }
 
-  async createNotebook(notebook, token) {
+  async createNotebook(notebook) {
     const res = await fetch(`${this.API_URL}/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${this.token}`,
       },
       body: JSON.stringify(notebook),
     });
@@ -40,32 +45,28 @@ class NotebookService {
     return res.json();
   }
 
-  async updateNotebook(notebook, token) {
+  async updateNotebook(notebook) {
     const res = await fetch(`${this.API_URL}/${notebook.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${this.token}`,
       },
       body: JSON.stringify(notebook),
     });
     if (!res.ok) throw new Error("Failed to update notebook");
     const updatedNotebook = res.json();
-    const updatedPages = await this.updatePages(
-      notebook.id,
-      notebook.pages,
-      token
-    );
+    const updatedPages = await this.updatePages(notebook.id, notebook.pages);
     updatedNotebook.pages = updatedPages;
     return updatedNotebook;
   }
 
-  async updatePages(notebookId, pages, token) {
+  async updatePages(notebookId, pages) {
     const res = await fetch(`${this.API_URL}/${notebookId}/pages`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${this.token}`,
       },
       body: JSON.stringify({ pages }),
     });
@@ -74,20 +75,20 @@ class NotebookService {
     return updatedNotebook.pages;
   }
 
-  async deleteNotebook(id, token) {
+  async deleteNotebook(id) {
     const res = await fetch(`${this.API_URL}/${id}`, {
       method: "DELETE",
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${this.token}` },
     });
     if (!res.ok) throw new Error("Failed to delete notebook");
   }
 
-  async updatePage(notebookId, pageId, page, token) {
+  async updatePage(notebookId, pageId, page) {
     const res = await fetch(`${this.API_URL}/${notebookId}/pages/${pageId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${this.token}`,
       },
       body: JSON.stringify(page),
     });

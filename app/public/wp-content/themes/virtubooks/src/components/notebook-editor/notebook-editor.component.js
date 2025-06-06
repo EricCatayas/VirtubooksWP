@@ -93,11 +93,7 @@ export default function NotebookEditor() {
     try {
       // todo: replace with actual token retrieval logic
       if (isOwner) {
-        const token = "todo";
-        const updatedNotebook = await notebookService.updateNotebook(
-          notebook,
-          token
-        );
+        const updatedNotebook = await notebookService.updateNotebook(notebook);
         // dispatch(setNotebookState(updatedNotebook));
         alert("Notebook saved successfully!");
       }
