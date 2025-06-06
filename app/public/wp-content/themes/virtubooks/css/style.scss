@@ -1035,6 +1035,12 @@ fieldset[disabled] a.btn {
   color: var(--accent-color);
 }
 
+.btn.btn-outline-danger {
+  background: transparent;
+  border-color: var(--danger-color);
+  color: var(--danger-color);
+}
+
 .btn.btn-outline-accent:hover {
   border-color: var(--dark-color);
   color: var(--dark-color) !important;

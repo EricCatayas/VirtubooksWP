@@ -75,6 +75,20 @@ export default function NotebookEditor() {
     dispatch(setNotebookState({ ...notebook, styles: currentStyles }));
   };
 
+  const handleDelete = async () => {
+    if (confirm("Are you sure you want to delete this notebook?")) {
+      try {
+        await notebookService.deleteNotebook(notebook.id);
+        dispatch(resetNotebookState());
+        alert("Notebook deleted successfully!");
+        window.location.href = "/notebooks/my-notebooks";
+      } catch (error) {
+        console.error("Error deleting notebook:", error);
+        alert("Failed to delete notebook. Please try again.");
+      }
+    }
+  };
+
   const handleSave = async () => {
     try {
       // todo: replace with actual token retrieval logic
@@ -257,6 +271,13 @@ export default function NotebookEditor() {
                             onClick={() => setIsDropdownOpen(false)}
                           >
                             Close
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-small btn-outline-danger borderless"
+                            onClick={handleDelete}
+                          >
+                            Delete
                           </button>
                         </form>
                       </div>
