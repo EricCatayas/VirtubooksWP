@@ -1,5 +1,7 @@
 <?php
 get_header();
+$visibilityInfo = "Public visibility means anyone can view this notebook. Private visibility means only you can view this notebook.";
+
 ?>
 
 <style>
@@ -38,10 +40,13 @@ get_header();
       <input type="text" id="author" name="author" class="form-control form-control-sm" style="font-size:0.95em;">
     </div>
     <div class="mb-3">
-      <label for="visibility" class="form-label" style="font-size:0.95em;">Visibility</label>
+      <div class="d-flex align-items-center justify-content-between">
+        <label for="visibility" class="form-label" style="font-size:0.95em;">Visibility</label>
+        <span class="text-accent" title="<?php echo $visibilityInfo ?>"><i class="fa-solid fa-info"></i> </span>
+      </div>
       <select id="visibility" name="visibility" class="form-select form-select-sm" style="font-size:0.95em;" required>
         <option value="">Select visibility</option>
-        <option value="public">Public</option>
+        <option value=" public">Public</option>
         <option value="private">Private</option>
       </select>
     </div>
