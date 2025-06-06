@@ -5,7 +5,7 @@ get_header();
 <div class="container" style="padding-top: 2.5rem; padding-bottom: 2.5rem;">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h1 class="mb-0">My Image Uploads</h1>
-    <a href="<?php echo home_url('/'); ?>" class="btn btn-secondary btn-small">Back to Dashboard</a>
+    <a href="<?php echo home_url('/'); ?>" class="btn btn-small btn-outline-accent borderless">Back to Dashboard</a>
   </div>
   <p class="text-muted mb-4">Here you can upload and manage your images. Uploaded images will be displayed below.</p>
   <div class="row flex-md-row">
@@ -55,7 +55,7 @@ get_header();
             <img src="${img.imageURL}" alt="Uploaded image"/>
             <div class="image-upload-date">${new Date(img.createdAt).toLocaleString()}</div>
           </a>
-          <button class="btn btn-danger btn-small mt-2" data-image-id="${img.id}">Delete</button>
+          <button class="btn btn-small btn-outline-danger borderless mt-2" data-image-id="${img.id}">Delete</button>
         </div>
       `).join('');
 
