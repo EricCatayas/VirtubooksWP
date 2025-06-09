@@ -10,21 +10,29 @@ class NotebookService {
     this.token = authService.getToken();
   }
 
-  async getNotebook(id) {
+  async fetchNotebook(id) {
     const res = await fetch(`${this.API_URL}/${id}`, {
       headers: { Authorization: `Bearer ${this.token}` },
     });
-    if (!res.ok) throw new Error("Failed to fetch notebook");
+    if (!res.ok) {
+      if (res.status === 404) {
+        throw new Error("Notebook not found");
+      }
+      if (res.status === 403) {
+        throw new Error("Access denied to this notebook");
+      }
+      throw new Error("Failed to fetch notebook");
+    }
     return res.json();
   }
 
-  async getPublicNotebooks() {
+  async fetchPublicNotebooks() {
     const res = await fetch(`${this.API_URL}/`);
     if (!res.ok) throw new Error("Failed to fetch public notebooks");
     return res.json();
   }
 
-  async getUserNotebooks() {
+  async fetchUserNotebooks() {
     const res = await fetch(`${this.API_URL}/user`, {
       headers: { Authorization: `Bearer ${this.token}` },
     });

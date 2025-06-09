@@ -10,8 +10,9 @@ class AuthService {
     return token;
   }
 
-  clearToken() {
+  logout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
   }
 
   async generateToken(email, password) {
@@ -27,15 +28,40 @@ class AuthService {
       throw new Error("Failed to generate token");
     }
 
-    const { message, token } = await response.json();
+    const { message, token, user } = await response.json();
 
     if (!token) {
       throw new Error(message || "Token generation failed");
     }
 
     localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
 
     return token;
+  }
+
+  async getUser() {
+    const user = localStorage.getItem("user");
+    if (user) {
+      return JSON.parse(user);
+    }
+
+    const token = this.getToken();
+    if (!token) {
+      throw new Error("No token found");
+    }
+
+    const response = await fetch(`${this.API_URL}/user`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch user data");
+    }
+
+    return response.json();
   }
 }
 

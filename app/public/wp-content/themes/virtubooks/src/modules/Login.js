@@ -53,7 +53,7 @@ class Login {
         try {
           // Clear token from localStorage
           const authService = new AuthService();
-          authService.clearToken();
+          authService.logout();
           // Redirect to home page
           window.location.href = "/";
         } catch (err) {

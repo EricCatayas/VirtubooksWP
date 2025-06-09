@@ -3,6 +3,7 @@ import TextToolbarControls from "../toolbar-controls/text-controls.component";
 import LayoutToolbarControls from "../toolbar-controls/layout-controls.component";
 import ImageUploadsModal from "../image-uploads/image-uploads-modal.component";
 import NotebookService from "../../services/notebookService";
+import AuthService from "../../services/authService";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,13 +30,32 @@ export default function NotebookEditor() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const notebookService = new NotebookService();
+  const authService = new AuthService();
 
   useEffect(async () => {
     // dispatch(resetNotebookState());
-    const fetchedNotebook = await notebookService.getNotebook(notebookId);
-    dispatch(setNotebookState(fetchedNotebook));
+    try {
+      const fetchedNotebook = await notebookService.fetchNotebook(notebookId);
+      const currentUser = await authService.getUser();
+
+      checkNotebookOwnership(fetchedNotebook, currentUser);
+
+      dispatch(setNotebookState(fetchedNotebook));
+    } catch (error) {
+      alert("Failed to load notebook: " + error.message);
+    }
     // todo: if current user is not the owner, set read-only mode and isOwner to false
   }, [dispatch, notebookId]);
+
+  const checkNotebookOwnership = (notebook, currentUser) => {
+    if (notebook.userId === String(currentUser.id)) {
+      setIsOwner(true);
+      setIsReadOnly(false);
+    } else {
+      setIsOwner(false);
+      setIsReadOnly(true);
+    }
+  };
 
   useEffect(() => {
     if (selectedImage) {
@@ -268,13 +288,15 @@ export default function NotebookEditor() {
                           >
                             Close
                           </button>
-                          <button
-                            type="button"
-                            className="btn btn-small btn-outline-danger borderless"
-                            onClick={handleDelete}
-                          >
-                            Delete
-                          </button>
+                          {isOwner && (
+                            <button
+                              type="button"
+                              className="btn btn-small btn-outline-danger borderless"
+                              onClick={handleDelete}
+                            >
+                              Delete
+                            </button>
+                          )}
                         </form>
                       </div>
                     )}
@@ -304,7 +326,7 @@ export default function NotebookEditor() {
               <div className="col-md-4">
                 <div className="right-element">
                   <div className="d-flex align-items-center gap-2 justify-content-end">
-                    {hasChanges && (
+                    {isOwner && hasChanges && (
                       <>
                         <button
                           className="btn btn-small btn-outline-accent borderless my-0"
