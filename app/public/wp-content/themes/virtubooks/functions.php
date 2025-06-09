@@ -100,11 +100,26 @@ function redirect_subscriber_to_home()
   }
 }
 
+function subscriber_hide_admin_bar()
+{
+  if (!is_user_logged_in()) {
+    show_admin_bar(false);
+    return;
+  }
+
+  $current_user = wp_get_current_user();
+  if (count($current_user->roles) == 1 && $current_user->roles[0] == 'subscriber') {
+    show_admin_bar(false);
+  }
+}
+
 add_action('wp_enqueue_scripts', 'app_files');
 
 add_action('after_setup_theme', 'app_features');
 
 add_action('admin_init', 'redirect_subscriber_to_home');
+
+add_action('wp_loaded', 'subscriber_hide_admin_bar');
 
 add_action('init', 'virtubooks_register_custom_rewrite_rules');
 
