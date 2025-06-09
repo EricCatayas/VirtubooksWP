@@ -1,11 +1,24 @@
 <?php
-add_action('rest_api_init', function () {
+add_action('rest_api_init', 'register_api_hooks');
+
+// API custom endpoints for WP-REST API
+function register_api_hooks()
+{
   register_rest_route('virtubooks/v1', '/auth', array(
     'methods' => 'POST',
     'callback' => 'virtubooks_authenticate_user',
     'permission_callback' => '__return_true',
   ));
-});
+
+  register_rest_route(
+    'virtubooks/v1',
+    '/login',
+    array(
+      'methods'  => 'POST',
+      'callback' => 'login',
+    )
+  );
+}
 
 function virtubooks_authenticate_user($request)
 {
@@ -52,4 +65,19 @@ function virtubooks_authenticate_user($request)
     'user' => null,
     'is_registered' => false
   ], 200);
+}
+
+function login($request)
+{
+  // Call get_json_params() to retrieve the JSON body of the request
+  $params = $request->get_json_params();
+  $user_login = isset($params['user_login']) ? $params['user_login'] : '';
+  $user_password = isset($params['user_password']) ? $params['user_password'] : '';
+  $remember = isset($params['remember']) ? $params['remember'] : false;
+
+  return wp_signon(array(
+    'user_login'    => $user_login,
+    'user_password' => $user_password,
+    'remember'      => $remember
+  ), false);
 }

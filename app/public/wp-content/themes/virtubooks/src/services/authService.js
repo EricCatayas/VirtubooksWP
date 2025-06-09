@@ -23,7 +23,8 @@ class AuthService {
       throw new Error("Failed to generate token");
     }
 
-    const { message, token } = response.json();
+    const { message, token } = await response.json();
+
     if (!token) {
       throw new Error(message || "Token generation failed");
     }

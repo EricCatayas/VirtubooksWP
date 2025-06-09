@@ -53,7 +53,7 @@
                         <li><a href="<?php echo esc_url(site_url('/notebook')); ?>"><i class="fa-solid fa-book"></i> My Notebooks</a></li>
                         <li><a href="<?php echo wp_logout_url(); ?>">Log Out</a></li>
                       <?php } else { ?>
-                        <li><a href="index.html">Sign In</a></li>
+                        <li><a href="/login">Sign In</a></li>
                         <li><a href="<?php echo wp_registration_url(); ?>">Sign Up</a></li>
                       <?php } ?>
                     </ul>

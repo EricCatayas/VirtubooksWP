@@ -10,5 +10,7 @@ import "../css/style.scss";
  */
 
 import Notebook from "./modules/Notebook";
+import Login from "./modules/Login";
 
 const notebook = new Notebook();
+const login = new Login();

@@ -65,6 +65,11 @@ function virtubooks_register_custom_rewrite_rules()
     'index.php?pagename=image-uploads',
     'top'
   );
+  add_rewrite_rule(
+    'login/?$',
+    'index.php?pagename=login',
+    'top'
+  );
 }
 
 function virtubooks_add_notebook_id_query_var($vars)
@@ -88,6 +93,10 @@ function virtubooks_template_redirect()
 
   if (get_query_var('pagename') === 'image-uploads') {
     include get_template_directory() . '/image-uploads.php';
+    exit;
+  }
+  if (get_query_var('pagename') === 'login') {
+    include get_template_directory() . '/login.php';
     exit;
   }
 }
