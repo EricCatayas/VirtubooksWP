@@ -48,11 +48,14 @@
                   <li class="menu-item has-sub">
                     <a href="#pages" class="nav-link">Account</a>
                     <ul>
-                      <li><a class="active" href="index.html">Profile</a></li>
-                      <li><a href="<?php echo esc_url(site_url('/notebook')); ?>">My Notebooks</a></li>
-                      <li><a href="index.html">Admin</a></li>
-                      <li><a href="index.html">Sign In</a></li>
-                      <li><a href="index.html">Log Out</a></li>
+                      <?php if (is_user_logged_in()) { ?>
+                        <li><a class="active" href="index.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+                        <li><a href="<?php echo esc_url(site_url('/notebook')); ?>"><i class="fa-solid fa-book"></i> My Notebooks</a></li>
+                        <li><a href="<?php echo wp_logout_url(); ?>">Log Out</a></li>
+                      <?php } else { ?>
+                        <li><a href="index.html">Sign In</a></li>
+                        <li><a href="<?php echo wp_registration_url(); ?>">Sign Up</a></li>
+                      <?php } ?>
                     </ul>
 
                   </li>
