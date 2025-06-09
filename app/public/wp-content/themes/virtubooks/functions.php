@@ -47,14 +47,8 @@ function app_features()
   // add_image_size('blogPost', 438, 328, true);
 }
 
-add_action('wp_enqueue_scripts', 'app_files');
-
-add_action('after_setup_theme', 'app_features');
-
-add_action('admin_init', 'redirect_subscriber_to_home');
-
-
-add_action('init', function () {
+function virtubooks_register_custom_rewrite_rules()
+{
   // Add the 'create' rule first so it takes precedence
   add_rewrite_rule(
     '^notebooks/create/?$',
@@ -71,14 +65,16 @@ add_action('init', function () {
     'index.php?pagename=image-uploads',
     'top'
   );
-});
+}
 
-add_filter('query_vars', function ($vars) {
+function virtubooks_add_notebook_id_query_var($vars)
+{
   $vars[] = 'notebook_id';
   return $vars;
-});
+}
 
-add_action('template_redirect', function () {
+function virtubooks_template_redirect()
+{
   if (get_query_var('pagename') === 'create-notebook') {
     include get_template_directory() . '/create-notebook.php';
     exit;
@@ -94,8 +90,7 @@ add_action('template_redirect', function () {
     include get_template_directory() . '/image-uploads.php';
     exit;
   }
-});
-
+}
 // Redirect subscriber accounts our of admin area
 function redirect_subscriber_to_home()
 {
@@ -104,3 +99,15 @@ function redirect_subscriber_to_home()
     exit;
   }
 }
+
+add_action('wp_enqueue_scripts', 'app_files');
+
+add_action('after_setup_theme', 'app_features');
+
+add_action('admin_init', 'redirect_subscriber_to_home');
+
+add_action('init', 'virtubooks_register_custom_rewrite_rules');
+
+add_filter('query_vars', 'virtubooks_add_notebook_id_query_var');
+
+add_action('template_redirect', 'virtubooks_template_redirect');
