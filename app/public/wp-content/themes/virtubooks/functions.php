@@ -51,6 +51,8 @@ add_action('wp_enqueue_scripts', 'app_files');
 
 add_action('after_setup_theme', 'app_features');
 
+add_action('admin_init', 'redirect_subscriber_to_home');
+
 
 add_action('init', function () {
   // Add the 'create' rule first so it takes precedence
@@ -93,3 +95,12 @@ add_action('template_redirect', function () {
     exit;
   }
 });
+
+// Redirect subscriber accounts our of admin area
+function redirect_subscriber_to_home()
+{
+  if (is_user_logged_in() && current_user_can('subscriber') && !current_user_can('edit_posts')) {
+    wp_redirect(home_url());
+    exit;
+  }
+}
