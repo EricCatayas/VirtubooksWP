@@ -122,6 +122,16 @@ function subscriber_hide_admin_bar()
   }
 }
 
+function custom_login_url($login_url, $redirect, $force_reauth)
+{
+  // Always return your custom login page URL
+  $url = home_url('/login/');
+  if (!empty($redirect)) {
+    $url = add_query_arg('redirect_to', urlencode($redirect), $url);
+  }
+  return $url;
+}
+
 add_action('wp_enqueue_scripts', 'app_files');
 
 add_action('after_setup_theme', 'app_features');
@@ -135,3 +145,5 @@ add_action('init', 'virtubooks_register_custom_rewrite_rules');
 add_filter('query_vars', 'virtubooks_add_notebook_id_query_var');
 
 add_action('template_redirect', 'virtubooks_template_redirect');
+
+add_filter('login_url', 'custom_login_url', 10, 3);
