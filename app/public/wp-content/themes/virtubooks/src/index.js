@@ -12,7 +12,9 @@ import "../css/style.scss";
 import Notebook from "./modules/Notebook";
 import Login from "./modules/Login";
 import ImageUploads from "./modules/ImageUploads";
+import Billboard from "./modules/Billboard";
 
 const notebook = new Notebook();
 const login = new Login();
 const imageUploads = new ImageUploads();
+const billboard = new Billboard();
