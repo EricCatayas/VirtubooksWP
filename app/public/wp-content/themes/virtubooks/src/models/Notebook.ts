@@ -3,7 +3,7 @@ export type Notebook = {
   userId: string;
   title: string;
   description?: string;
-  visibillity?: "public" | "private";
+  visibility?: "public" | "private";
   author?: string;
   aspectRatio?: "6:9" | "13:20" | "3:5" | "7:9" | "1:1";
   createdAt: string;

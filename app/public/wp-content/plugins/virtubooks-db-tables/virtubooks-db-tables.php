@@ -69,7 +69,7 @@ class Virtubooks_Table_Plugin
         'user_id' => get_current_user_id(),
         'title' => 'Sample Notebook',
         'description' => 'This is a sample notebook.',
-        'visibillity' => 'private',
+        'visibility' => 'private',
         'author' => 'Sample Author',
         'aspect_ratio' => '6:9',
         'styles' => json_encode(['background_color' => '#ffffff']),

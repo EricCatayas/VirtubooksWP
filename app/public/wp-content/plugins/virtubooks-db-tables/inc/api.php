@@ -68,7 +68,7 @@ function virtubooks_get_notebook_with_pages($request)
     'userId' => $notebook['user_id'],
     'title' => $notebook['title'],
     'description' => $notebook['description'],
-    'visibillity' => $notebook['visibillity'],
+    'visibility' => $notebook['visibility'],
     'author' => $notebook['author'],
     'aspectRatio' => $notebook['aspect_ratio'],
     'createdAt' => $notebook['created_at'],

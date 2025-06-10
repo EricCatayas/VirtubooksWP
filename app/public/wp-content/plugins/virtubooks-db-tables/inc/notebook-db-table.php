@@ -14,7 +14,7 @@ class Virtubooks_Notebook_DB_Table
           user_id BIGINT(20) UNSIGNED NOT NULL,
           title VARCHAR(255) NOT NULL,
           description TEXT NULL,
-          visibillity ENUM('public', 'private') DEFAULT 'private',
+          visibility ENUM('public', 'private') DEFAULT 'private',
           author VARCHAR(255) NULL,
           aspect_ratio ENUM('6:9', '13:20', '3:5', '7:9', '1:1') DEFAULT '6:9',
           created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

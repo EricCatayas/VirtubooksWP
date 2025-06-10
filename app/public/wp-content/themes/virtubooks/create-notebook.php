@@ -84,7 +84,7 @@ $visibilityInfo = "Public visibility means anyone can view this notebook. Privat
       title: this.title.value,
       description: this.description.value,
       author: this.author.value,
-      visibillity: this.visibility.value,
+      visibility: this.visibility.value,
       aspectRatio: this.aspectRatio.value,
       numberOfPages: totalNumberOfPages,
     };
