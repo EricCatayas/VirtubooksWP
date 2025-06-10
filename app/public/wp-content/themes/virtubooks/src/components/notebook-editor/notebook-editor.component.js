@@ -25,8 +25,8 @@ export default function NotebookEditor() {
   const selectedImage = imageSelector.selectedImage;
   const isImageSelectorOpen = imageSelector.isOpen;
 
-  const [isReadOnly, setIsReadOnly] = useState(false);
-  const [isOwner, setIsOwner] = useState(true);
+  const [isReadOnly, setIsReadOnly] = useState(true);
+  const [isOwner, setIsOwner] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const notebookService = new NotebookService();
@@ -39,7 +39,6 @@ export default function NotebookEditor() {
       const currentUser = await authService.getUser();
 
       checkNotebookOwnership(fetchedNotebook, currentUser);
-
       dispatch(setNotebookState(fetchedNotebook));
     } catch (error) {
       alert("Failed to load notebook: " + error.message);
@@ -48,7 +47,7 @@ export default function NotebookEditor() {
   }, [dispatch, notebookId]);
 
   const checkNotebookOwnership = (notebook, currentUser) => {
-    if (notebook.userId === String(currentUser.id)) {
+    if (currentUser && notebook.userId === String(currentUser.id)) {
       setIsOwner(true);
       setIsReadOnly(false);
     } else {
@@ -225,7 +224,7 @@ export default function NotebookEditor() {
                             <select
                               id="visibility"
                               className="form-select form-select-sm"
-                              value={notebook.visibillity || ""}
+                              value={notebook.visibility || ""}
                               onChange={(e) => {
                                 handleUpdateField("visibility", e.target.value);
                               }}
@@ -234,13 +233,7 @@ export default function NotebookEditor() {
                               required
                             >
                               {visibilityOptions.map((option) => (
-                                <option
-                                  key={option.value}
-                                  value={option.value}
-                                  selected={
-                                    option.value === notebook.visibility
-                                  }
-                                >
+                                <option key={option.value} value={option.value}>
                                   {option.label}
                                 </option>
                               ))}
