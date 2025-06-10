@@ -32,11 +32,31 @@ class NotebookService {
     return res.json();
   }
 
-  async fetchUserNotebooks() {
-    const res = await fetch(`${this.API_URL}/user`, {
+  async fetchUserNotebooks(userId) {
+    const res = await fetch(`${this.API_URL}/user/${userId}`, {
       headers: { Authorization: `Bearer ${this.token}` },
     });
     if (!res.ok) throw new Error("Failed to fetch user notebooks");
+    return res.json();
+  }
+
+  async fetchFilteredNotebooks(filters) {
+    const { userId, title, description, author, s_updatedAt, limit } = filters;
+    const params = {};
+    if (userId) params.userId = userId;
+    if (title) params.title = title;
+    if (description) params.description = description;
+    if (author) params.author = author;
+    if (s_updatedAt) params.s_updatedAt = s_updatedAt;
+    if (limit) params.limit = limit;
+
+    const queryParams = new URLSearchParams(params).toString();
+
+    const res = await fetch(`${this.API_URL}/filter?${queryParams}`, {
+      headers: { Authorization: `Bearer ${this.token}` },
+    });
+
+    if (!res.ok) throw new Error("Failed to fetch filtered notebooks");
     return res.json();
   }
 
