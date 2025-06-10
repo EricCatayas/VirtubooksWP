@@ -48,7 +48,7 @@ class AuthService {
 
     const token = this.getToken();
     if (!token) {
-      throw new Error("No token found");
+      return undefined;
     }
 
     const response = await fetch(`${this.API_URL}/user`, {
