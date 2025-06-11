@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import MultilineInput from "../multiline/multiline.component";
+import ImageContent from "../image-content/image-content.component";
 import ContentToolbar from "../content-toolbar/content-toolbar.component";
 import TextToolbarControls from "../toolbar-controls/text-controls.component";
+import ImageToolbarControls from "../toolbar-controls/image-controls.component";
 
 export default function PageContent({
   content,
@@ -14,7 +16,8 @@ export default function PageContent({
   onUpdateStyle,
   onAddIndent,
   onReduceIndent,
-  onImageUpload,
+  onSetImage,
+  onRemoveImage,
 }) {
   let contentNode = null;
   let toolbarNode = null;
@@ -56,29 +59,7 @@ export default function PageContent({
       );
       break;
     case "image":
-      contentNode = content.value ? (
-        <img
-          src={content.value}
-          alt="User uploaded content"
-          style={content.styles}
-          onClick={() => {
-            if (!isReadOnly) {
-              // Handle image click for editing or other actions
-            }
-          }}
-        />
-      ) : (
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => {
-            if (e.target.files && e.target.files[0]) {
-              onImageUpload(e.target.files[0]);
-            }
-          }}
-          disabled={isReadOnly}
-        />
-      );
+      contentNode = <ImageContent content={content} />;
       break;
     case "quote":
       contentNode =
@@ -152,6 +133,14 @@ export default function PageContent({
           onDeleteContent={() => onDeleteContent()}
           onMoveUp={() => onMoveUp()}
           onMoveDown={() => onMoveDown()}
+          toolbarControls={
+            <ImageToolbarControls
+              content={content}
+              onUpdateStyle={(style) => onUpdateStyle(style)}
+              onSelectImage={() => onSetImage()}
+              onRemoveImage={() => onRemoveImage()}
+            />
+          }
         />
       );
       break;

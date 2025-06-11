@@ -30,6 +30,7 @@ export default function NotebookPage({
   const dispatch = useDispatch();
   const pageId = page.id;
   const [isFocused, setIsFocused] = useState(false);
+  const [activeContentIdx, setActiveContentIdx] = useState(null);
   const imageSelector = useSelector((state) => state.imageSelector);
   const selectedImage = imageSelector.selectedImage;
   const isFrontPage = pageIdx % 2 === 0;
@@ -159,13 +160,45 @@ export default function NotebookPage({
     console.log("Set Notebook Settings");
   };
   const handleSetBackgroundImage = () => {
-    dispatch(toggleImageSelector());
+    dispatch(toggleImageSelector({ type: "background" }));
+  };
+
+  const handleSetContentImage = (contentIdx) => {
+    setActiveContentIdx(contentIdx);
+    dispatch(toggleImageSelector({ type: "content" }));
+  };
+
+  const handleRemoveContentImage = (contentIdx) => {
+    const targetContent = page.contents[contentIdx];
+    if (targetContent && targetContent.type === "image") {
+      const updatedContent = {
+        ...targetContent,
+        value: "",
+      };
+      handleUpdateContent(contentIdx, updatedContent);
+    }
   };
 
   const handleOnFocus = () => {
     setIsFocused(true);
     dispatch(setCurrentPage({ pageId }));
   };
+
+  useEffect(() => {
+    if (selectedImage && selectedImage.type === "content") {
+      const imageURL = selectedImage.imageURL;
+      if (activeContentIdx !== null) {
+        const targetContent = page.contents[activeContentIdx];
+        if (targetContent && targetContent.type === "image") {
+          const updatedContent = {
+            ...targetContent,
+            value: imageURL,
+          };
+          handleUpdateContent(activeContentIdx, updatedContent);
+        }
+      }
+    }
+  }, [dispatch, selectedImage]);
 
   return (
     <>
@@ -232,9 +265,10 @@ export default function NotebookPage({
               onUpdateStyle={(style) => handleUpdateStyle(idx, style)}
               onMoveUp={() => handleMoveUp(idx)}
               onMoveDown={() => handleMoveDown(idx)}
-              onImageUpload={(file) => handleImageUpload(idx, file)}
               onAddIndent={() => handleAddIndent(idx)}
               onReduceIndent={() => handleReduceIndent(idx)}
+              onSetImage={() => handleSetContentImage(idx)}
+              onRemoveImage={() => handleRemoveContentImage(idx)}
             />
           ))}
         </section>
