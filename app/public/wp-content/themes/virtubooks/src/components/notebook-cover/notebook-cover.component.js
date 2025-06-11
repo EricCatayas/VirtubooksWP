@@ -3,7 +3,7 @@ import React from "react";
 import "../notebook/notebook.styles.css";
 import "../page/notebook-page.styles.css";
 
-export default function NotebookDefaultCover({
+export default function NotebookCover({
   page,
   className,
   aspectRatio,
