@@ -55,10 +55,10 @@ export const lineHeightOptions = [
 
 export const aspectRatioOptions = [
   { label: "6:9", value: "6:9" },
-  { label: "13:20", value: "13:20" },
-  { label: "3:5", value: "3:5" },
   { label: "7:9", value: "7:9" },
+  { label: "3:5", value: "3:5" },
   { label: "1:1", value: "1:1" },
+  { label: "13:20", value: "13:20" },
 ];
 
 export const visibilityOptions = [

@@ -1,3 +1,4 @@
+import NotebookDefaultCover from "../notebook-cover/notebook-default-cover.component";
 import { defaultCoverImageURL } from "../../config/default";
 import NotebookService from "../../services/notebookService";
 import AuthService from "../../services/authService";
@@ -66,14 +67,23 @@ export default function Billboard() {
                         </a>
                       </div>
                     </div>
-                    <img
-                      src={
-                        notebook.pages[0].backgroundImageURL ||
-                        defaultCoverImageURL
-                      }
-                      alt="banner"
-                      className="banner-image"
-                    />
+                    {notebook.pages && notebook.pages[0].backgroundImageURL ? (
+                      <img
+                        src={
+                          notebook.pages[0].backgroundImageURL ||
+                          defaultCoverImageURL
+                        }
+                        alt="banner"
+                        className="banner-image"
+                      />
+                    ) : (
+                      <NotebookDefaultCover
+                        page={notebook.pages[0]}
+                        aspectRatio={notebook.aspectRatio}
+                        styles={notebook.styles}
+                        className="book-small"
+                      />
+                    )}
                   </div>
                 ))}
               </div>
