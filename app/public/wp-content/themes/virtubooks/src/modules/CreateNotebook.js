@@ -15,6 +15,12 @@ class CreateNotebook {
         return;
       }
 
+      authService.getUser().then((user) => {
+        if (user) {
+          document.getElementById("author").value = user.username;
+        }
+      });
+
       createForm.addEventListener("submit", async (e) => {
         e.preventDefault();
         // Check if user is logged in
