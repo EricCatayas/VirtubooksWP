@@ -25,7 +25,7 @@ export default function NotebookPage({
   pageIdx,
   className,
   styles = {},
-  isReadOnly = false,
+  isReadOnly = true,
 }) {
   const dispatch = useDispatch();
   const pageId = page.id;

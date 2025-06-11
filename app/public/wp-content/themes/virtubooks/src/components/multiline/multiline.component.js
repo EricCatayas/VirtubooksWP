@@ -3,7 +3,7 @@ export default function MultilineInput({
   value,
   onChange,
   className = "",
-  isReadOnly = false,
+  isReadOnly = true,
   style,
   placeholder = "Type here...",
   onFocus,

@@ -35,6 +35,7 @@ export default function PageContent({
           value={content.value}
           className={content.type}
           style={content.styles}
+          isReadOnly={isReadOnly}
           onChange={(value) => onInputChange(value)}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
@@ -47,6 +48,7 @@ export default function PageContent({
           value={content.value}
           className={content.type}
           style={content.styles}
+          isReadOnly={isReadOnly}
           onChange={(value) => onInputChange(value)}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
@@ -97,6 +99,7 @@ export default function PageContent({
             value={content.value}
             className={content.type}
             style={content.styles}
+            isReadOnly={isReadOnly}
             onChange={(value) => onInputChange(value)}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
