@@ -46,9 +46,16 @@
   height: 100%;
   transform-style: preserve-3d;
 }
-/* todo: make aspect ratio dynamic and responsive  */
 .book[data-aspect-ratio="6:9"] {
   width: 500px;
+  height: 750px;
+}
+.book[data-aspect-ratio="7:9"] {
+  width: 575px;
+  height: 740px;
+}
+.book[data-aspect-ratio="3:5"] {
+  width: 450px;
   height: 750px;
 }
 .book[data-aspect-ratio="1:1"] {
@@ -56,16 +63,29 @@
   height: 500px;
 }
 .book[data-aspect-ratio="13:20"] {
-  width: 481px;
+  width: 480px;
   height: 740px;
 }
-.book[data-aspect-ratio="3:5"] {
-  width: 450px;
-  height: 750px;
+
+.book.book-small[data-aspect-ratio="6:9"] {
+  width: 400px;
+  height: 600px;
 }
-.book[data-aspect-ratio="7:9"] {
-  width: 575px;
-  height: 740px;
+.book.book-small[data-aspect-ratio="7:9"] {
+  width: 400px;
+  height: 515px;
+}
+.book.book-small[data-aspect-ratio="3:5"] {
+  width: 360px;
+  height: 600px;
+}
+.book.book-small[data-aspect-ratio="1:1"] {
+  width: 400px;
+  height: 400px;
+}
+.book.book-small[data-aspect-ratio="13:20"] {
+  width: 390px;
+  height: 600px;
 }
 
 .page {
