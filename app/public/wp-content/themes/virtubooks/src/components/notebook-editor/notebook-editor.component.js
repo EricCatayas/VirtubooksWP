@@ -57,7 +57,7 @@ export default function NotebookEditor() {
   };
 
   useEffect(() => {
-    if (selectedImage) {
+    if (selectedImage && selectedImage.type === "background") {
       const imageURL = selectedImage.imageURL;
       dispatch(
         setPageBackgroundImage({

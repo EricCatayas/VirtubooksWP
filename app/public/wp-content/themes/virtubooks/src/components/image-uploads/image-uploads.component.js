@@ -33,7 +33,7 @@ export default function ImageUploadsComponent() {
   }, []);
 
   const handleSelectImage = (image) => {
-    dispatch(selectImage(image));
+    dispatch(selectImage({ imageURL: image.imageURL }));
     dispatch(toggleImageSelector());
   };
 
