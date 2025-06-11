@@ -4,29 +4,8 @@ $visibilityInfo = "Public visibility means anyone can view this notebook. Privat
 
 ?>
 
-<style>
-  .notebook-form-container {
-    min-height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .notebook-create-form {
-    min-width: 320px;
-    max-width: 400px;
-    width: 100%;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
-    padding: 32px 24px;
-    margin-top: 2.5rem;
-    margin-bottom: 2.5rem;
-  }
-</style>
-
 <div class="notebook-form-container">
-  <form id="notebookCreateForm" class="notebook-create-form" method="post" action="">
+  <form id="notebook-create-form" class="notebook-create-form" method="post" action="">
     <div class="mb-3">
       <label for="title" class="form-label" style="font-size:0.95em;">Title</label>
       <input type="text" id="title" name="title" class="form-control form-control-sm" style="font-size:0.95em;" required>
@@ -70,49 +49,6 @@ $visibilityInfo = "Public visibility means anyone can view this notebook. Privat
     </div>
   </form>
 </div>
-
-<script type="module">
-  document.getElementById('notebookCreateForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const API_URL = appData.api_url;
-
-    const numberOfPages = parseInt(document.getElementById('numberOfPages').value) ?? 0;
-
-    const totalNumberOfPages = 4 + (numberOfPages * 2)
-
-    const notebook = {
-      title: this.title.value,
-      description: this.description.value,
-      author: this.author.value,
-      visibility: this.visibility.value,
-      aspectRatio: this.aspectRatio.value,
-      numberOfPages: totalNumberOfPages,
-    };
-
-    const token = localStorage.getItem('token') || '';
-
-    try {
-      const res = await fetch(`${API_URL}/notebooks`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(notebook),
-      });
-      if (res.ok) {
-        alert('Notebook created!');
-      } else {
-        alert("Failed to create notebook");
-      }
-      const newNotebook = await res.json();
-      window.location.href = `/notebooks/${newNotebook.id}`;
-    } catch (err) {
-      alert('Failed to create notebook.');
-      console.error(err);
-    }
-  });
-</script>
 
 <?php
 get_footer();

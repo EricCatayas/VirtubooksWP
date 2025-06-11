@@ -3,7 +3,8 @@
 /* SASS and Global'ish Stuff */
 @import "base/variables";
 @import "base/baseline";
-@import "base/image-uploads";
+@import "modules/create-notebook.scss";
+@import "modules/image-uploads";
 
 /* Block Element Modifier (BEM) Blocks */
 
