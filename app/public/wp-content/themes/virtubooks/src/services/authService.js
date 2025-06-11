@@ -15,6 +15,11 @@ class AuthService {
     localStorage.removeItem("user");
   }
 
+  isLoggedIn() {
+    const token = this.getToken();
+    return !!token;
+  }
+
   async generateToken(email, password) {
     const response = await fetch(`${this.API_URL}/generate-token`, {
       method: "POST",
