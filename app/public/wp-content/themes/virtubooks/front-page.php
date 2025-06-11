@@ -117,6 +117,7 @@ get_header();
 	</div>
 </section>
 
+<!-- For smaller screen widths, replace grid with this -->
 <section id="best-selling" class="leaf-pattern-overlay">
 	<div class="corner-pattern-overlay"></div>
 	<div class="container">
