@@ -43,7 +43,7 @@
                       </div>
                     </div>
                   </li>
-                  <li class="menu-item"><a href="#featured-books" class="nav-link">New Notebook</a></li>
+                  <li class="menu-item"><a href="<?php echo esc_url(site_url('/notebooks/create')); ?>" class="nav-link">New Notebook</a></li>
                   <li class="menu-item"><a href="<?php echo get_permalink(get_option('page_for_posts')); ?>" class="nav-link">Blog</a></li>
                   <li class="menu-item has-sub">
                     <a href="#pages" class="nav-link">Account</a>
