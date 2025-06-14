@@ -15,10 +15,6 @@ $visibilityInfo = "Public visibility means anyone can view this notebook. Privat
       <textarea id="description" name="description" class="form-control form-control-sm" rows="2" style="font-size:0.95em;"></textarea>
     </div>
     <div class="mb-3">
-      <label for="author" class="form-label" style="font-size:0.95em;">Author</label>
-      <input type="text" id="author" name="author" class="form-control form-control-sm" style="font-size:0.95em;">
-    </div>
-    <div class="mb-3">
       <div class="d-flex align-items-center justify-content-between">
         <label for="visibility" class="form-label" style="font-size:0.95em;">Visibility</label>
         <span class="text-accent" title="<?php echo $visibilityInfo ?>"><i class="fa-solid fa-info"></i> </span>

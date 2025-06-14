@@ -34,7 +34,6 @@ class CreateNotebook {
         const notebook = {
           title: form.title.value,
           description: form.description.value,
-          author: form.author.value,
           visibility: form.visibility.value,
           aspectRatio: form.aspectRatio.value,
           numberOfPages: totalNumberOfPages,

@@ -4,7 +4,7 @@ export type Notebook = {
   title: string;
   description?: string;
   visibility?: "public" | "private";
-  author?: string;
+  author?: string; // from server
   aspectRatio?: "6:9" | "13:20" | "3:5" | "7:9" | "1:1";
   tags?: string;
   createdAt: string;

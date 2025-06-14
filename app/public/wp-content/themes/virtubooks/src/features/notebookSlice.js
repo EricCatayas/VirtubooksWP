@@ -22,8 +22,10 @@ export const notebookSlice = createSlice({
       state.id = newState.id;
       state.title = newState.title;
       state.description = newState.description;
+      state.author = newState.author;
       state.aspectRatio = newState.aspectRatio;
       state.visibility = newState.visibility;
+      state.tags = newState.tags;
       state.styles = newState.styles || {};
       state.pages = newState.pages.map((page) => ({
         ...page,
