@@ -206,11 +206,8 @@ export default function NotebookEditor() {
                               id="author"
                               className="form-control form-control-sm"
                               value={notebook.author || ""}
-                              onChange={(e) => {
-                                handleUpdateField("author", e.target.value);
-                              }}
                               style={{ fontSize: "0.95em" }}
-                              disabled={isReadOnly}
+                              disabled={true} // Author is read-only
                             />
                           </div>
                           <div className="mb-2">
