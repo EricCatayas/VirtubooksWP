@@ -5,19 +5,56 @@ class AuthService {
     this.API_URL = `${process.env.API_BASE_URL}/auth`;
   }
 
+  setToken(token) {
+    if (token) {
+      localStorage.setItem("token", token);
+    }
+  }
+  setUser(user) {
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+    }
+  }
+
   getToken() {
     const token = localStorage.getItem("token");
     return token;
   }
 
-  logout() {
+  isLoggedIn() {
+    const token = this.getToken();
+    return !!token;
+  }
+
+  async logout() {
+    const response = await fetch(`/wp-json/virtubooks/v1/logout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
     localStorage.removeItem("token");
     localStorage.removeItem("user");
   }
 
-  isLoggedIn() {
-    const token = this.getToken();
-    return !!token;
+  async login(email, password, remember = false) {
+    const response = await fetch(`/wp-json/virtubooks/v1/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_login: email,
+        user_password: password,
+        remember: remember,
+      }),
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || "Login failed");
+    }
+    return;
   }
 
   async generateToken(email, password) {
@@ -38,9 +75,8 @@ class AuthService {
     if (!token) {
       throw new Error(message || "Token generation failed");
     }
-
-    localStorage.setItem("token", token);
-    localStorage.setItem("user", JSON.stringify(user));
+    this.setToken(token);
+    this.setUser(user);
 
     return token;
   }

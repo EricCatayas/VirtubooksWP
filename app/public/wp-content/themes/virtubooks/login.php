@@ -12,10 +12,10 @@ get_header();
       <label for="login-password" class="form-label">Password</label>
       <input type="password" class="form-control" id="login-password" required>
     </div>
-    <div class="form-check mb-2">
+    <!-- <div class="form-check mb-2">
       <input type="checkbox" class="form-check-input" id="login-remember">
       <label class="form-check-label" for="login-remember">Remember Me</label>
-    </div>
+    </div> -->
     <div class="d-flex justify-content-end mb-2">
       <button type="submit" class="btn btn-primary btn-small">Sign In</button>
     </div>

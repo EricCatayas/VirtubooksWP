@@ -14,30 +14,15 @@ class Login {
 
         const email = document.getElementById("login-email").value;
         const password = document.getElementById("login-password").value;
-        const remember = document.getElementById("login-remember").checked;
+        const remember = true; //document.getElementById("login-remember").checked;
         const errorDiv = document.getElementById("login-error");
         errorDiv.style.display = "none";
 
         // Call WordPress login API
         try {
-          const wpResponse = await fetch(`/wp-json/virtubooks/v1/login`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              user_login: email,
-              user_password: password,
-              remember: remember,
-            }),
-          });
-          const wpData = await wpResponse.json();
-          if (!wpResponse.ok) {
-            throw new Error(wpData.message || "Login failed");
-          }
-
-          // If successful, call AuthService.generateToken
           const authService = new AuthService();
+          await authService.login(email, password, remember);
+          // If successful, generate token from backend
           await authService.generateToken(email, password);
 
           // Redirect to home page
