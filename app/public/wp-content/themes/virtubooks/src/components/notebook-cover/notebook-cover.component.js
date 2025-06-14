@@ -3,13 +3,11 @@ import React from "react";
 import "../notebook/notebook.styles.css";
 import "../page/notebook-page.styles.css";
 
-export default function NotebookCover({
-  page,
-  className,
-  aspectRatio,
-  styles = {},
-}) {
+export default function NotebookCover({ notebook, className = "" }) {
   const isReadOnly = true;
+  const page = notebook.pages[0] || {}; // Default to the first page if available,
+  const styles = notebook.styles || {};
+  const aspectRatio = notebook.aspectRatio;
 
   return (
     <article className={`book ${className}`} data-aspect-ratio={aspectRatio}>
