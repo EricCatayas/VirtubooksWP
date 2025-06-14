@@ -14,9 +14,11 @@ import Login from "./modules/Login";
 import ImageUploads from "./modules/ImageUploads";
 import Billboard from "./modules/Billboard";
 import CreateNotebook from "./modules/CreateNotebook";
+import FeaturedNotebooks from "./modules/FeaturedNotebooks";
 
 const notebook = new Notebook();
 const login = new Login();
 const imageUploads = new ImageUploads();
 const billboard = new Billboard();
 const createNotebook = new CreateNotebook();
+const featuredNotebooks = new FeaturedNotebooks();

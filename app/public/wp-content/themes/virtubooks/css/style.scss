@@ -2396,6 +2396,19 @@ footer#footer {
 .product-style {
   position: relative;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 220px;
+  overflow: hidden;
+  // padding: 15% 0;
+  // background: #efeee8;
+}
+
+.product-style .book {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 .slick-slider .product-style {
