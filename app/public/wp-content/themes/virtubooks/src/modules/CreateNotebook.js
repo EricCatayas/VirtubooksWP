@@ -28,7 +28,7 @@ class CreateNotebook {
         const API_URL = process.env.API_BASE_URL;
 
         const form = e.target;
-        const numberOfPages = parseInt(form.numberOfPages.value) || 0;
+        let numberOfPages = parseInt(form.numberOfPages.value) || 0;
         if (isNaN(numberOfPages) || numberOfPages < 0) {
           alert("Please enter a valid number of pages.");
           return;
@@ -38,6 +38,7 @@ class CreateNotebook {
           numberOfPages += 1; // Ensure even number of pages
         }
 
+        // including front-cover & back-cover
         const totalNumberOfPages = 4 + numberOfPages;
 
         const notebook = {
