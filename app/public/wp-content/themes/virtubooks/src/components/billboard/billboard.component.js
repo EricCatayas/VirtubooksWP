@@ -67,14 +67,7 @@ export default function Billboard() {
                         </a>
                       </div>
                     </div>
-                    {notebook.pages && notebook.pages.length > 0 && (
-                      <NotebookCover
-                        page={notebook.pages[0]}
-                        aspectRatio={notebook.aspectRatio}
-                        styles={notebook.styles}
-                        className="book-small"
-                      />
-                    )}
+                    <NotebookCover notebook={notebook} className="book-small" />
                   </div>
                 ))}
               </div>
