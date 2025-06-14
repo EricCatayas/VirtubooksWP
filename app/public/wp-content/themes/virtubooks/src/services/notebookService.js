@@ -11,33 +11,56 @@ class NotebookService {
   }
 
   async fetchNotebook(id) {
-    const res = await fetch(`${this.API_URL}/${id}`, {
-      headers: { Authorization: `Bearer ${this.token}` },
-    });
-    if (!res.ok) {
-      if (res.status === 404) {
-        throw new Error("Notebook not found");
+    try {
+      const res = await fetch(`${this.API_URL}/${id}`, {
+        headers: { Authorization: `Bearer ${this.token}` },
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.message || "Failed to fetch notebook");
       }
-      if (res.status === 403) {
-        throw new Error("Access denied to this notebook");
+      return res.json();
+    } catch (error) {
+      if (error.message === "Token expired") {
+        alert("Your session has expired. Please log in again.");
+        window.location.href = "/login";
       }
-      throw new Error("Failed to fetch notebook");
+      console.error("Error fetching notebook:", error);
+      throw new Error(error.message || "Failed to fetch notebook");
     }
-    return res.json();
   }
 
   async fetchPublicNotebooks() {
-    const res = await fetch(`${this.API_URL}/`);
-    if (!res.ok) throw new Error("Failed to fetch public notebooks");
-    return res.json();
+    try {
+      const res = await fetch(`${this.API_URL}/`);
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.message || "Failed to fetch public notebooks");
+      }
+      return res.json();
+    } catch (error) {
+      console.error("Error fetching public notebooks:", error.message);
+      throw new Error(error.message || "Failed to fetch public notebooks");
+    }
   }
 
   async fetchUserNotebooks(userId) {
-    const res = await fetch(`${this.API_URL}/user/${userId}`, {
-      headers: { Authorization: `Bearer ${this.token}` },
-    });
-    if (!res.ok) throw new Error("Failed to fetch user notebooks");
-    return res.json();
+    try {
+      const res = await fetch(`${this.API_URL}/user/${userId}`, {
+        headers: { Authorization: `Bearer ${this.token}` },
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.message || "Failed to fetch user notebooks");
+      }
+      return res.json();
+    } catch (error) {
+      if (error.message === "Token expired") {
+        alert("Your session has expired. Please log in again.");
+        window.location.href = "/login";
+      }
+      throw new Error(error.message || "Failed to fetch user notebooks");
+    }
   }
 
   async fetchFilteredNotebooks(filters) {
@@ -61,16 +84,27 @@ class NotebookService {
   }
 
   async createNotebook(notebook) {
-    const res = await fetch(`${this.API_URL}/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.token}`,
-      },
-      body: JSON.stringify(notebook),
-    });
-    if (!res.ok) throw new Error("Failed to create notebook");
-    return res.json();
+    try {
+      const res = await fetch(`${this.API_URL}/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        },
+        body: JSON.stringify(notebook),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.message || "Failed to create notebook");
+      }
+      return res.json();
+    } catch (error) {
+      if (error.message === "Token expired") {
+        alert("Your session has expired. Please log in again.");
+        window.location.href = "/login";
+      }
+      throw new Error(error.message || "Failed to create notebook");
+    }
   }
 
   async updateNotebook(notebook) {
@@ -83,14 +117,20 @@ class NotebookService {
         },
         body: JSON.stringify(notebook),
       });
-      if (!res.ok) throw new Error("Failed to update notebook");
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.message || "Failed to update notebook");
+      }
       const updatedNotebook = res.json();
       const updatedPages = await this.updatePages(notebook.id, notebook.pages);
       updatedNotebook.pages = updatedPages;
       return updatedNotebook;
     } catch (error) {
+      if (error.message === "Token expired") {
+        window.location.href = "/login";
+      }
       console.error("Error updating notebook:", error);
-      throw new Error("Failed to update notebook");
+      throw new Error(error.message || "Failed to update notebook");
     }
   }
 
@@ -100,38 +140,74 @@ class NotebookService {
       throw new Error("Pages must have an even number of pages");
     }
 
-    const res = await fetch(`${this.API_URL}/${notebookId}/pages`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.token}`,
-      },
-      body: JSON.stringify({ pages }),
-    });
-    if (!res.ok) throw new Error("Failed to update pages");
-    const updatedNotebook = res.json();
-    return updatedNotebook.pages;
+    try {
+      const res = await fetch(`${this.API_URL}/${notebookId}/pages`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        },
+        body: JSON.stringify({ pages }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.message || "Failed to update pages");
+      }
+      const updatedNotebook = res.json();
+      return updatedNotebook.pages;
+    } catch (error) {
+      if (error.message === "Token expired") {
+        alert("Your session has expired. Please log in again.");
+        window.location.href = "/login";
+      }
+      console.error("Error updating pages:", error);
+      throw new Error(error.message || "Failed to update pages");
+    }
   }
 
   async deleteNotebook(id) {
-    const res = await fetch(`${this.API_URL}/${id}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${this.token}` },
-    });
-    if (!res.ok) throw new Error("Failed to delete notebook");
+    try {
+      const res = await fetch(`${this.API_URL}/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${this.token}` },
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.message || "Failed to delete notebook");
+      }
+    } catch (error) {
+      if (error.message === "Token expired") {
+        alert("Your session has expired. Please log in again.");
+        window.location.href = "/login";
+      }
+      console.error("Error deleting notebook:", error);
+      throw new Error(error.message || "Failed to delete notebook");
+    }
   }
 
   async updatePage(notebookId, pageId, page) {
-    const res = await fetch(`${this.API_URL}/${notebookId}/pages/${pageId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.token}`,
-      },
-      body: JSON.stringify(page),
-    });
-    if (!res.ok) throw new Error("Failed to update page");
-    return res.json();
+    try {
+      const res = await fetch(`${this.API_URL}/${notebookId}/pages/${pageId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        },
+        body: JSON.stringify(page),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.message || "Failed to update page");
+      }
+      return res.json();
+    } catch (error) {
+      if (error.message === "Token expired") {
+        alert("Your session has expired. Please log in again.");
+        window.location.href = "/login";
+      }
+      console.error("Error updating page:", error);
+      throw new Error(error.message || "Failed to update page");
+    }
   }
 }
 
