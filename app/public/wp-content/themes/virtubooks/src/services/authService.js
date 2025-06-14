@@ -65,8 +65,9 @@ class AuthService {
     if (!response.ok) {
       throw new Error("Failed to fetch user data");
     }
-
-    return response.json();
+    const userData = await response.json();
+    localStorage.setItem("user", JSON.stringify(userData));
+    return userData;
   }
 }
 
