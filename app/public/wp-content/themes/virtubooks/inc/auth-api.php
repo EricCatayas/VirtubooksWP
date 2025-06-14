@@ -10,6 +10,18 @@ function register_api_hooks()
     'permission_callback' => '__return_true',
   ));
 
+  register_rest_route('virtubooks/v1', '/users', array(
+    'methods' => 'GET',
+    'callback' => 'virtubooks_get_users',
+    'permission_callback' => '__return_true',
+  ));
+
+  register_rest_route('virtubooks/v1', '/users/(?P<id>\d+)', array(
+    'methods' => 'GET',
+    'callback' => 'virtubooks_get_user',
+    'permission_callback' => '__return_true',
+  ));
+
   register_rest_route(
     'virtubooks/v1',
     '/login',
@@ -77,6 +89,56 @@ function virtubooks_authenticate_user($request)
     'user' => null,
     'is_registered' => false
   ], 200);
+}
+
+function virtubooks_get_user($request)
+{
+  $user_id = (int) $request['id'];
+
+  // Only allow requests from the authorized backend server
+  $allowed_origin = getenv('API_BASE_URL') ?: ($_ENV['API_BASE_URL'] ?? '');
+  $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
+
+  if (empty($allowed_origin) || $origin !== $allowed_origin) {
+    return new WP_REST_Response(['message' => 'Unauthorized'], 401);
+  }
+
+  $user = get_user_by('ID', $user_id);
+
+  if (!$user) {
+    return new WP_REST_Response(['message' => 'User not found'], 404);
+  }
+
+  return new WP_REST_Response([
+    'id' => $user->ID,
+    'username' => $user->user_login,
+    'email' => $user->user_email,
+  ], 200);
+}
+
+function virtubooks_get_users($request)
+{
+  // Only allow requests from the authorized backend server
+  $allowed_origin = getenv('API_BASE_URL') ?: ($_ENV['API_BASE_URL'] ?? '');
+  $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
+
+  if (empty($allowed_origin) || $origin !== $allowed_origin) {
+    return new WP_REST_Response(['message' => 'Unauthorized'], 401);
+  }
+
+  $users = get_users(array(
+    'fields' => array('ID', 'user_login', 'user_email')
+  ));
+
+  $user_data = array_map(function ($user) {
+    return array(
+      'id' => $user->ID,
+      'username' => $user->user_login,
+      'email' => $user->user_email,
+    );
+  }, $users);
+
+  return new WP_REST_Response(['users' => $user_data], 200);
 }
 
 function login($request)
