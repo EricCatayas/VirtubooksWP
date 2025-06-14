@@ -67,7 +67,8 @@ class AuthService {
     });
 
     if (!response.ok) {
-      throw new Error("Failed to generate token");
+      const data = await response.json();
+      throw new Error(data.message || "Failed to generate token");
     }
 
     const { message, token, user } = await response.json();
@@ -99,7 +100,8 @@ class AuthService {
     });
 
     if (!response.ok) {
-      throw new Error("Failed to fetch user data");
+      const data = await response.json();
+      throw new Error(data.message || "Failed to fetch user data");
     }
     const userData = await response.json();
     localStorage.setItem("user", JSON.stringify(userData));
