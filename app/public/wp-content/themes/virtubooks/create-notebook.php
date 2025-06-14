@@ -25,7 +25,7 @@ $visibilityInfo = "Public visibility means anyone can view this notebook. Privat
       </div>
       <select id="visibility" name="visibility" class="form-select form-select-sm" style="font-size:0.95em;" required>
         <option value="">Select visibility</option>
-        <option value=" public">Public</option>
+        <option value="public">Public</option>
         <option value="private">Private</option>
       </select>
     </div>

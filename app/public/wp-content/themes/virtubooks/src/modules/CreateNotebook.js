@@ -55,7 +55,7 @@ class CreateNotebook {
           if (res.ok) {
             alert("Notebook created!");
           } else {
-            alert("Failed to create notebook");
+            throw new Error("Failed to create notebook");
           }
           const newNotebook = await res.json();
           window.location.href = `/notebooks/${newNotebook.id}`;
