@@ -18,6 +18,18 @@ function register_api_hooks()
       'callback' => 'login',
     )
   );
+
+  register_rest_route(
+    'virtubooks/v1',
+    '/logout',
+    array(
+      'methods'  => 'POST',
+      'callback' => function () {
+        wp_logout();
+        return new WP_REST_Response(['message' => 'Logged out successfully'], 200);
+      },
+    )
+  );
 }
 
 function virtubooks_authenticate_user($request)

@@ -70,6 +70,11 @@ function virtubooks_register_custom_rewrite_rules()
     'index.php?pagename=login',
     'top'
   );
+  add_rewrite_rule(
+    'logout/?$',
+    'index.php?pagename=logout',
+    'top'
+  );
 }
 
 function virtubooks_add_notebook_id_query_var($vars)
@@ -97,6 +102,10 @@ function virtubooks_template_redirect()
   }
   if (get_query_var('pagename') === 'login') {
     include get_template_directory() . '/login.php';
+    exit;
+  }
+  if (get_query_var('pagename') === 'logout') {
+    include get_template_directory() . '/logout.php';
     exit;
   }
 }
