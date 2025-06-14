@@ -274,6 +274,26 @@ export default function NotebookEditor() {
                               ))}
                             </select>
                           </div>
+                          <div className="mb-2">
+                            <label
+                              htmlFor="tags"
+                              className="form-label"
+                              style={{ fontSize: "0.95em" }}
+                            >
+                              Tags
+                            </label>
+                            <input
+                              type="text"
+                              id="tags"
+                              className="form-control form-control-sm"
+                              value={notebook.tags || ""}
+                              onChange={(e) => {
+                                handleUpdateField("tags", e.target.value);
+                              }}
+                              style={{ fontSize: "0.95em" }}
+                              disabled={isReadOnly}
+                            />
+                          </div>
                           <button
                             type="button"
                             className="btn btn-small btn-outline-accent borderless my-0"

@@ -44,6 +44,10 @@ $visibilityInfo = "Public visibility means anyone can view this notebook. Privat
       <label for="numberOfPages" class="form-label" style="font-size:0.95em;">Number of Pages</label>
       <input type="number" id="numberOfPages" name="numberOfPages" class="form-control form-control-sm" style="font-size:0.95em;" min="1" required>
     </div>
+    <div class="mb-3">
+      <label for="tags" class="form-label" style="font-size:0.95em;">Tags</label>
+      <input type="text" id="tags" name="tags" class="form-control form-control-sm" style="font-size:0.95em;" placeholder="e.g., science, technology, art">
+    </div>
     <div class="d-grid">
       <button type="submit" class="btn btn-primary btn-sm">Create Notebook</button>
     </div>
