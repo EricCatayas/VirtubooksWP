@@ -29,7 +29,16 @@ class CreateNotebook {
 
         const form = e.target;
         const numberOfPages = parseInt(form.numberOfPages.value) || 0;
-        const totalNumberOfPages = 4 + numberOfPages * 2;
+        if (isNaN(numberOfPages) || numberOfPages < 0) {
+          alert("Please enter a valid number of pages.");
+          return;
+        }
+
+        if (numberOfPages % 2 !== 0) {
+          numberOfPages += 1; // Ensure even number of pages
+        }
+
+        const totalNumberOfPages = 4 + numberOfPages;
 
         const notebook = {
           title: form.title.value,
