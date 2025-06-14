@@ -27,18 +27,18 @@ class CreateNotebook {
 
         const API_URL = process.env.API_BASE_URL;
 
-        const numberOfPages =
-          parseInt(document.getElementById("numberOfPages").value) ?? 0;
-
+        const form = e.target;
+        const numberOfPages = parseInt(form.numberOfPages.value) || 0;
         const totalNumberOfPages = 4 + numberOfPages * 2;
 
         const notebook = {
-          title: this.title.value,
-          description: this.description.value,
-          author: this.author.value,
-          visibility: this.visibility.value,
-          aspectRatio: this.aspectRatio.value,
+          title: form.title.value,
+          description: form.description.value,
+          author: form.author.value,
+          visibility: form.visibility.value,
+          aspectRatio: form.aspectRatio.value,
           numberOfPages: totalNumberOfPages,
+          tags: form.tags.value,
         };
 
         const token = authService.getToken();
