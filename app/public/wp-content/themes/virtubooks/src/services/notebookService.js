@@ -74,22 +74,32 @@ class NotebookService {
   }
 
   async updateNotebook(notebook) {
-    const res = await fetch(`${this.API_URL}/${notebook.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.token}`,
-      },
-      body: JSON.stringify(notebook),
-    });
-    if (!res.ok) throw new Error("Failed to update notebook");
-    const updatedNotebook = res.json();
-    const updatedPages = await this.updatePages(notebook.id, notebook.pages);
-    updatedNotebook.pages = updatedPages;
-    return updatedNotebook;
+    try {
+      const res = await fetch(`${this.API_URL}/${notebook.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        },
+        body: JSON.stringify(notebook),
+      });
+      if (!res.ok) throw new Error("Failed to update notebook");
+      const updatedNotebook = res.json();
+      const updatedPages = await this.updatePages(notebook.id, notebook.pages);
+      updatedNotebook.pages = updatedPages;
+      return updatedNotebook;
+    } catch (error) {
+      console.error("Error updating notebook:", error);
+      throw new Error("Failed to update notebook");
+    }
   }
 
   async updatePages(notebookId, pages) {
+    // ensure pages has even number of pages
+    if (!Array.isArray(pages) || pages.length % 2 !== 0) {
+      throw new Error("Pages must have an even number of pages");
+    }
+
     const res = await fetch(`${this.API_URL}/${notebookId}/pages`, {
       method: "PUT",
       headers: {
