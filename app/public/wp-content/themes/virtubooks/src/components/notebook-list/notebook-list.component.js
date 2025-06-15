@@ -26,10 +26,13 @@ export default function NotebookList({
                     <figure className="product-style">
                       <NotebookCover notebook={notebook} className="book-xxs" />
                     </figure>
-                    <figcaption>
+                    <figcaption
+                      onClick={() => {
+                        window.location.href = `/notebooks/${notebook.id}`;
+                      }}
+                    >
                       <h3>{notebook.title}</h3>
-                      <span>{notebook.author}</span>
-                      <div className="item-price">Read More</div>
+                      <span>by {notebook.author}</span>
                     </figcaption>
                   </div>
                 </div>
