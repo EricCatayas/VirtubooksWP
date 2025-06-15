@@ -21,7 +21,7 @@ export default function Billboard() {
         const notebooks = await notebookService.fetchFilteredNotebooks({
           ...(currentUser ? { userId: currentUser.id } : {}),
           s_updatedAt: "desc",
-          limit: 3,
+          limit: 6,
         });
         setNotebooks(notebooks);
       } catch (error) {
