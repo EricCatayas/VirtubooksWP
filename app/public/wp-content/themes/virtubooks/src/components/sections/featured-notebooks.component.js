@@ -12,73 +12,12 @@ export default function FeaturedNotebooks() {
     // Define an async function inside useEffect
     const notebookService = new NotebookService();
     const fetchNotebooks = async () => {
-      // Simulate fetching featured notebooks from the API
-      const publicNotebooks = await notebookService.fetchPublicNotebooks();
+      const featuredNotebooks = await notebookService.fetchFilteredNotebooks({
+        tags: "featured",
+        limit: 4,
+      });
 
-      const fetchedNotebooks = [
-        {
-          id: 1,
-          title: "Simple way of piece life",
-          author: "Armor Ramsey",
-          aspectRatio: "6:9",
-          pages: [
-            {
-              id: "1",
-              // backgroundImageURL: "https://unlimitedworks.blob.core.windows.net/virtubooks-image-uploads/product-item1.jpg",
-              contents: [
-                {
-                  type: "paragraph",
-                  value:
-                    "This is a sample content for the first page of the notebook.",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          id: 2,
-          title: "Great travel at desert",
-          author: "Sanchit Howdy",
-          aspectRatio: "7:9",
-          pages: [
-            {
-              id: "2",
-              backgroundImageURL:
-                "https://unlimitedworks.blob.core.windows.net/virtubooks-image-uploads/product-item2.jpg",
-              contents: [],
-            },
-          ],
-        },
-        {
-          id: 3,
-          title: "The lady beauty Scarlett",
-          author: "Arthur Doyle",
-          aspectRatio: "3:5",
-          pages: [
-            {
-              id: "3",
-              backgroundImageURL:
-                "https://unlimitedworks.blob.core.windows.net/virtubooks-image-uploads/product-item3.jpg",
-              contents: [],
-            },
-          ],
-        },
-        {
-          id: 4,
-          title: "Once upon a time",
-          author: "Klien Marry",
-          aspectRatio: "13:20",
-          pages: [
-            {
-              id: "4",
-              backgroundImageURL:
-                "https://unlimitedworks.blob.core.windows.net/virtubooks-image-uploads/product-item4.jpg",
-              contents: [],
-            },
-          ],
-        },
-      ];
-      setNotebooks(fetchedNotebooks);
+      setNotebooks(featuredNotebooks);
       setLoading(false);
     };
 
