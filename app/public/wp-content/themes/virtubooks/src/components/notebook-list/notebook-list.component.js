@@ -6,23 +6,26 @@ export default function NotebookList({
   notebooks,
   viewAllLink,
 }) {
+  const hasHeaders = headerTitle || headerSubtitle;
   return (
     <div className="container">
       <div className="row">
         <div className="col-md-12">
-          <div className="section-header align-center">
-            {headerSubtitle && (
-              <div className="title">
-                <span>{headerSubtitle}</span>
-              </div>
-            )}
-            <h2 className="section-title">{headerTitle}</h2>
-          </div>
+          {hasHeaders && (
+            <div className="section-header align-center">
+              {headerSubtitle && (
+                <div className="title">
+                  <span>{headerSubtitle}</span>
+                </div>
+              )}
+              <h2 className="section-title">{headerTitle}</h2>
+            </div>
+          )}
 
           <div className="product-list">
             <div className="row">
               {notebooks.map((notebook) => (
-                <div className="col-md-3" key={notebook.id}>
+                <div className="col-sm-6 col-md-4 col-lg-3" key={notebook.id}>
                   <div className="product-item">
                     <figure className="product-style">
                       <NotebookCover notebook={notebook} className="book-xxs" />
