@@ -100,7 +100,8 @@ export default function NotebookEditor() {
         await notebookService.deleteNotebook(notebook.id);
         dispatch(resetNotebookState());
         alert("Notebook deleted successfully!");
-        window.location.href = "/notebooks/my-notebooks";
+        const currentUser = await authService.getUser();
+        window.location.href = "/notebooks/user/" + currentUser.id;
       } catch (error) {
         console.error("Error deleting notebook:", error);
         alert("Failed to delete notebook. Please try again.");
