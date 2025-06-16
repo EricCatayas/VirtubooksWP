@@ -95,12 +95,23 @@ function virtubooks_get_user($request)
 {
   $user_id = (int) $request['id'];
 
-  // Only allow requests from the authorized backend server
-  $allowed_origin = getenv('API_BASE_URL') ?: ($_ENV['API_BASE_URL'] ?? '');
-  $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
+  $app_env = getenv('APP_ENV') ?: ($_ENV['APP_ENV'] ?? 'production');
 
-  if (empty($allowed_origin) || $origin !== $allowed_origin) {
-    return new WP_REST_Response(['message' => 'Unauthorized'], 401);
+  if ($app_env !== 'development') {
+    $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
+    $allowed_host = getenv('API_HOST_URL') ?: ($_ENV['API_HOST_URL'] ?? '');
+
+    // Get the site's own host
+    $site_url = get_site_url();
+    $parsed_url = parse_url($site_url);
+    $site_host = isset($parsed_url['host']) ? $parsed_url['host'] : '';
+
+    if (
+      $host !== $site_host &&
+      $host !== $allowed_host
+    ) {
+      return new WP_REST_Response(['message' => 'Unauthorized' . $host . $site_host . $allowed_host], 401);
+    }
   }
 
   $user = get_user_by('ID', $user_id);
@@ -123,12 +134,23 @@ function virtubooks_get_user($request)
 
 function virtubooks_get_users($request)
 {
-  // Only allow requests from the authorized backend server
-  $allowed_origin = getenv('API_BASE_URL') ?: ($_ENV['API_BASE_URL'] ?? '');
-  $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
+  $app_env = getenv('APP_ENV') ?: ($_ENV['APP_ENV'] ?? 'production');
 
-  if (empty($allowed_origin) || $origin !== $allowed_origin) {
-    return new WP_REST_Response(['message' => 'Unauthorized'], 401);
+  if ($app_env !== 'development') {
+    $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
+    $allowed_host = getenv('API_HOST_URL') ?: ($_ENV['API_HOST_URL'] ?? '');
+
+    $site_url = get_site_url();
+    $parsed_url = parse_url($site_url);
+    $site_host = isset($parsed_url['host']) ? $parsed_url['host'] : '';
+
+    // Allow if same host or if host matches authorized backend
+    if (
+      $host !== $site_host &&
+      $host !== $allowed_host
+    ) {
+      return new WP_REST_Response(['message' => 'Unauthorized' . $host . $site_host . $allowed_host], 401);
+    }
   }
 
   $users = get_users(array(
