@@ -89,8 +89,29 @@
   width: 390px;
   height: 600px;
 }
-/* .book.book-xs{} max-width: 250-300px, max-height: 400px  */
-/* .book.book-xxs{} max-width: 180-250px, max-height: 300px  Featured Notebooks*/
+/* .book.book-xs{} max-width: 250-300px, max-height: 400px */
+.book.book-xs[data-aspect-ratio="6:9"] {
+  width: 267px;
+  height: 400px;
+}
+.book.book-xs[data-aspect-ratio="7:9"] {
+  width: 307px;
+  height: 400px;
+}
+.book.book-xs[data-aspect-ratio="3:5"] {
+  width: 240px;
+  height: 400px;
+}
+.book.book-xs[data-aspect-ratio="1:1"] {
+  width: 250px;
+  height: 250px;
+}
+.book.book-xs[data-aspect-ratio="13:20"] {
+  width: 259px;
+  height: 400px;
+}
+
+/* .book.book-xxs{} max-width: 180-250px, max-height: 300px */
 .book.book-xxs[data-aspect-ratio="6:9"] {
   width: 200px;
   height: 300px;
