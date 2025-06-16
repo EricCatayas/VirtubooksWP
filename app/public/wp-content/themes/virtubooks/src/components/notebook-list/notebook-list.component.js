@@ -4,6 +4,7 @@ export default function NotebookList({
   headerTitle,
   headerSubtitle,
   notebooks,
+  viewAllLink,
 }) {
   return (
     <div className="container">
@@ -42,15 +43,17 @@ export default function NotebookList({
         </div>
       </div>
 
-      <div className="row">
-        <div className="col-md-12">
-          <div className="btn-wrap align-right">
-            <a href="#" className="btn-accent-arrow">
-              View all notebooks <i className="icon icon-ns-arrow-right"></i>
-            </a>
+      {viewAllLink && (
+        <div className="row">
+          <div className="col-md-12">
+            <div className="btn-wrap align-right">
+              <a href={viewAllLink} className="btn-accent-arrow">
+                View all notebooks <i className="icon icon-ns-arrow-right"></i>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
