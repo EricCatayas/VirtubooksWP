@@ -2124,6 +2124,20 @@ img.books-image {
   }
 }
 */
+/*----- All Books Section
+--------------------------------------------------------------*/
+#all-books .section-header {
+  background: #edebe4;
+  padding: 140px 0 220px;
+  margin-bottom: -141px;
+  z-index: -1;
+}
+
+#all-books .section-title {
+  width: 70%;
+  margin: 0 auto;
+}
+
 /*----- Special Offer Section
 --------------------------------------------------------------*/
 #special-offer .section-header {
