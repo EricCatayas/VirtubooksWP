@@ -15,6 +15,7 @@ import ImageUploads from "./modules/ImageUploads";
 import Billboard from "./modules/Billboard";
 import CreateNotebook from "./modules/CreateNotebook";
 import FeaturedNotebooks from "./modules/FeaturedNotebooks";
+import PopularNotebooks from "./modules/PopularNotebooks";
 
 const notebook = new Notebook();
 const login = new Login();
@@ -22,3 +23,4 @@ const imageUploads = new ImageUploads();
 const billboard = new Billboard();
 const createNotebook = new CreateNotebook();
 const featuredNotebooks = new FeaturedNotebooks();
+const popularNotebooks = new PopularNotebooks();
