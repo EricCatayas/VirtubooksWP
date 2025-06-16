@@ -1669,11 +1669,11 @@ button {
 }
 
 .section-header .section-title:before {
-  left: 3px;
+  left: 0;
 }
 
 .section-header .section-title:after {
-  right: 3px;
+  right: 0;
 }
 
 .section-header .title span {
@@ -1879,6 +1879,12 @@ img.post-image {
 
 #header .menu-list a.active {
   color: var(--accent-color);
+}
+
+.main-logo :is(h1) {
+  font-size: 2.5em;
+  line-height: 1;
+  margin: 0;
 }
 
 /*----- Billboard

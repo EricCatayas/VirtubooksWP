@@ -20,7 +20,9 @@
 
           <div class="col-md-2">
             <div class="main-logo">
-              <a href="<?php echo site_url(); ?>"><img src="<?php echo get_template_directory_uri(); ?>/images/main-logo.png" alt="logo"></a>
+              <a href="<?php echo site_url(); ?>">
+                <h1>Virtubooks</h1>
+              </a>
             </div>
 
           </div>
@@ -49,8 +51,8 @@
                     <a href="#pages" class="nav-link">Account</a>
                     <ul>
                       <?php if (is_user_logged_in()) { ?>
-                        <li><a class="active" href="index.html"><i class="fa-solid fa-user"></i> Profile</a></li>
-                        <li><a href="<?php echo esc_url(site_url('/notebooks/my-notebooks')); ?>"><i class="fa-solid fa-book"></i> My Notebooks</a></li>
+                        <li><a href="index.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+                        <li><a href="<?php echo esc_url(site_url('/notebooks/user/' . get_current_user_id())); ?>"><i class="fa-solid fa-book"></i> My Notebooks</a></li>
                         <li><a id="logout-button" href="<?php echo wp_logout_url('/login'); ?>">Log Out</a></li>
                       <?php } else { ?>
                         <li><a href="<?php echo wp_login_url(); ?>">Sign In</a></li>
