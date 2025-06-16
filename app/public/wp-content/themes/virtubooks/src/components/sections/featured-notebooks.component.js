@@ -9,15 +9,14 @@ export default function FeaturedNotebooks() {
   const [loading, setLoading] = useState(true);
 
   useEffect(async () => {
-    // Define an async function inside useEffect
     const notebookService = new NotebookService();
     const fetchNotebooks = async () => {
-      const featuredNotebooks = await notebookService.fetchFilteredNotebooks({
+      const fetchedNotebooks = await notebookService.fetchFilteredNotebooks({
         tags: "featured",
         limit: 4,
       });
 
-      setNotebooks(featuredNotebooks);
+      setNotebooks(fetchedNotebooks);
       setLoading(false);
     };
 
