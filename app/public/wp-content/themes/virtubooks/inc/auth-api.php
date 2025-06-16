@@ -109,10 +109,15 @@ function virtubooks_get_user($request)
     return new WP_REST_Response(['message' => 'User not found'], 404);
   }
 
-  return new WP_REST_Response([
+  $user_data = array(
     'id' => $user->ID,
     'username' => $user->user_login,
     'email' => $user->user_email,
+  );
+
+  return new WP_REST_Response([
+    'user' => $user_data,
+    'message' => 'User retrieved successfully',
   ], 200);
 }
 
