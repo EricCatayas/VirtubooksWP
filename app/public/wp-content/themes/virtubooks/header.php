@@ -52,6 +52,9 @@
                     <ul>
                       <?php if (is_user_logged_in()) { ?>
                         <li><a href="index.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+                        <?php if (current_user_can('administrator')) { ?>
+                          <li><a href="<?php echo esc_url(site_url('/wp-admin')); ?>"><i class="fa-solid fa-cog"></i> Admin Dashboard</a></li>
+                        <?php } ?>
                         <li><a href="<?php echo esc_url(site_url('/notebooks/user/' . get_current_user_id())); ?>"><i class="fa-solid fa-book"></i> My Notebooks</a></li>
                         <li><a id="logout-button" href="<?php echo wp_logout_url('/login'); ?>">Log Out</a></li>
                       <?php } else { ?>
