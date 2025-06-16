@@ -29,11 +29,23 @@ get_header();
 <section id="quotation" class="align-center pb-5 mb-5">
 	<div class="inner-content">
 		<h2 class="section-title divider">Quote for Readers</h2>
-		<blockquote data-aos="fade-up">
-			<q>“The more that you read, the more things you will know. The more that you learn, the more places
-				you’ll go.”</q>
-			<div class="author-name">Dr. Seuss</div>
-		</blockquote>
+		<?php
+		$quotes = new WP_Query(array(
+			'post_type' => 'quote',
+			'posts_per_page' => 1,
+			'orderby' => 'rand'
+		));
+		if ($quotes->have_posts()) {
+			$quotes->the_post();
+		?>
+			<blockquote data-aos="fade-up">
+				<q><?php echo wp_strip_all_tags(get_the_content()); ?></q>
+				<div class="author-name"><?php the_field('author'); ?></div>
+			</blockquote>
+		<?php
+			wp_reset_postdata();
+		}
+		?>
 	</div>
 </section>
 
