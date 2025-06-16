@@ -56,6 +56,11 @@ function virtubooks_register_custom_rewrite_rules()
     'top'
   );
   add_rewrite_rule(
+    '^notebooks/user/([^/]+)/?$',
+    'index.php?pagename=user-notebooks&user_id=$matches[1]',
+    'top'
+  );
+  add_rewrite_rule(
     '^notebooks/([^/]+)/?$',
     'index.php?pagename=single-notebook&notebook_id=$matches[1]',
     'top'
@@ -83,6 +88,12 @@ function virtubooks_add_notebook_id_query_var($vars)
   return $vars;
 }
 
+function virtubooks_add_user_id_query_var($vars)
+{
+  $vars[] = 'user_id';
+  return $vars;
+}
+
 function virtubooks_template_redirect()
 {
   if (get_query_var('pagename') === 'create-notebook') {
@@ -93,6 +104,11 @@ function virtubooks_template_redirect()
   // You can get the notebook ID with get_query_var('notebook_id').
   if (get_query_var('notebook_id') && get_query_var('pagename') === 'single-notebook') {
     include get_template_directory() . '/single-notebook.php';
+    exit;
+  }
+
+  if (get_query_var('user_id') && get_query_var('pagename') === 'user-notebooks') {
+    include get_template_directory() . '/user-notebooks.php';
     exit;
   }
 
@@ -152,6 +168,8 @@ add_action('wp_loaded', 'subscriber_hide_admin_bar');
 add_action('init', 'virtubooks_register_custom_rewrite_rules');
 
 add_filter('query_vars', 'virtubooks_add_notebook_id_query_var');
+
+add_filter('query_vars', 'virtubooks_add_user_id_query_var');
 
 add_action('template_redirect', 'virtubooks_template_redirect');
 
