@@ -18,7 +18,7 @@ get_header();
                   <?php if (has_post_thumbnail()) : ?>
                     <img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'full'); ?>" alt="<?php the_title_attribute(); ?>" class="post-image img-fluid">
                   <?php else : ?>
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/default-thumbnail.jpg" alt="No image" class="post-image img-fluid">
+                    <img src="<?php echo get_template_directory_uri(); ?>/images/default-thumbnail.png" alt="No image" class="post-image img-fluid">
                   <?php endif; ?>
                 </a>
               </figure>
