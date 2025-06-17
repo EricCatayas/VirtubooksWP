@@ -50,7 +50,7 @@
                     <a href="#pages" class="nav-link">Account</a>
                     <ul>
                       <?php if (is_user_logged_in()) { ?>
-                        <li><a href="index.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+                        <li><a href="<?php echo esc_url(site_url('/profile')); ?>"><i class="fa-solid fa-user"></i> Profile</a></li>
                         <?php if (current_user_can('administrator')) { ?>
                           <li><a href="<?php echo esc_url(site_url('/wp-admin')); ?>"><i class="fa-solid fa-cog"></i> Admin Dashboard</a></li>
                         <?php } ?>
