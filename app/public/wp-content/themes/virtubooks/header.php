@@ -18,16 +18,15 @@
       <div class="container-fluid">
         <div class="row">
 
-          <div class="col-md-2">
+          <div class="col-6 col-md-2">
             <div class="main-logo">
               <a href="<?php echo site_url(); ?>">
                 <h1>Virtubooks</h1>
               </a>
             </div>
-
           </div>
 
-          <div class="col-md-10">
+          <div class="col-6 col-md-10 d-flex justify-content-end">
 
             <nav id="navbar">
               <div class="main-menu stellarnav">
@@ -62,7 +61,6 @@
                         <li><a href="<?php echo wp_registration_url(); ?>">Sign Up</a></li>
                       <?php } ?>
                     </ul>
-
                   </li>
                 </ul>
 
