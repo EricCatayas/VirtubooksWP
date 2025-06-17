@@ -67,7 +67,14 @@ export default function Billboard() {
                         </a>
                       </div>
                     </div>
-                    <NotebookCover notebook={notebook} className="book-small" />
+                    <div className="row">
+                      <div className="col-12 d-flex justify-content-center">
+                        <NotebookCover
+                          notebook={notebook}
+                          className="book-small"
+                        />
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>

@@ -1973,7 +1973,6 @@ img.post-image {
 
   .main-slider .slider-item {
     flex-wrap: wrap;
-    text-align: center;
     flex-direction: column-reverse;
   }
 
@@ -1982,6 +1981,7 @@ img.post-image {
     margin-top: 60px;
     margin-right: 0;
     margin-bottom: 80px;
+    text-align: center;
   }
 
   #billboard .slick-dots {
