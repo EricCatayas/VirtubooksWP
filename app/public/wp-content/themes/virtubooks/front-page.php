@@ -100,114 +100,44 @@ get_header();
 
 				<div class="row">
 
-					<div class="col-md-4">
+					<?php
+					$args = array(
+						'posts_per_page' => 3
+					);
+					$query = new WP_Query($args);
 
-						<article class="column" data-aos="fade-up">
+					if ($query->have_posts()) :
+						while ($query->have_posts()) : $query->the_post(); ?>
+							<div class="col-md-4">
+								<article class="column" data-aos="fade-up">
+									<figure>
+										<a href="<?php echo get_permalink(); ?>" class="image-hvr-effect">
+											<img src="<?php echo get_the_post_thumbnail_url(get_the_ID(), 'full'); ?>" alt="post" class="post-image">
+										</a>
+									</figure>
 
-							<figure>
-								<a href="#" class="image-hvr-effect">
-									<img src="<?php echo get_template_directory_uri(); ?>/images/post-img1.jpg" alt="post" class="post-image">
-								</a>
-							</figure>
-
-							<div class="post-item">
-								<div class="meta-date">Mar 30, 2021</div>
-								<h3><a href="#">Reading books always makes the moments happy</a></h3>
-
-								<div class="links-element">
-									<div class="categories">inspiration</div>
-									<div class="social-links">
-										<ul>
-											<li>
-												<a href="#"><i class="icon icon-facebook"></i></a>
-											</li>
-											<li>
-												<a href="#"><i class="icon icon-twitter"></i></a>
-											</li>
-											<li>
-												<a href="#"><i class="icon icon-behance-square"></i></a>
-											</li>
-										</ul>
+									<div class="post-item">
+										<div class="meta-date"><?php echo get_the_date(); ?></div>
+										<h3><a href="<?php echo get_permalink(); ?>"><?php the_title(); ?></a></h3>
+										<div class="links-element">
+											<div class="categories">inspiration</div>
+										</div>
 									</div>
-								</div><!--links-element-->
-
+								</article>
 							</div>
-						</article>
-
-					</div>
-					<div class="col-md-4">
-
-						<article class="column" data-aos="fade-up" data-aos-delay="200">
-							<figure>
-								<a href="#" class="image-hvr-effect">
-									<img src="<?php echo get_template_directory_uri(); ?>/images/post-img2.jpg" alt="post" class="post-image">
-								</a>
-							</figure>
-							<div class="post-item">
-								<div class="meta-date">Mar 29, 2021</div>
-								<h3><a href="#">Reading books always makes the moments happy</a></h3>
-
-								<div class="links-element">
-									<div class="categories">inspiration</div>
-									<div class="social-links">
-										<ul>
-											<li>
-												<a href="#"><i class="icon icon-facebook"></i></a>
-											</li>
-											<li>
-												<a href="#"><i class="icon icon-twitter"></i></a>
-											</li>
-											<li>
-												<a href="#"><i class="icon icon-behance-square"></i></a>
-											</li>
-										</ul>
-									</div>
-								</div><!--links-element-->
-
-							</div>
-						</article>
-
-					</div>
-					<div class="col-md-4">
-
-						<article class="column" data-aos="fade-up" data-aos-delay="400">
-							<figure>
-								<a href="#" class="image-hvr-effect">
-									<img src="<?php echo get_template_directory_uri(); ?>/images/post-img3.jpg" alt="post" class="post-image">
-								</a>
-							</figure>
-							<div class="post-item">
-								<div class="meta-date">Feb 27, 2021</div>
-								<h3><a href="#">Reading books always makes the moments happy</a></h3>
-
-								<div class="links-element">
-									<div class="categories">inspiration</div>
-									<div class="social-links">
-										<ul>
-											<li>
-												<a href="#"><i class="icon icon-facebook"></i></a>
-											</li>
-											<li>
-												<a href="#"><i class="icon icon-twitter"></i></a>
-											</li>
-											<li>
-												<a href="#"><i class="icon icon-behance-square"></i></a>
-											</li>
-										</ul>
-									</div>
-								</div><!--links-element-->
-
-							</div>
-						</article>
-
-					</div>
+					<?php endwhile;
+						wp_reset_postdata();
+					else :
+						echo '<p>No posts found.</p>';
+					endif;
+					?>
 
 				</div>
 
 				<div class="row">
 
 					<div class="btn-wrap align-center">
-						<a href="#" class="btn btn-outline-accent btn-accent-arrow" tabindex="0">Read All Articles<i
+						<a href="/blog" class="btn btn-outline-accent btn-accent-arrow" tabindex="0">Read All Articles<i
 								class="icon icon-ns-arrow-right"></i></a>
 					</div>
 				</div>
