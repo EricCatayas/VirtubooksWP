@@ -59,8 +59,8 @@
   height: 750px;
 }
 .book[data-aspect-ratio="7:9"] {
-  width: 500px;
-  height: 643px;
+  width: 575px;
+  height: 740px;
 }
 .book[data-aspect-ratio="3:5"] {
   width: 450px;
