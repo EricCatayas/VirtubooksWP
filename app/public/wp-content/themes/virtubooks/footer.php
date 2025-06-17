@@ -103,15 +103,17 @@
 					<div class="row">
 
 						<div class="col-md-6">
-							<p>© 2022 All rights reserved.</p>
+							<p>© 2022 All rights reserved. Free HTML Template by <a
+									href="https://www.templatesjungle.com/" target="_blank">TemplatesJungle</a></p>
 						</div>
-
 					</div>
-				</div><!--grid-->
 
-			</div><!--footer-bottom-content-->
+				</div>
+			</div>
+
 		</div>
 	</div>
+</div>
 </div>
 
 <?php wp_footer(); ?>
