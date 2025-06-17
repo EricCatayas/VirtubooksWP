@@ -6,10 +6,7 @@ get_header();
   <div class="row">
     <div class="col-md-12">
       <div class="section-header align-center">
-        <div class="title">
-          <span>Grab your opportunity</span>
-        </div>
-        <h2 class="section-title" id="user-notebook-title">Our Articles</h2>
+        <h2 class="section-title">Our Blog</h2>
       </div>
 
       <?php if (have_posts()) :
@@ -26,12 +23,16 @@ get_header();
                 </a>
               </figure>
             </div>
-            <div class="col-md-8">
-              <div class="post-item">
+            <div class="col-md-8 d-flex flex-column justify-content-center align-items-md-start align-items-center text-md-start text-center">
+              <div class="post-item w-100">
                 <div class="meta-date mb-2"><?php echo get_the_date(); ?></div>
                 <h2><a href="<?php echo get_permalink(); ?>"><?php the_title(); ?></a></h2>
                 <div class="post-content">
                   <?php the_excerpt(); ?>
+                </div>
+                <div class="btn-wrap">
+                  <a href="<?php echo get_permalink(); ?>" class="btn btn-outline-accent btn-accent-arrow" tabindex="0">Read More<i
+                      class="icon icon-ns-arrow-right"></i></a>
                 </div>
               </div>
             </div>
