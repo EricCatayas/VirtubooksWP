@@ -28,14 +28,19 @@
 							<a href="/">Home</a>
 						</li>
 						<li class="menu-item">
-							<a href="#featured-books">Featured</a>
-						</li>
-						<li class="menu-item">
-							<a href="#popular-books">Popular</a>
+							<a href="<?php echo esc_url(site_url('/notebooks/slug/about-us')); ?>">About</a>
 						</li>
 						<li class="menu-item">
 							<a href="<?php echo esc_url(site_url('/blog')); ?>">Blog</a>
 						</li>
+						<?php if (is_front_page()) { ?>
+							<li class="menu-item">
+								<a href="#featured-books">Featured</a>
+							</li>
+							<li class="menu-item">
+								<a href="#popular-books">Popular</a>
+							</li>
+						<?php } ?>
 					</ul>
 				</div>
 
@@ -51,6 +56,9 @@
 							</li>
 							<li class="menu-item">
 								<a href="<?php echo esc_url(site_url('/notebooks/user/' . get_current_user_id())); ?>">My Notebooks</a>
+							</li>
+							<li class="menu-item">
+								<a href="<?php echo esc_url(site_url('/notebooks/create')); ?>">Create Notebook</a>
 							</li>
 							<li class="menu-item">
 								<a href="<?php echo wp_logout_url('/login'); ?>">Log Out</a>
