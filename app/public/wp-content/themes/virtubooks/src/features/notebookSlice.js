@@ -5,9 +5,13 @@ const initialState = {
   id: "",
   title: "",
   pages: [],
+  author: "",
   currentPageId: 0,
   visibility: "",
   aspectRatio: "",
+  slug: "",
+  tags: "",
+  styles: {},
   isReadOnly: false,
   isLoading: false,
   hasChanges: false,
@@ -25,6 +29,7 @@ export const notebookSlice = createSlice({
       state.author = newState.author;
       state.aspectRatio = newState.aspectRatio;
       state.visibility = newState.visibility;
+      state.slug = newState.slug;
       state.tags = newState.tags;
       state.styles = newState.styles || {};
       state.pages = newState.pages.map((page) => ({

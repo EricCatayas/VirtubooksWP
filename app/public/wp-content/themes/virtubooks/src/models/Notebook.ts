@@ -6,6 +6,7 @@ export type Notebook = {
   visibility?: "public" | "private";
   author?: string; // from server
   aspectRatio?: "6:9" | "13:20" | "3:5" | "7:9" | "1:1";
+  slug?: string;
   tags?: string;
   createdAt: string;
   updatedAt: string;

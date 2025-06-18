@@ -1,4 +1,5 @@
-import NotebookEditor from "../components/notebook-editor/notebook-editor.component";
+import NotebookDirectory from "../components/directory/notebook.directory";
+import NotebookSlugDirectory from "../components/directory/notebook-slug.directory";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React from "react";
 import { createRoot } from "react-dom/client";
@@ -18,7 +19,11 @@ class Notebook {
         <Provider store={store}>
           <BrowserRouter>
             <Routes>
-              <Route path="/notebooks/:id" element={<NotebookEditor />} />
+              <Route path="/notebooks/:id" element={<NotebookDirectory />} />
+              <Route
+                path="/notebooks/slug/:slug"
+                element={<NotebookSlugDirectory />}
+              />
             </Routes>
           </BrowserRouter>
         </Provider>

@@ -30,6 +30,26 @@ class NotebookService {
     }
   }
 
+  async fetchNotebookBySlug(slug) {
+    try {
+      const res = await fetch(`${this.API_URL}/slug/${slug}`, {
+        headers: { Authorization: `Bearer ${this.token}` },
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.message || "Failed to fetch notebook by slug");
+      }
+      return res.json();
+    } catch (error) {
+      if (error.message === "Token expired") {
+        alert("Your session has expired. Please log in again.");
+        window.location.href = "/login";
+      }
+      console.error("Error fetching notebook by slug:", error);
+      throw new Error(error.message || "Failed to fetch notebook by slug");
+    }
+  }
+
   async fetchPublicNotebooks() {
     try {
       const res = await fetch(`${this.API_URL}/`);

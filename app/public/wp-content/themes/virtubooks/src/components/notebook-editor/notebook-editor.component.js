@@ -4,8 +4,7 @@ import LayoutToolbarControls from "../toolbar-controls/layout-controls.component
 import ImageUploadsModal from "../image-uploads/image-uploads-modal.component";
 import NotebookService from "../../services/notebookService";
 import AuthService from "../../services/authService";
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
@@ -16,9 +15,8 @@ import {
 import { aspectRatioOptions, visibilityOptions } from "../../config/ui";
 import "./notebook-editor.styles.css";
 
-export default function NotebookEditor() {
+export default function NotebookEditor(props) {
   const dispatch = useDispatch();
-  const { id: notebookId } = useParams();
   const notebook = useSelector((state) => state.notebook);
   const hasChanges = useSelector((state) => state.notebook.hasChanges);
   const imageSelector = useSelector((state) => state.imageSelector);
@@ -35,16 +33,14 @@ export default function NotebookEditor() {
   useEffect(async () => {
     // dispatch(resetNotebookState());
     try {
-      const fetchedNotebook = await notebookService.fetchNotebook(notebookId);
       const currentUser = await authService.getUser();
 
-      checkNotebookOwnership(fetchedNotebook, currentUser);
-      dispatch(setNotebookState(fetchedNotebook));
+      checkNotebookOwnership(props.notebook, currentUser);
+      dispatch(setNotebookState(props.notebook));
     } catch (error) {
       alert("Failed to load notebook: " + error.message);
     }
-    // todo: if current user is not the owner, set read-only mode and isOwner to false
-  }, [dispatch, notebookId]);
+  }, [dispatch]);
 
   const checkNotebookOwnership = (notebook, currentUser) => {
     if (currentUser && notebook.userId === String(currentUser.id)) {
@@ -271,6 +267,23 @@ export default function NotebookEditor() {
                                 </option>
                               ))}
                             </select>
+                          </div>
+                          <div className="mb-2">
+                            <label
+                              htmlFor="slug"
+                              className="form-label"
+                              style={{ fontSize: "0.95em" }}
+                            >
+                              Slug
+                            </label>
+                            <input
+                              type="text"
+                              id="slug"
+                              className="form-control form-control-sm"
+                              value={notebook.slug || ""}
+                              disabled={true} // Slug is read-only
+                              style={{ fontSize: "0.95em" }}
+                            />
                           </div>
                           <div className="mb-2">
                             <label
