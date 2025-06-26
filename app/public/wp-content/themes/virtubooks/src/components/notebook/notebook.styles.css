@@ -172,16 +172,6 @@
   overflow: visible;
   position: relative;
 }
-.page-header {
-}
-.page-footer {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: auto;
-  box-sizing: border-box;
-}
 
 .page.active {
   z-index: 1;
@@ -211,6 +201,47 @@ p {
   margin-top: -2px !important;
 }
 
+.page-header {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  width: auto;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.page-footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  box-sizing: border-box;
+}
+
+.page-header .corner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  display: flex;
+  pointer-events: none;
+}  
+
+
+.page-footer .corner {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  display: flex;
+  pointer-events: none;
+}
+
 /* Page navigation buttons */
 .next-page-button,
 .prev-page-button {
@@ -222,18 +253,31 @@ p {
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
 }
 
-.next-page-button {
+.page-footer .next-page-button {
   border-left: 40px solid transparent;
   border-bottom: 40px solid rgba(0, 0, 0, 0.05);
   border-right: 0;
   border-top: 0;
 }
 
-.prev-page-button {
+.page-footer .prev-page-button {
   border-left: 0;
   border-bottom: 40px solid rgba(0, 0, 0, 0.05);
   border-right: 40px solid transparent;
   border-top: 0;
+}
+
+.page-header .next-page-button {
+  border-left: 40px solid transparent;
+  border-top: 40px solid rgba(0, 0, 0, 0.05);
+  border-right: 0;
+  border-bottom: 0;
+}
+.page-header .prev-page-button {
+  border-left: 0;
+  border-top: 40px solid rgba(0, 0, 0, 0.05);
+  border-right: 40px solid transparent;
+  border-bottom: 0;
 }
 
 .next-page-button:hover,
@@ -255,29 +299,17 @@ p {
   display: none;
 }
 
-/* Adjust the corner positioning */
-.page-footer .corner {
+.corner .next-page-button,
+.corner .prev-page-button {
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
-  height: 40px;
-  display: flex;
-  pointer-events: none; /* Allow clicks to pass through */
+  pointer-events: auto;
 }
 
-.page-footer .corner .next-page-button,
-.page-footer .corner .prev-page-button {
-  position: absolute;
-  bottom: 0;
-  pointer-events: auto; /* Re-enable clicks on buttons */
-}
-
-.page-footer .corner .next-page-button {
+.corner .next-page-button {
   right: 0;
 }
-
-.page-footer .corner .prev-page-button {
+.corner .prev-page-button {
   left: 0;
 }
 

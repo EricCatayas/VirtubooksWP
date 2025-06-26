@@ -19,6 +19,7 @@ import {
 } from "../../features/notebookSlice";
 import { toggleImageSelector } from "../../features/imageSelectorSlice";
 import "./notebook-page.styles.css";
+import { PageNavigationButton } from "../page-navigation-button/page-navigation-button.component";
 
 export default function NotebookPage({
   page,
@@ -254,13 +255,15 @@ export default function NotebookPage({
       >
         <section className="page-header">
           {/* {page.header && ( <PageHeader /> )}  */}
-          <div
-            className="corner"
-            style={{
-              display: "flex",
-              justifyContent: isFrontPage ? "flex-end" : "flex-start",
-            }}
-          ></div>
+          {isFocused && (
+            <div className="corner">
+              <PageNavigationButton
+                direction={isFrontPage ? "next" : "prev"}
+                onNextPage={onNextPage}
+                onPrevPage={onPrevPage}
+              />
+            </div>
+          )}
         </section>
         <section className="page-body">
           {page.contents.map((content, idx) => (
@@ -285,23 +288,11 @@ export default function NotebookPage({
           {/* {page.footer && ( <PageFooter /> )} */}
           {isFocused && (
             <div className="corner">
-              {isFrontPage ? (
-                <span
-                  className="next-page-button"
-                  title="Next Page"
-                  onClick={onNextPage}
-                >
-                  <i className="fas fa-arrow-right"></i>
-                </span>
-              ) : (
-                <span
-                  className="prev-page-button"
-                  title="Previous Page"
-                  onClick={onPrevPage}
-                >
-                  <i className="fas fa-arrow-left"></i>
-                </span>
-              )}
+              <PageNavigationButton
+                direction={isFrontPage ? "next" : "prev"}
+                onNextPage={onNextPage}
+                onPrevPage={onPrevPage}
+              />
             </div>
           )}
           {page.pageNumber && (
