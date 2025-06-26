@@ -131,7 +131,7 @@ export default function NotebookEditor(props) {
         <div className="top-content">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-md-8">
+              <div className={isReadOnly ? "col-8" : "col-md-8"}>
                 <div className="left-element">
                   <div className="d-flex align-items-center gap-2 justify-content-start">
                     <button
@@ -347,7 +347,7 @@ export default function NotebookEditor(props) {
                       </div>
                 </div>
               </div> */}
-              <div className="col-md-4">
+              <div className={isReadOnly ? "col-4" : "col-md-4"}>
                 <div className="right-element">
                   <div className="d-flex align-items-center gap-2 justify-content-end">
                     {isOwner && hasChanges && (

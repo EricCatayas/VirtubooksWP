@@ -33,52 +33,44 @@ export default function NotebookComponent({ notebook, isReadOnly }) {
   }
 
   return (
-    <div className="book-container">
-      <span
-        className="arrow-button left-arrow"
-        onClick={prevPage}
-        aria-label="Previous Page"
-      >
-        &#8592;
-      </span>
-      <div className="scene">
-        <article className="book" data-aspect-ratio={notebook.aspectRatio}>
-          {Array.from({ length: Math.ceil(pages.length / 2) }).map((_, idx) => {
-            const pageNum = idx * 2;
-            const frontPage = pages[pageNum];
-            const backPage = pages[pageNum + 1];
-            return (
-              <section key={idx} className={`page ${pageState(pageNum)}`}>
-                {frontPage && (
-                  <NotebookPage
-                    page={frontPage}
-                    pageIdx={pageNum}
-                    styles={notebook.styles}
-                    className={"front"}
-                    isReadOnly={isReadOnly}
-                  />
-                )}
-                {backPage && (
-                  <NotebookPage
-                    page={backPage}
-                    pageIdx={pageNum + 1}
-                    styles={notebook.styles}
-                    className={"back"}
-                    isReadOnly={isReadOnly}
-                  />
-                )}
-              </section>
-            );
-          })}
-        </article>
+    <>
+      <div className="book-container">
+        <div className="scene">
+          <article className="book" data-aspect-ratio={notebook.aspectRatio}>
+            {Array.from({ length: Math.ceil(pages.length / 2) }).map(
+              (_, idx) => {
+                const pageNum = idx * 2;
+                const frontPage = pages[pageNum];
+                const backPage = pages[pageNum + 1];
+                return (
+                  <section key={idx} className={`page ${pageState(pageNum)}`}>
+                    {frontPage && (
+                      <NotebookPage
+                        page={frontPage}
+                        pageIdx={pageNum}
+                        styles={notebook.styles}
+                        className={"front"}
+                        isReadOnly={isReadOnly}
+                        onNextPage={nextPage}
+                      />
+                    )}
+                    {backPage && (
+                      <NotebookPage
+                        page={backPage}
+                        pageIdx={pageNum + 1}
+                        styles={notebook.styles}
+                        className={"back"}
+                        isReadOnly={isReadOnly}
+                        onPrevPage={prevPage}
+                      />
+                    )}
+                  </section>
+                );
+              }
+            )}
+          </article>
+        </div>
       </div>
-      <span
-        className="arrow-button right-arrow"
-        onClick={nextPage}
-        aria-label="Next Page"
-      >
-        &#8594;
-      </span>
-    </div>
+    </>
   );
 }

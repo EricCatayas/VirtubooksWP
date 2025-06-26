@@ -24,6 +24,8 @@ export default function NotebookPage({
   page,
   pageIdx,
   className,
+  onNextPage,
+  onPrevPage,
   styles = {},
   isReadOnly = true,
 }) {
@@ -252,6 +254,13 @@ export default function NotebookPage({
       >
         <section className="page-header">
           {/* {page.header && ( <PageHeader /> )}  */}
+          <div
+            className="corner"
+            style={{
+              display: "flex",
+              justifyContent: isFrontPage ? "flex-end" : "flex-start",
+            }}
+          ></div>
         </section>
         <section className="page-body">
           {page.contents.map((content, idx) => (
@@ -274,14 +283,29 @@ export default function NotebookPage({
         </section>
         <section className="page-footer">
           {/* {page.footer && ( <PageFooter /> )} */}
+          {isFocused && (
+            <div className="corner">
+              {isFrontPage ? (
+                <span
+                  className="next-page-button"
+                  title="Next Page"
+                  onClick={onNextPage}
+                >
+                  <i className="fas fa-arrow-right"></i>
+                </span>
+              ) : (
+                <span
+                  className="prev-page-button"
+                  title="Previous Page"
+                  onClick={onPrevPage}
+                >
+                  <i className="fas fa-arrow-left"></i>
+                </span>
+              )}
+            </div>
+          )}
           {page.pageNumber && (
-            <div
-              className="page-number"
-              style={{
-                display: "flex",
-                justifyContent: isFrontPage ? "flex-end" : "flex-start",
-              }}
-            >
+            <div className="page-number">
               <span>{page.pageNumber}</span>
             </div>
           )}
