@@ -18,7 +18,7 @@
       <div class="container-fluid">
         <div class="row">
 
-          <div class="col-6 col-md-2">
+          <div class="col-md-2">
             <div class="main-logo">
               <a href="<?php echo site_url(); ?>">
                 <h1>Virtubooks</h1>
@@ -26,7 +26,7 @@
             </div>
           </div>
 
-          <div class="col-6 col-md-10 d-flex justify-content-end">
+          <div class="col-md-10">
 
             <nav id="navbar">
               <div class="main-menu stellarnav">
