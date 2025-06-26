@@ -84,10 +84,11 @@ class NotebookService {
   }
 
   async fetchFilteredNotebooks(filters) {
-    const { userId, title, description, tags, author, s_updatedAt, limit } =
+    const { userId, search, title, description, tags, author, s_updatedAt, limit } =
       filters;
     const params = {};
     if (userId) params.userId = userId;
+    if (search) params.search = search;
     if (title) params.title = title;
     if (description) params.description = description;
     if (author) params.author = author;

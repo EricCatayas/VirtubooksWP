@@ -1855,7 +1855,88 @@ img.post-image {
   color: var(--accent-color);
   text-decoration: none;
 }
+/* Search Results Dropdown Styles */
+.search-bar {
+  position: relative;
+}
 
+.search-results-dropdown {
+  position: absolute;
+  top: auto;
+  left: 15px;
+  right: 15px;
+  z-index: 99999;
+  display: block;
+  margin-top: 5px;
+}
+
+.search-results-dropdown .dropdown-menu {
+  position: absolute !important;
+  display: block !important;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.search-results-dropdown .dropdown-item {
+  padding: 12px 15px;
+  border: none;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.search-results-dropdown .dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+.search-result-title {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 4px;
+  color: #2c3e50;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search-result-author {
+  font-size: 13px;
+  margin-bottom: 4px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search-result-description {
+  font-size: 14px;
+  line-height: 1.4;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search-result-title mark,
+.search-result-description mark {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 1px 2px;
+  border-radius: 2px;
+}
+
+.search-bar:not(:focus-within) .search-results-dropdown {
+  display: none;
+}
+
+.search-results-dropdown:hover {
+  display: block !important;
+}
+
+/* Mobile Navigation Fixes for Search Results */
 @media screen and (max-width: 768px) {
   .action-menu .search-bar {
     margin-top: 20px;

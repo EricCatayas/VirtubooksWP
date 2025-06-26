@@ -32,13 +32,13 @@
               <div class="main-menu stellarnav">
                 <ul class="menu-list">
                   <li class="menu-item active">
-                    <div class="action-menu">
+                    <div id="search-bar" class="action-menu">
                       <div class="search-bar">
                         <a href="#" class="search-button search-toggle" data-selector="#header-wrap">
                           <i class="icon icon-search"></i>
                         </a>
                         <form role="search" method="get" class="search-box">
-                          <input class="search-field text search-input" placeholder="Search"
+                          <input id="search-field" class="search-field text search-input" placeholder="Search"
                             type="search">
                         </form>
                       </div>
