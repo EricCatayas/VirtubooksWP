@@ -54,6 +54,7 @@ export default function Billboard() {
                   <div className="slider-item" key={notebook.id}>
                     <div className="banner-content">
                       <h2 className="banner-title">{notebook.title}</h2>
+                      <div className="banner-author">By {notebook.author}</div>
                       <p>{notebook.description}</p>
                       <div className="btn-wrap">
                         <a
