@@ -3,6 +3,7 @@ import { defaultCoverImageURL } from "../../config/default";
 import NotebookService from "../../services/notebookService";
 import AuthService from "../../services/authService";
 import React, { useState, useEffect } from "react";
+import { newNotebook } from "../../config/default";
 
 export default function Billboard() {
   const notebookService = new NotebookService();
@@ -50,20 +51,51 @@ export default function Billboard() {
               )}
 
               <div className="main-slider pattern-overlay">
-                {notebooks.map((notebook) => (
-                  <div className="slider-item" key={notebook.id}>
+                {notebooks.length > 0 ? (
+                  notebooks.map((notebook) => (
+                    <div className="slider-item" key={notebook.id}>
+                      <div className="banner-content">
+                        <h2 className="banner-title">{notebook.title}</h2>
+                        <div className="banner-author">
+                          By {notebook.author}
+                        </div>
+                        <p>{notebook.description}</p>
+                        <div className="btn-wrap">
+                          <a
+                            href={`/notebooks/${notebook.id}`}
+                            className="btn btn-outline-accent btn-accent-arrow"
+                          >
+                            {notebook.userId === String(user?.id)
+                              ? "Continue Writing"
+                              : "Read Notebook"}
+                            <i className="icon icon-ns-arrow-right"></i>
+                          </a>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-12 d-flex justify-content-center">
+                          <NotebookCover
+                            notebook={notebook}
+                            className="book-small"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="slider-item" key={newNotebook.id}>
                     <div className="banner-content">
-                      <h2 className="banner-title">{notebook.title}</h2>
-                      <div className="banner-author">By {notebook.author}</div>
-                      <p>{notebook.description}</p>
+                      <h2 className="banner-title">{newNotebook.title}</h2>
+                      <div className="banner-author">
+                        By {newNotebook.author}
+                      </div>
+                      <p>{newNotebook.description}</p>
                       <div className="btn-wrap">
                         <a
-                          href={`/notebooks/${notebook.id}`}
+                          href="/notebooks/create"
                           className="btn btn-outline-accent btn-accent-arrow"
                         >
-                          {notebook.userId === String(user?.id)
-                            ? "Continue Writing"
-                            : "Read Notebook"}
+                          New Notebook
                           <i className="icon icon-ns-arrow-right"></i>
                         </a>
                       </div>
@@ -71,13 +103,13 @@ export default function Billboard() {
                     <div className="row">
                       <div className="col-12 d-flex justify-content-center">
                         <NotebookCover
-                          notebook={notebook}
+                          notebook={newNotebook}
                           className="book-small"
                         />
                       </div>
                     </div>
                   </div>
-                ))}
+                )}
               </div>
 
               {notebooks.length > 0 && (
