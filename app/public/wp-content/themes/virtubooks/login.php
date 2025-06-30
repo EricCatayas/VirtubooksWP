@@ -24,7 +24,15 @@ get_header();
       <a href="<?php echo wp_lostpassword_url(); ?>" class="">Forgot Password?</a>
     </div>
     <div id="login-error" class="text-danger mt-2" style="display:none;"></div>
+    <div class="mt-3 p-3 rounded text-center" style="font-size: 0.85em; line-height: 1.2;">
+      <p class="mb-1 small text-muted" style="font-size: 0.85em; line-height: 1.2;">For demo purposes, you can use:</p>
+      <div class="demo-credentials" style="font-size: 0.85em; line-height: 1.2;">
+        <strong>Email:</strong> demo@email.com<br>
+        <strong>Password:</strong> demo user
+      </div>
+    </div>
   </form>
+
 </div>
 <?php
 get_footer();
