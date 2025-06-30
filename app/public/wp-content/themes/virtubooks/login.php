@@ -5,8 +5,8 @@ get_header();
   <form id="login-form" class="notebook-create-form">
     <h2>Sign In</h2>
     <div class="mb-3">
-      <label for="login-email" class="form-label">Email</label>
-      <input type="email" class="form-control" id="login-email" required>
+      <label for="login-email" class="form-label">Username or Email</label>
+      <input type="text" class="form-control" id="login-email" required>
     </div>
     <div class="mb-3">
       <label for="login-password" class="form-label">Password</label>
