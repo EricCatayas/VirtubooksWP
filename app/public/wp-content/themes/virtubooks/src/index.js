@@ -18,6 +18,7 @@ import AllNotebooks from "./modules/AllNotebooks";
 import UserNotebooks from "./modules/UserNotebooks";
 import FeaturedNotebooks from "./modules/FeaturedNotebooks";
 import PopularNotebooks from "./modules/PopularNotebooks";
+import SearchNotebook from "./modules/SearchNotebook";
 
 const notebook = new Notebook();
 const login = new Login();
@@ -28,3 +29,4 @@ const allNotebooks = new AllNotebooks();
 const userNotebooks = new UserNotebooks();
 const featuredNotebooks = new FeaturedNotebooks();
 const popularNotebooks = new PopularNotebooks();
+const searchNotebook = new SearchNotebook();
