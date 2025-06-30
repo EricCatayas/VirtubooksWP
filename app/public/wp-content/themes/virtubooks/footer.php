@@ -12,7 +12,7 @@
 							</a>
 						</div>
 						<p>
-							Virtubooks is a modern web application designed to make digital note-taking and writing more engaging and interactive. Whether you’re a student, writer, or creative professional, Virtubooks provides a virtual notebook experience that brings your ideas to life.
+							Virtubooks is designed to make digital note-taking and writing more engaging and interactive. Whether you’re a student, writer, or creative professional, Virtubooks provides a virtual notebook experience that brings your ideas to life.
 						</p>
 					</div>
 				</div>
