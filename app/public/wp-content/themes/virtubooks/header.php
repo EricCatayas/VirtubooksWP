@@ -57,6 +57,7 @@
                           <li><a href="<?php echo esc_url(site_url('/wp-admin')); ?>"><i class="fa-solid fa-cog"></i> Admin Dashboard</a></li>
                         <?php } ?>
                         <li><a href="<?php echo esc_url(site_url('/notebooks/user/' . get_current_user_id())); ?>"><i class="fa-solid fa-book"></i> My Notebooks</a></li>
+                        <li><a href="<?php echo esc_url(site_url('/image-uploads')); ?>"><i class="fa-solid fa-images"></i> My Images</a></li>
                         <li><a id="logout-button" href="<?php echo wp_logout_url('/login'); ?>">Log Out</a></li>
                       <?php } else { ?>
                         <li><a href="<?php echo wp_login_url(); ?>">Sign In</a></li>
