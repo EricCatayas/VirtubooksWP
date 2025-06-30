@@ -79,6 +79,7 @@ function virtubooks_authenticate_user($request)
         'id' => $user->ID,
         'username' => $user->user_login,
         'email' => $user->user_email,
+        'display_name' => $user->display_name,
       ],
       'is_registered' => true
     ], 200);
@@ -124,6 +125,7 @@ function virtubooks_get_user($request)
     'id' => $user->ID,
     'username' => $user->user_login,
     'email' => $user->user_email,
+    'display_name' => $user->display_name,
   );
 
   return new WP_REST_Response([
@@ -154,7 +156,7 @@ function virtubooks_get_users($request)
   }
 
   $users = get_users(array(
-    'fields' => array('ID', 'user_login', 'user_email')
+    'fields' => array('ID', 'user_login', 'user_email', 'display_name'),
   ));
 
   $user_data = array_map(function ($user) {
@@ -162,6 +164,7 @@ function virtubooks_get_users($request)
       'id' => $user->ID,
       'username' => $user->user_login,
       'email' => $user->user_email,
+      'display_name' => $user->display_name,
     );
   }, $users);
 
