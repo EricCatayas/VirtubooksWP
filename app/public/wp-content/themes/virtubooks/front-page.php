@@ -9,7 +9,7 @@ get_header();
 
 <section id="quotation" class="align-center pb-5 mb-5">
 	<div class="inner-content">
-		<h2 class="section-title divider">High I am skibidi</h2>
+		<h2 class="section-title divider">Quote for Readers!</h2>
 		<?php
 		$quotes = new WP_Query(array(
 			'post_type' => 'quote',
