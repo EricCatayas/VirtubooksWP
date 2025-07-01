@@ -296,7 +296,13 @@ export default function NotebookPage({
             </div>
           )}
           {page.pageNumber && (
-            <div className="page-number">
+            <div
+              className="page-number"
+              style={{
+                display: "flex",
+                justifyContent: isFrontPage ? "flex-end" : "flex-start",
+              }}
+            >
               <span>{page.pageNumber}</span>
             </div>
           )}

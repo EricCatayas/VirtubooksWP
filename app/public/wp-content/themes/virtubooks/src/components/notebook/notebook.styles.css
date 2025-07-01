@@ -229,8 +229,7 @@ p {
   height: 40px;
   display: flex;
   pointer-events: none;
-}  
-
+}
 
 .page-footer .corner {
   position: absolute;
@@ -314,8 +313,9 @@ p {
 }
 
 .page-number {
-  margin: 0 10px;
+  margin: 15px;
   font-size: 12px;
+  line-height: 1;
   color: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
