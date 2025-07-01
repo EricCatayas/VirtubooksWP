@@ -8,3 +8,5 @@ app/public/wp-config.php
 sql/
 *.log
 .env
+#plugins
+app/public/wp-content/plugins/advanced-custom-fields/
