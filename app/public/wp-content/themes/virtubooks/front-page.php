@@ -100,7 +100,7 @@ get_header();
 										<div class="meta-date"><?php echo get_the_date(); ?></div>
 										<h3><a href="<?php echo get_permalink(); ?>"><?php the_title(); ?></a></h3>
 										<div class="links-element">
-											<div class="categories">inspiration</div>
+											<div class="categories"><?php echo get_post_meta(get_the_ID(), 'category', true); ?></div>
 										</div>
 									</div>
 								</article>
@@ -122,38 +122,6 @@ get_header();
 					</div>
 				</div>
 
-			</div>
-		</div>
-	</div>
-</section>
-
-<section id="download-app" class="leaf-pattern-overlay">
-	<div class="corner-pattern-overlay"></div>
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-md-8">
-				<div class="row">
-
-					<div class="col-md-5">
-						<figure>
-							<img src="<?php echo get_template_directory_uri(); ?>/images/device.png" alt="phone" class="single-image">
-						</figure>
-					</div>
-
-					<div class="col-md-7">
-						<div class="app-info">
-							<h2 class="section-title divider">Download our app now !</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis sed ptibus
-								liberolectus nonet psryroin. Amet sed lorem posuere sit iaculis amet, ac urna.
-								Adipiscing fames semper erat ac in suspendisse iaculis.</p>
-							<div class="google-app">
-								<img src="<?php echo get_template_directory_uri(); ?>/images/google-play.jpg" alt="google play">
-								<img src="<?php echo get_template_directory_uri(); ?>/images/app-store.jpg" alt="app store">
-							</div>
-						</div>
-					</div>
-
-				</div>
 			</div>
 		</div>
 	</div>
