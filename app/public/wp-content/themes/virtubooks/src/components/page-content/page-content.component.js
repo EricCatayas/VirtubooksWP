@@ -23,12 +23,18 @@ export default function PageContent({
   let toolbarNode = null;
   const [isFocused, setFocused] = useState(false);
   const headingfontSizes = [
-    { label: "Small", value: "1.5rem" },
-    { label: "Medium", value: "2rem" },
-    { label: "Large", value: "2.5rem" },
-    { label: "XL", value: "3rem" },
-    { label: "XXL", value: "4rem" },
-    { label: "XXXL", value: "5rem" },
+    { label: "1", value: "1.1rem" },
+    { label: "1.2", value: "1.2rem" },
+    { label: "1.3", value: "1.3rem" },
+    { label: "1.4", value: "1.4rem" },
+    { label: "1.5", value: "1.5rem" },
+    { label: "1.6", value: "1.6rem" },
+    { label: "1.7", value: "1.7rem" },
+    { label: "1.8", value: "1.8rem" },
+    { label: "2", value: "2rem" },
+    { label: "2.5", value: "2.5rem" },
+    { label: "3", value: "3rem" },
+    { label: "4", value: "4rem" },
   ];
 
   switch (content.type) {
